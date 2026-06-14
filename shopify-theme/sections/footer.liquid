@@ -1,6 +1,3 @@
-{%- liquid
-  assign gift_handle = section.settings.gift_card_handle | default: 'carte-cadeau'
--%}
 <footer class="site-footer">
   <div class="footer-grid">
     <div>
@@ -25,31 +22,31 @@
     <div>
       <div class="footer-col__title">{{ 'footer.col_shop' | t }}</div>
       <div class="footer-col__links">
-        <a href="{{ routes.all_products_collection_url }}">{{ 'footer.links.best_sellers' | t }}</a>
-        <a href="{{ routes.collections_url }}">{{ 'footer.links.routine' | t }}</a>
-        <a href="{{ routes.all_products_collection_url }}">{{ 'footer.links.products' | t }}</a>
-        <a href="{{ routes.root_url }}pages/quiz">{{ 'footer.links.quiz' | t }}</a>
-        <a href="{{ routes.root_url }}products/{{ gift_handle }}">{{ 'footer.links.gift' | t }}</a>
+        <a href="{{ section.settings.url_best_sellers | default: routes.all_products_collection_url }}">{{ 'footer.links.best_sellers' | t }}</a>
+        <a href="{{ section.settings.url_routines | default: routes.collections_url }}">{{ 'footer.links.routine' | t }}</a>
+        <a href="{{ section.settings.url_products | default: routes.all_products_collection_url }}">{{ 'footer.links.products' | t }}</a>
+        <a href="{{ section.settings.url_quiz | default: routes.root_url | append: 'pages/quiz' }}">{{ 'footer.links.quiz' | t }}</a>
+        <a href="{{ section.settings.url_gift | default: routes.root_url | append: 'products/carte-cadeau' }}">{{ 'footer.links.gift' | t }}</a>
       </div>
     </div>
 
     <div>
       <div class="footer-col__title">{{ 'footer.col_help' | t }}</div>
       <div class="footer-col__links">
-        <a href="{{ routes.root_url }}pages/routine-coreenne">{{ 'footer.links.help_steps' | t }}</a>
-        <a href="{{ routes.root_url }}pages/glass-skin">{{ 'footer.links.help_glass' | t }}</a>
-        <a href="{{ routes.root_url }}pages/quiz">{{ 'footer.links.help_type' | t }}</a>
-        <a href="{{ routes.root_url }}pages/contact">{{ 'footer.links.contact' | t }}</a>
+        <a href="{{ section.settings.url_help_steps | default: routes.root_url | append: 'pages/routine-coreenne' }}">{{ 'footer.links.help_steps' | t }}</a>
+        <a href="{{ section.settings.url_help_glass | default: routes.root_url | append: 'pages/glass-skin' }}">{{ 'footer.links.help_glass' | t }}</a>
+        <a href="{{ section.settings.url_quiz | default: routes.root_url | append: 'pages/quiz' }}">{{ 'footer.links.help_type' | t }}</a>
+        <a href="{{ section.settings.url_contact | default: routes.root_url | append: 'pages/contact' }}">{{ 'footer.links.contact' | t }}</a>
       </div>
     </div>
 
     <div>
       <div class="footer-col__title">{{ 'footer.col_about' | t }}</div>
       <div class="footer-col__links">
-        <a href="{{ routes.root_url }}pages/about">{{ 'footer.links.selection' | t }}</a>
-        <a href="{{ routes.root_url }}pages/terms">{{ 'footer.links.terms' | t }}</a>
-        <a href="{{ routes.root_url }}pages/shipping">{{ 'footer.links.shipping' | t }}</a>
-        <a href="{{ routes.root_url }}pages/legal">{{ 'footer.links.legal' | t }}</a>
+        <a href="{{ section.settings.url_about | default: routes.root_url | append: 'pages/a-propos' }}">{{ 'footer.links.selection' | t }}</a>
+        <a href="{{ section.settings.url_terms | default: routes.root_url | append: 'policies/terms-of-service' }}">{{ 'footer.links.terms' | t }}</a>
+        <a href="{{ section.settings.url_shipping | default: routes.root_url | append: 'policies/shipping-policy' }}">{{ 'footer.links.shipping' | t }}</a>
+        <a href="{{ section.settings.url_legal | default: routes.root_url | append: 'policies/legal-notice' }}">{{ 'footer.links.legal' | t }}</a>
       </div>
     </div>
   </div>
@@ -65,7 +62,22 @@
   "name": "Footer",
   "settings": [
     { "type": "text", "id": "logo_text", "label": "Logo wordmark", "default": "Clow" },
-    { "type": "textarea", "id": "tagline", "label": "Tagline", "info": "Leave blank to use the translated default." }
+    { "type": "textarea", "id": "tagline", "label": "Tagline", "info": "Leave blank to use the translated default." },
+    { "type": "header", "content": "Shop column" },
+    { "type": "url", "id": "url_best_sellers", "label": "Best Sellers link" },
+    { "type": "url", "id": "url_routines", "label": "Routines link" },
+    { "type": "url", "id": "url_products", "label": "Products link" },
+    { "type": "url", "id": "url_quiz", "label": "Quiz link" },
+    { "type": "url", "id": "url_gift", "label": "Gift card link" },
+    { "type": "header", "content": "Help column" },
+    { "type": "url", "id": "url_help_steps", "label": "Korean routine steps page" },
+    { "type": "url", "id": "url_help_glass", "label": "Glass skin page" },
+    { "type": "url", "id": "url_contact", "label": "Contact page" },
+    { "type": "header", "content": "About column" },
+    { "type": "url", "id": "url_about", "label": "About page" },
+    { "type": "url", "id": "url_terms", "label": "Terms of service" },
+    { "type": "url", "id": "url_shipping", "label": "Shipping & returns" },
+    { "type": "url", "id": "url_legal", "label": "Legal / Mentions légales" }
   ]
 }
 {% endschema %}

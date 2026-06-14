@@ -1,8 +1,7 @@
 {%- liquid
   assign routines = 'hydra,imp,age,glass,sens' | split: ','
-  assign routine_handles = section.settings.routine_handles | default: 'routines-hydratation,routines-anti-imperfections,routines-anti-age,routines-glass-skin,routines-peau-sensible' | split: ','
+  assign routine_urls = section.settings.url_hydra | default: '' | append: '||' | append: section.settings.url_imp | default: '' | append: '||' | append: section.settings.url_age | default: '' | append: '||' | append: section.settings.url_glass | default: '' | append: '||' | append: section.settings.url_sens | default: ''
   assign cat_keys = 'cleansers,toners,serums,creams,spf,masks,lips,hair,base' | split: ','
-  assign cat_handles = section.settings.category_handles | default: 'demaquillants-nettoyants,lotions,ampoules-serums,cremes,solaires,gommages-masques,levres,cheveux,teint' | split: ','
 -%}
 
 <header class="site-header">
@@ -22,7 +21,7 @@
 
       <nav class="header-nav" aria-label="{{ 'general.menu' | t }}">
         <div class="nav-item">
-          <a class="nav-link" href="{{ routes.all_products_collection_url }}">{{ 'header.nav.best_sellers' | t }}</a>
+          <a class="nav-link" href="{{ section.settings.url_best_sellers | default: routes.all_products_collection_url }}">{{ 'header.nav.best_sellers' | t }}</a>
         </div>
 
         <div class="nav-item">
@@ -31,13 +30,21 @@
           </a>
           <div class="nav-dropdown">
             <div class="nav-dropdown__inner">
-              {%- for r in routines -%}
-                {%- assign handle = routine_handles[forloop.index0] -%}
-                <a class="nav-dropdown__link" href="{{ routes.root_url }}collections/{{ handle }}">
-                  <span class="routine-dot dot-{{ r }}"></span>
-                  {{ 'header.routines.' | append: r | t }}
-                </a>
-              {%- endfor -%}
+              <a class="nav-dropdown__link" href="{{ section.settings.url_hydra | default: routes.collections_url }}">
+                <span class="routine-dot dot-hydra"></span>{{ 'header.routines.hydra' | t }}
+              </a>
+              <a class="nav-dropdown__link" href="{{ section.settings.url_imp | default: routes.collections_url }}">
+                <span class="routine-dot dot-imp"></span>{{ 'header.routines.imp' | t }}
+              </a>
+              <a class="nav-dropdown__link" href="{{ section.settings.url_age | default: routes.collections_url }}">
+                <span class="routine-dot dot-age"></span>{{ 'header.routines.age' | t }}
+              </a>
+              <a class="nav-dropdown__link" href="{{ section.settings.url_glass | default: routes.collections_url }}">
+                <span class="routine-dot dot-glass"></span>{{ 'header.routines.glass' | t }}
+              </a>
+              <a class="nav-dropdown__link" href="{{ section.settings.url_sens | default: routes.collections_url }}">
+                <span class="routine-dot dot-sens"></span>{{ 'header.routines.sens' | t }}
+              </a>
             </div>
           </div>
         </div>
@@ -48,22 +55,25 @@
           </a>
           <div class="nav-dropdown">
             <div class="nav-dropdown__inner">
-              {%- for c in cat_keys -%}
-                {%- assign handle = cat_handles[forloop.index0] -%}
-                <a class="nav-dropdown__link" href="{{ routes.root_url }}collections/{{ handle }}">
-                  {{ 'header.categories.' | append: c | t }}
-                </a>
-              {%- endfor -%}
+              <a class="nav-dropdown__link" href="{{ section.settings.url_cleansers | default: routes.all_products_collection_url }}">{{ 'header.categories.cleansers' | t }}</a>
+              <a class="nav-dropdown__link" href="{{ section.settings.url_toners | default: routes.all_products_collection_url }}">{{ 'header.categories.toners' | t }}</a>
+              <a class="nav-dropdown__link" href="{{ section.settings.url_serums | default: routes.all_products_collection_url }}">{{ 'header.categories.serums' | t }}</a>
+              <a class="nav-dropdown__link" href="{{ section.settings.url_creams | default: routes.all_products_collection_url }}">{{ 'header.categories.creams' | t }}</a>
+              <a class="nav-dropdown__link" href="{{ section.settings.url_spf | default: routes.all_products_collection_url }}">{{ 'header.categories.spf' | t }}</a>
+              <a class="nav-dropdown__link" href="{{ section.settings.url_masks | default: routes.all_products_collection_url }}">{{ 'header.categories.masks' | t }}</a>
+              <a class="nav-dropdown__link" href="{{ section.settings.url_lips | default: routes.all_products_collection_url }}">{{ 'header.categories.lips' | t }}</a>
+              <a class="nav-dropdown__link" href="{{ section.settings.url_hair | default: routes.all_products_collection_url }}">{{ 'header.categories.hair' | t }}</a>
+              <a class="nav-dropdown__link" href="{{ section.settings.url_base | default: routes.all_products_collection_url }}">{{ 'header.categories.base' | t }}</a>
             </div>
           </div>
         </div>
 
         <div class="nav-item">
-          <a class="nav-link nav-link--cta" href="{{ routes.root_url }}pages/quiz">{{ 'header.nav.quiz' | t }}</a>
+          <a class="nav-link nav-link--cta" href="{{ section.settings.url_quiz | default: routes.root_url | append: 'pages/quiz' }}">{{ 'header.nav.quiz' | t }}</a>
         </div>
 
         <div class="nav-item">
-          <a class="nav-link" href="{{ routes.root_url }}products/{{ section.settings.gift_card_handle | default: 'carte-cadeau' }}">{{ 'header.nav.gift' | t }}</a>
+          <a class="nav-link" href="{{ section.settings.url_gift | default: routes.root_url | append: 'products/carte-cadeau' }}">{{ 'header.nav.gift' | t }}</a>
         </div>
       </nav>
 
@@ -87,23 +97,27 @@
     <button class="header-icon" data-mobile-nav-close aria-label="{{ 'general.close' | t }}">{% render 'icon', icon: 'x', size: 22 %}</button>
   </div>
   <div class="mobile-nav__body">
-    <a class="mobile-nav__link" href="{{ routes.all_products_collection_url }}">{{ 'header.nav.best_sellers' | t }}</a>
-    <a class="mobile-nav__link" href="{{ routes.root_url }}pages/quiz">{{ 'header.nav.quiz' | t }}</a>
-    <a class="mobile-nav__link" href="{{ routes.root_url }}products/{{ section.settings.gift_card_handle | default: 'carte-cadeau' }}">{{ 'header.nav.gift' | t }}</a>
+    <a class="mobile-nav__link" href="{{ section.settings.url_best_sellers | default: routes.all_products_collection_url }}">{{ 'header.nav.best_sellers' | t }}</a>
+    <a class="mobile-nav__link" href="{{ section.settings.url_quiz | default: routes.root_url | append: 'pages/quiz' }}">{{ 'header.nav.quiz' | t }}</a>
+    <a class="mobile-nav__link" href="{{ section.settings.url_gift | default: routes.root_url | append: 'products/carte-cadeau' }}">{{ 'header.nav.gift' | t }}</a>
 
     <div class="mobile-nav__group">{{ 'header.nav.routine' | t }}</div>
-    {%- for r in routines -%}
-      {%- assign handle = routine_handles[forloop.index0] -%}
-      <a class="mobile-nav__sub" href="{{ routes.root_url }}collections/{{ handle }}">
-        <span class="routine-dot dot-{{ r }}"></span>{{ 'header.routines.' | append: r | t }}
-      </a>
-    {%- endfor -%}
+    <a class="mobile-nav__sub" href="{{ section.settings.url_hydra | default: routes.collections_url }}"><span class="routine-dot dot-hydra"></span>{{ 'header.routines.hydra' | t }}</a>
+    <a class="mobile-nav__sub" href="{{ section.settings.url_imp | default: routes.collections_url }}"><span class="routine-dot dot-imp"></span>{{ 'header.routines.imp' | t }}</a>
+    <a class="mobile-nav__sub" href="{{ section.settings.url_age | default: routes.collections_url }}"><span class="routine-dot dot-age"></span>{{ 'header.routines.age' | t }}</a>
+    <a class="mobile-nav__sub" href="{{ section.settings.url_glass | default: routes.collections_url }}"><span class="routine-dot dot-glass"></span>{{ 'header.routines.glass' | t }}</a>
+    <a class="mobile-nav__sub" href="{{ section.settings.url_sens | default: routes.collections_url }}"><span class="routine-dot dot-sens"></span>{{ 'header.routines.sens' | t }}</a>
 
     <div class="mobile-nav__group">{{ 'header.nav.products' | t }}</div>
-    {%- for c in cat_keys -%}
-      {%- assign handle = cat_handles[forloop.index0] -%}
-      <a class="mobile-nav__sub" href="{{ routes.root_url }}collections/{{ handle }}">{{ 'header.categories.' | append: c | t }}</a>
-    {%- endfor -%}
+    <a class="mobile-nav__sub" href="{{ section.settings.url_cleansers | default: routes.all_products_collection_url }}">{{ 'header.categories.cleansers' | t }}</a>
+    <a class="mobile-nav__sub" href="{{ section.settings.url_toners | default: routes.all_products_collection_url }}">{{ 'header.categories.toners' | t }}</a>
+    <a class="mobile-nav__sub" href="{{ section.settings.url_serums | default: routes.all_products_collection_url }}">{{ 'header.categories.serums' | t }}</a>
+    <a class="mobile-nav__sub" href="{{ section.settings.url_creams | default: routes.all_products_collection_url }}">{{ 'header.categories.creams' | t }}</a>
+    <a class="mobile-nav__sub" href="{{ section.settings.url_spf | default: routes.all_products_collection_url }}">{{ 'header.categories.spf' | t }}</a>
+    <a class="mobile-nav__sub" href="{{ section.settings.url_masks | default: routes.all_products_collection_url }}">{{ 'header.categories.masks' | t }}</a>
+    <a class="mobile-nav__sub" href="{{ section.settings.url_lips | default: routes.all_products_collection_url }}">{{ 'header.categories.lips' | t }}</a>
+    <a class="mobile-nav__sub" href="{{ section.settings.url_hair | default: routes.all_products_collection_url }}">{{ 'header.categories.hair' | t }}</a>
+    <a class="mobile-nav__sub" href="{{ section.settings.url_base | default: routes.all_products_collection_url }}">{{ 'header.categories.base' | t }}</a>
   </div>
 </aside>
 
@@ -116,10 +130,26 @@
     { "type": "header", "content": "Announcement bar" },
     { "type": "checkbox", "id": "show_announcement", "label": "Show announcement bar", "default": true },
     { "type": "text", "id": "announcement_text", "label": "Announcement text", "info": "Leave blank to use the translated default." },
-    { "type": "header", "content": "Navigation handles" },
-    { "type": "text", "id": "routine_handles", "label": "Routine collection handles (comma-separated)", "default": "routines-hydratation,routines-anti-imperfections,routines-anti-age,routines-glass-skin,routines-peau-sensible" },
-    { "type": "text", "id": "category_handles", "label": "Category collection handles (comma-separated)", "default": "demaquillants-nettoyants,lotions,ampoules-serums,cremes,solaires,gommages-masques,levres,cheveux,teint" },
-    { "type": "text", "id": "gift_card_handle", "label": "Gift card product handle", "default": "carte-cadeau" }
+    { "type": "header", "content": "Main links" },
+    { "type": "url", "id": "url_best_sellers", "label": "Best Sellers link" },
+    { "type": "url", "id": "url_quiz", "label": "Quiz page link" },
+    { "type": "url", "id": "url_gift", "label": "Gift card link" },
+    { "type": "header", "content": "Routine links" },
+    { "type": "url", "id": "url_hydra", "label": "Hydration collection" },
+    { "type": "url", "id": "url_imp", "label": "Anti-blemish collection" },
+    { "type": "url", "id": "url_age", "label": "Anti-age collection" },
+    { "type": "url", "id": "url_glass", "label": "Glass Skin collection" },
+    { "type": "url", "id": "url_sens", "label": "Sensitive collection" },
+    { "type": "header", "content": "Category links" },
+    { "type": "url", "id": "url_cleansers", "label": "Cleansers collection" },
+    { "type": "url", "id": "url_toners", "label": "Toners collection" },
+    { "type": "url", "id": "url_serums", "label": "Serums collection" },
+    { "type": "url", "id": "url_creams", "label": "Creams collection" },
+    { "type": "url", "id": "url_spf", "label": "SPF collection" },
+    { "type": "url", "id": "url_masks", "label": "Masks collection" },
+    { "type": "url", "id": "url_lips", "label": "Lips collection" },
+    { "type": "url", "id": "url_hair", "label": "Hair collection" },
+    { "type": "url", "id": "url_base", "label": "Base/Foundation collection" }
   ]
 }
 {% endschema %}
