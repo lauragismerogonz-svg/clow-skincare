@@ -17,9 +17,13 @@
       {%- for i in (1..4) -%}
         {%- assign img_key = 'image_' | append: i -%}
         {%- assign img = section.settings[img_key] -%}
-        <a class="insta-cell" href="{{ ig_url }}" target="_blank" rel="noopener" aria-label="Instagram">
+        <a class="insta-cell" href="{{ ig_url }}" target="_blank" rel="noopener" aria-label="Instagram photo {{ i }}">
           {%- if img != blank -%}
             <img src="{{ img | image_url: width: 500 }}" alt="" width="500" height="500" loading="lazy">
+          {%- else -%}
+            <div class="insta-cell__placeholder">
+              {% render 'icon', icon: 'instagram', size: 32 %}
+            </div>
           {%- endif -%}
           <span class="insta-cell__ov">{% render 'icon', icon: 'instagram', size: 26 %}</span>
         </a>
