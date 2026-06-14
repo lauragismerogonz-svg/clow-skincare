@@ -1,0 +1,41 @@
+{%- comment -%}
+  Price display with compare-at strike-through + sale badge.
+  Accepts:
+    product   — a product object, OR
+    variant   — a variant object
+    show_badge (bool) — show "−X%" / sale badge
+{%- endcomment -%}
+{%- liquid
+  if variant
+    assign target = variant
+  elsif product
+    assign target = product.selected_or_first_available_variant
+  endif
+
+  if target
+    assign current = target.price
+    assign compare = target.compare_at_price
+  else
+    assign current = product.price
+    assign compare = product.compare_at_price
+  endif
+
+  assign on_sale = false
+  if compare and compare > current
+    assign on_sale = true
+  endif
+-%}
+<span class="price{% if on_sale %} price--sale{% endif %}">
+  {%- if product and product.price_varies and variant == nil -%}
+    <span class="price__now">{{ 'product.from' | t }} {{ current | money }}</span>
+  {%- else -%}
+    <span class="price__now">{{ current | money }}</span>
+  {%- endif -%}
+  {%- if on_sale -%}
+    <span class="price__was">{{ compare | money }}</span>
+    {%- if show_badge -%}
+      {%- assign pct = compare | minus: current | times: 100.0 | divided_by: compare | round -%}
+      <span class="price__badge">−{{ pct }}%</span>
+    {%- endif -%}
+  {%- endif -%}
+</span>

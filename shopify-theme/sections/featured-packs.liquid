@@ -1,0 +1,84 @@
+<section class="section">
+  <div class="page-width">
+    <div class="section-head section-head--center">
+      <p class="eyebrow">{{ section.settings.eyebrow | default: 'home.packs_eyebrow' | t }}</p>
+      <h2 class="section-head__title">{{ section.settings.heading | default: 'home.packs_h' | t }}</h2>
+    </div>
+
+    <div class="packs-rows">
+      {%- for block in section.blocks -%}
+        {%- assign product = all_products[block.settings.product] -%}
+        {%- assign reverse = forloop.index0 | modulo: 2 -%}
+        <div class="pack-row{% if reverse == 1 %} pack-row--reverse{% endif %}" {{ block.shopify_attributes }}>
+          <div class="pack-row__media bg-{{ block.settings.color_class | default: 'glass' }}">
+            {%- if product != blank and product.featured_image -%}
+              <a href="{{ product.url }}"><img src="{{ product.featured_image | image_url: width: 800 }}" alt="{{ product.title | escape }}" width="800" height="800" loading="lazy"></a>
+            {%- elsif block.settings.image != blank -%}
+              <img src="{{ block.settings.image | image_url: width: 800 }}" alt="{{ block.settings.name | escape }}" width="800" height="800" loading="lazy">
+            {%- endif -%}
+            {%- if block.settings.concern != blank -%}
+              <span class="pack-row__badge dot-{{ block.settings.color_class | default: 'glass' }}" style="background:var(--c-{% if block.settings.color_class == 'sens' %}sensitive{% else %}{{ block.settings.color_class }}{% endif %})">{{ block.settings.concern }}</span>
+            {%- endif -%}
+          </div>
+          <div class="pack-row__body">
+            <span class="pack-row__num">№ {{ forloop.index | prepend: '0' | slice: -2, 2 }} · {{ 'home.packs_cta' | t }}</span>
+            <h3 class="pack-row__name">{{ block.settings.name | default: product.title }}</h3>
+            <p class="pack-row__desc">{{ block.settings.description | default: product.description | strip_html | truncatewords: 24 }}</p>
+            <div class="pack-row__price-line">
+              {%- if product != blank -%}
+                {% render 'price', product: product, show_badge: true %}
+              {%- endif -%}
+              {%- if block.settings.save_text != blank -%}
+                <span class="pack-row__save bg-{{ block.settings.color_class | default: 'glass' }} fg-{{ block.settings.color_class | default: 'glass' }}">{{ block.settings.save_text }}</span>
+              {%- endif -%}
+            </div>
+            <a class="btn btn--lg btn--secondary" href="{% if product != blank %}{{ product.url }}{% else %}{{ block.settings.url }}{% endif %}">{{ 'home.packs_cta' | t }} {% render 'icon', icon: 'arrow-right', size: 17 %}</a>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured packs",
+  "max_blocks": 3,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "heading", "label": "Heading" }
+  ],
+  "blocks": [
+    {
+      "type": "pack",
+      "name": "Pack",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Pack product" },
+        { "type": "image_picker", "id": "image", "label": "Fallback image" },
+        { "type": "text", "id": "name", "label": "Pack name (overrides product title)" },
+        { "type": "textarea", "id": "description", "label": "Description (overrides product description)" },
+        { "type": "text", "id": "concern", "label": "Concern badge" },
+        { "type": "text", "id": "save_text", "label": "Save badge text", "default": "Économie €10,00" },
+        { "type": "select", "id": "color_class", "label": "Accent colour", "options": [
+          { "value": "hydra", "label": "Hydration" },
+          { "value": "pores", "label": "Anti-blemish" },
+          { "value": "age", "label": "Anti-age" },
+          { "value": "glass", "label": "Glass skin" },
+          { "value": "sens", "label": "Sensitive" }
+        ], "default": "glass" },
+        { "type": "url", "id": "url", "label": "Fallback link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured packs",
+      "blocks": [
+        { "type": "pack", "settings": { "name": "Pack Hydratation", "concern": "Hydratation", "color_class": "hydra" } },
+        { "type": "pack", "settings": { "name": "Pack Glass Skin", "concern": "Glass Skin", "color_class": "glass" } },
+        { "type": "pack", "settings": { "name": "Pack Anti-Âge", "concern": "Anti-Âge", "color_class": "age" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

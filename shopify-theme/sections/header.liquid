@@ -1,0 +1,125 @@
+{%- liquid
+  assign routines = 'hydra,imp,age,glass,sens' | split: ','
+  assign routine_handles = section.settings.routine_handles | default: 'routines-hydratation,routines-anti-imperfections,routines-anti-age,routines-glass-skin,routines-peau-sensible' | split: ','
+  assign cat_keys = 'cleansers,toners,serums,creams,spf,masks,lips,hair,base' | split: ','
+  assign cat_handles = section.settings.category_handles | default: 'demaquillants-nettoyants,lotions,ampoules-serums,cremes,solaires,gommages-masques,levres,cheveux,teint' | split: ','
+-%}
+
+<header class="site-header">
+  {%- if section.settings.show_announcement -%}
+    <div class="announcement-bar">
+      {{ section.settings.announcement_text | default: 'header.promo' | t }}
+    </div>
+  {%- endif -%}
+
+  <div class="header-frost">
+    <div class="header-bar">
+      <button class="header-burger" data-mobile-nav-open aria-label="{{ 'general.menu' | t }}">
+        {% render 'icon', icon: 'menu', size: 22 %}
+      </button>
+
+      <a class="header-logo" href="{{ routes.root_url }}">{{ section.settings.logo_text | default: shop.name }}</a>
+
+      <nav class="header-nav" aria-label="{{ 'general.menu' | t }}">
+        <div class="nav-item">
+          <a class="nav-link" href="{{ routes.all_products_collection_url }}">{{ 'header.nav.best_sellers' | t }}</a>
+        </div>
+
+        <div class="nav-item">
+          <a class="nav-link" href="{{ routes.collections_url }}">
+            {{ 'header.nav.routine' | t }} {% render 'icon', icon: 'chevron-down', size: 14 %}<span class="chev"></span>
+          </a>
+          <div class="nav-dropdown">
+            <div class="nav-dropdown__inner">
+              {%- for r in routines -%}
+                {%- assign handle = routine_handles[forloop.index0] -%}
+                <a class="nav-dropdown__link" href="{{ routes.root_url }}collections/{{ handle }}">
+                  <span class="routine-dot dot-{{ r }}"></span>
+                  {{ 'header.routines.' | append: r | t }}
+                </a>
+              {%- endfor -%}
+            </div>
+          </div>
+        </div>
+
+        <div class="nav-item">
+          <a class="nav-link" href="{{ routes.all_products_collection_url }}">
+            {{ 'header.nav.products' | t }} {% render 'icon', icon: 'chevron-down', size: 14 %}<span class="chev"></span>
+          </a>
+          <div class="nav-dropdown">
+            <div class="nav-dropdown__inner">
+              {%- for c in cat_keys -%}
+                {%- assign handle = cat_handles[forloop.index0] -%}
+                <a class="nav-dropdown__link" href="{{ routes.root_url }}collections/{{ handle }}">
+                  {{ 'header.categories.' | append: c | t }}
+                </a>
+              {%- endfor -%}
+            </div>
+          </div>
+        </div>
+
+        <div class="nav-item">
+          <a class="nav-link nav-link--cta" href="{{ routes.root_url }}pages/quiz">{{ 'header.nav.quiz' | t }}</a>
+        </div>
+
+        <div class="nav-item">
+          <a class="nav-link" href="{{ routes.root_url }}products/{{ section.settings.gift_card_handle | default: 'carte-cadeau' }}">{{ 'header.nav.gift' | t }}</a>
+        </div>
+      </nav>
+
+      <div class="header-actions">
+        <a class="header-icon" href="{{ routes.search_url }}" aria-label="{{ 'header.nav.search' | t }}">{% render 'icon', icon: 'search', size: 20 %}</a>
+        <a class="header-icon" href="{{ routes.account_url }}" aria-label="{{ 'header.nav.account' | t }}">{% render 'icon', icon: 'user', size: 20 %}</a>
+        <button class="header-icon" data-cart-open aria-label="{{ 'header.nav.cart' | t }}">
+          {% render 'icon', icon: 'shopping-bag', size: 20 %}
+          <span class="cart-count" data-cart-count {% if cart.item_count == 0 %}hidden{% endif %}>{{ cart.item_count }}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+{%- comment -%} Mobile nav drawer {%- endcomment -%}
+<div id="clow-mobile-nav-overlay" class="mobile-nav-overlay"></div>
+<aside id="clow-mobile-nav" class="mobile-nav" aria-label="{{ 'general.menu' | t }}">
+  <div class="mobile-nav__head">
+    <span class="mobile-nav__title">{{ 'general.menu' | t }}</span>
+    <button class="header-icon" data-mobile-nav-close aria-label="{{ 'general.close' | t }}">{% render 'icon', icon: 'x', size: 22 %}</button>
+  </div>
+  <div class="mobile-nav__body">
+    <a class="mobile-nav__link" href="{{ routes.all_products_collection_url }}">{{ 'header.nav.best_sellers' | t }}</a>
+    <a class="mobile-nav__link" href="{{ routes.root_url }}pages/quiz">{{ 'header.nav.quiz' | t }}</a>
+    <a class="mobile-nav__link" href="{{ routes.root_url }}products/{{ section.settings.gift_card_handle | default: 'carte-cadeau' }}">{{ 'header.nav.gift' | t }}</a>
+
+    <div class="mobile-nav__group">{{ 'header.nav.routine' | t }}</div>
+    {%- for r in routines -%}
+      {%- assign handle = routine_handles[forloop.index0] -%}
+      <a class="mobile-nav__sub" href="{{ routes.root_url }}collections/{{ handle }}">
+        <span class="routine-dot dot-{{ r }}"></span>{{ 'header.routines.' | append: r | t }}
+      </a>
+    {%- endfor -%}
+
+    <div class="mobile-nav__group">{{ 'header.nav.products' | t }}</div>
+    {%- for c in cat_keys -%}
+      {%- assign handle = cat_handles[forloop.index0] -%}
+      <a class="mobile-nav__sub" href="{{ routes.root_url }}collections/{{ handle }}">{{ 'header.categories.' | append: c | t }}</a>
+    {%- endfor -%}
+  </div>
+</aside>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    { "type": "header", "content": "Branding" },
+    { "type": "text", "id": "logo_text", "label": "Logo wordmark", "default": "Clow" },
+    { "type": "header", "content": "Announcement bar" },
+    { "type": "checkbox", "id": "show_announcement", "label": "Show announcement bar", "default": true },
+    { "type": "text", "id": "announcement_text", "label": "Announcement text", "info": "Leave blank to use the translated default." },
+    { "type": "header", "content": "Navigation handles" },
+    { "type": "text", "id": "routine_handles", "label": "Routine collection handles (comma-separated)", "default": "routines-hydratation,routines-anti-imperfections,routines-anti-age,routines-glass-skin,routines-peau-sensible" },
+    { "type": "text", "id": "category_handles", "label": "Category collection handles (comma-separated)", "default": "demaquillants-nettoyants,lotions,ampoules-serums,cremes,solaires,gommages-masques,levres,cheveux,teint" },
+    { "type": "text", "id": "gift_card_handle", "label": "Gift card product handle", "default": "carte-cadeau" }
+  ]
+}
+{% endschema %}

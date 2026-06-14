@@ -1,0 +1,52 @@
+<section class="hero">
+  <div class="hero__inner">
+    <div class="hero__text">
+      <p class="eyebrow">{{ section.settings.eyebrow | default: 'home.hero_eyebrow' | t }}</p>
+      <h1 class="hero__title">
+        {{ section.settings.heading_1 | default: 'home.hero_h1' | t }}<br>
+        {{ section.settings.heading_2 | default: 'home.hero_h2' | t }}<br>
+        <span class="italic">{{ section.settings.heading_3 | default: 'home.hero_h3' | t }}</span>
+      </h1>
+      <p class="hero__p">{{ section.settings.body | default: 'home.hero_p' | t }}</p>
+      <div class="hero__ctas">
+        <a class="btn btn--lg" href="{{ section.settings.cta1_url | default: '/pages/quiz' }}">{{ section.settings.cta1_text | default: 'home.hero_cta1' | t }}</a>
+        <a class="btn btn--lg btn--secondary" href="{{ section.settings.cta2_url | default: routes.collections_url }}">{{ section.settings.cta2_text | default: 'home.hero_cta2' | t }}</a>
+      </div>
+    </div>
+    <div class="hero__media">
+      <div class="hero__img">
+        {%- if section.settings.image != blank -%}
+          <img src="{{ section.settings.image | image_url: width: 900 }}" alt="{{ section.settings.image.alt | escape }}" width="900" height="900" loading="eager">
+        {%- endif -%}
+      </div>
+      <div class="hero__badge">
+        <span class="hero__badge-icon">{% render 'icon', icon: 'sparkles', size: 20 %}</span>
+        <div>
+          <div style="font-size:12.5px;font-weight:600;color:var(--fg-1);line-height:1.25">{{ section.settings.badge_1 | default: 'home.hero_badge_1' | t }}</div>
+          <div style="font-size:12px;color:var(--latte);line-height:1.3">{{ section.settings.badge_2 | default: 'home.hero_badge_2' | t }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero classic",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "heading_1", "label": "Heading line 1" },
+    { "type": "text", "id": "heading_2", "label": "Heading line 2" },
+    { "type": "text", "id": "heading_3", "label": "Heading line 3 (italic)" },
+    { "type": "textarea", "id": "body", "label": "Body copy" },
+    { "type": "text", "id": "cta1_text", "label": "Primary CTA text" },
+    { "type": "url", "id": "cta1_url", "label": "Primary CTA link" },
+    { "type": "text", "id": "cta2_text", "label": "Secondary CTA text" },
+    { "type": "url", "id": "cta2_url", "label": "Secondary CTA link" },
+    { "type": "image_picker", "id": "image", "label": "Hero image" },
+    { "type": "text", "id": "badge_1", "label": "Floating badge title" },
+    { "type": "text", "id": "badge_2", "label": "Floating badge subtitle" }
+  ],
+  "presets": [{ "name": "Hero classic" }]
+}
+{% endschema %}

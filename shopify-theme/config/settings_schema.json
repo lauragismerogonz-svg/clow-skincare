@@ -1,0 +1,65 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Clow Skincare",
+    "theme_version": "1.0.0",
+    "theme_author": "Clow Skincare",
+    "theme_documentation_url": "https://clowskincare.com",
+    "theme_support_url": "https://clowskincare.com"
+  },
+  {
+    "name": "Brand",
+    "settings": [
+      { "type": "text", "id": "logo_text", "label": "Logo wordmark", "default": "Clow" },
+      { "type": "image_picker", "id": "logo_image", "label": "Logo image (optional)" },
+      { "type": "image_picker", "id": "favicon", "label": "Favicon" },
+      { "type": "textarea", "id": "tagline", "label": "Brand tagline", "default": "La skincare coréenne sélectionnée pour une peau saine et lumineuse. 🇰🇷" }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      { "type": "header", "content": "Brand neutrals" },
+      { "type": "color", "id": "color_espresso", "label": "Espresso (primary brand)", "default": "#51361f" },
+      { "type": "color", "id": "color_espresso_deep", "label": "Espresso deep (text)", "default": "#2e1d0e" },
+      { "type": "header", "content": "Routine accents" },
+      { "type": "color", "id": "color_hydra", "label": "Hydration", "default": "#8fadb6" },
+      { "type": "color", "id": "color_pores", "label": "Anti-blemish & Pores", "default": "#94a47e" },
+      { "type": "color", "id": "color_age", "label": "Anti-age", "default": "#a98a98" },
+      { "type": "color", "id": "color_glass", "label": "Glass skin", "default": "#a9a4c4" },
+      { "type": "color", "id": "color_sensitive", "label": "Sensitive", "default": "#d2a096" }
+    ]
+  },
+  {
+    "name": "Homepage",
+    "settings": [
+      {
+        "type": "select",
+        "id": "home_variant",
+        "label": "Homepage variant",
+        "info": "Switch which hero is shown on the homepage template.",
+        "options": [
+          { "value": "classic", "label": "Classic" },
+          { "value": "editorial", "label": "Editorial" }
+        ],
+        "default": "classic"
+      }
+    ]
+  },
+  {
+    "name": "Social",
+    "settings": [
+      { "type": "url", "id": "instagram_url", "label": "Instagram URL", "default": "https://www.instagram.com/clowskincare_/" },
+      { "type": "url", "id": "tiktok_url", "label": "TikTok URL", "default": "https://www.tiktok.com/@clowskincare" },
+      { "type": "url", "id": "pinterest_url", "label": "Pinterest URL", "default": "https://www.pinterest.com/clowskincare/" },
+      { "type": "text", "id": "email_address", "label": "Contact email", "default": "hello@clowskincare.com" }
+    ]
+  },
+  {
+    "name": "Cart",
+    "settings": [
+      { "type": "range", "id": "samples_threshold", "label": "Free samples threshold (€)", "min": 0, "max": 100, "step": 1, "unit": "€", "default": 39 },
+      { "type": "range", "id": "free_ship_threshold", "label": "Free shipping threshold (€)", "min": 0, "max": 100, "step": 1, "unit": "€", "default": 39 }
+    ]
+  }
+]

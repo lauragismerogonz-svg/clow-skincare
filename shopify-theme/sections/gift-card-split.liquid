@@ -1,0 +1,55 @@
+{%- liquid
+  assign product = all_products[section.settings.product]
+-%}
+<section class="section">
+  <div class="page-width">
+    <div class="gift-split">
+      <div class="gift-split__media">
+        {%- if section.settings.image != blank -%}
+          <img src="{{ section.settings.image | image_url: width: 800 }}" alt="{{ section.settings.image.alt | escape }}" width="800" height="800" loading="lazy">
+        {%- elsif product != blank and product.featured_image -%}
+          <img src="{{ product.featured_image | image_url: width: 800 }}" alt="{{ product.title | escape }}" width="800" height="800" loading="lazy">
+        {%- endif -%}
+      </div>
+      <div class="gift-split__aside">
+        <p class="eyebrow">{{ section.settings.eyebrow | default: 'gift_card.eyebrow' | t }}</p>
+        <h2 class="gift-split__title">{{ section.settings.heading | default: 'gift_card.title' | t }}</h2>
+        <p class="gift-split__p">{{ section.settings.description | default: 'gift_card.description' | t }}</p>
+
+        <form data-add-form action="/cart/add" method="post">
+          <div class="gift-split__amount-label">{{ 'gift_card.amount' | t }}</div>
+          <div class="gift-amounts" data-gift-amounts>
+            {%- if product != blank -%}
+              {%- for variant in product.variants -%}
+                <button type="button" class="gift-amount{% if forloop.first %} is-active{% endif %}" data-variant-id="{{ variant.id }}">{{ variant.title }}</button>
+              {%- endfor -%}
+              <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+            {%- else -%}
+              {%- assign amounts = '€25,€50,€75,€100' | split: ',' -%}
+              {%- for a in amounts -%}
+                <button type="button" class="gift-amount{% if forloop.index == 2 %} is-active{% endif %}">{{ a }}</button>
+              {%- endfor -%}
+            {%- endif -%}
+          </div>
+          <button type="submit" class="btn btn--lg">
+            <span data-btn-label>{{ 'product.add_to_cart' | t }}</span> {% render 'icon', icon: 'gift', size: 17 %}
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Gift card split",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "product", "id": "product", "label": "Gift card product" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "heading", "label": "Heading" },
+    { "type": "textarea", "id": "description", "label": "Description" }
+  ],
+  "presets": [{ "name": "Gift card split" }]
+}
+{% endschema %}

@@ -1,0 +1,116 @@
+{%- liquid
+  assign founder_img = section.settings.founder_image
+-%}
+<div class="about">
+  {%- comment -%} Hero {%- endcomment -%}
+  <section class="about-hero">
+    <div class="about-hero__inner">
+      <p class="eyebrow" style="justify-content:center">{{ section.settings.eyebrow | default: 'about.eyebrow' | t }}</p>
+      <h1 class="about-hero__title">{{ section.settings.title | default: 'about.title' | t }}</h1>
+      <p class="about-hero__sub">{{ section.settings.intro | default: 'about.sub' | t }}</p>
+    </div>
+  </section>
+
+  {%- comment -%} Founder split {%- endcomment -%}
+  <section class="section">
+    <div class="page-width">
+      <div class="about-founder">
+        <div class="about-founder__img">
+          {%- if founder_img != blank -%}
+            <img src="{{ founder_img | image_url: width: 800 }}" alt="{{ founder_img.alt | escape }}" width="800" height="900" loading="lazy">
+          {%- endif -%}
+        </div>
+        <div>
+          <p class="eyebrow">{{ 'about.founder_eyebrow' | t }}</p>
+          <blockquote class="about-founder__quote">{{ section.settings.founder_quote | default: 'about.founder_quote' | t }}</blockquote>
+          <div class="about-founder__name">{{ section.settings.founder_name | default: 'about.founder_name' | t }}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} Values {%- endcomment -%}
+  <section class="section section--alt">
+    <div class="page-width">
+      <div class="section-head section-head--center">
+        <p class="eyebrow">{{ 'about.values_eyebrow' | t }}</p>
+        <h2 class="section-head__title">{{ 'about.values_h' | t }}</h2>
+      </div>
+      <div class="about-values">
+        {%- assign value_icons = 'leaf,sparkles,shield-check' | split: ',' -%}
+        {%- for i in (1..3) -%}
+          <div class="about-value">
+            <span class="about-value__icon">{% render 'icon', icon: value_icons[forloop.index0], size: 22 %}</span>
+            <div class="about-value__h">{{ 'about.value_' | append: i | append: '_h' | t }}</div>
+            <div class="about-value__d">{{ 'about.value_' | append: i | append: '_d' | t }}</div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} Timeline {%- endcomment -%}
+  <section class="section">
+    <div class="page-width">
+      <div class="about-timeline">
+        <div class="about-timeline__aside">
+          <p class="eyebrow">{{ 'about.timeline_eyebrow' | t }}</p>
+          <div class="about-timeline__years">2022 → 2026</div>
+        </div>
+        <div>
+          {%- assign years = '2022,2023,2024,2026' | split: ',' -%}
+          {%- for i in (1..4) -%}
+            <div class="about-timeline__item">
+              <div class="about-timeline__year">{{ years[forloop.index0] }}</div>
+              <div>
+                <div class="about-timeline__h">{{ 'about.timeline_' | append: i | append: '_h' | t }}</div>
+                <p class="about-timeline__d">{{ 'about.timeline_' | append: i | append: '_d' | t }}</p>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} Stats band {%- endcomment -%}
+  <section class="about-stats">
+    <div class="about-stats__inner">
+      <div class="section-head section-head--center">
+        <p class="eyebrow" style="color:var(--fg-on-dark-2)">{{ 'about.stats_eyebrow' | t }}</p>
+      </div>
+      <div class="about-stats__grid">
+        {%- assign stat_nums = '12K+,28,4,8★,1—2' | split: '|' -%}
+        <div class="about-stat"><div class="about-stat__n">12K+</div><div class="about-stat__l">{{ 'about.stat_1' | t }}</div></div>
+        <div class="about-stat"><div class="about-stat__n">28</div><div class="about-stat__l">{{ 'about.stat_2' | t }}</div></div>
+        <div class="about-stat"><div class="about-stat__n">4,8</div><div class="about-stat__l">{{ 'about.stat_3' | t }}</div></div>
+        <div class="about-stat"><div class="about-stat__n">1—2</div><div class="about-stat__l">{{ 'about.stat_4' | t }}</div></div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} Quiz CTA {%- endcomment -%}
+  <section class="section">
+    <div class="page-width">
+      <div class="about-cta">
+        <h2 class="about-cta__h">{{ 'about.cta_h' | t }}</h2>
+        <p class="about-cta__p">{{ 'about.cta_p' | t }}</p>
+        <a class="btn btn--lg" href="{{ routes.root_url }}pages/quiz">{{ 'about.cta' | t }} {% render 'icon', icon: 'arrow-right', size: 17 %}</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "About",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "title", "label": "Title" },
+    { "type": "textarea", "id": "intro", "label": "Intro paragraph" },
+    { "type": "image_picker", "id": "founder_image", "label": "Founder image" },
+    { "type": "textarea", "id": "founder_quote", "label": "Founder quote" },
+    { "type": "text", "id": "founder_name", "label": "Founder name" }
+  ]
+}
+{% endschema %}

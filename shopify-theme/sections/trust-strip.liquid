@@ -1,0 +1,16 @@
+<div class="trust-strip">
+  <div class="trust-strip__inner">
+    <span class="trust-strip__item">{% render 'icon', icon: 'truck', size: 20 %} {{ 'trust.shipping' | t }}</span>
+    <span class="trust-strip__item">{% render 'icon', icon: 'badge-check', size: 20 %} {{ 'trust.authentic' | t }}</span>
+    <span class="trust-strip__item">{% render 'icon', icon: 'shield-check', size: 20 %} {{ 'trust.secure' | t }}</span>
+    <span class="trust-strip__item">{% render 'icon', icon: 'gift', size: 20 %} {{ 'trust.samples' | t }}</span>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Trust strip",
+  "settings": [],
+  "presets": [{ "name": "Trust strip" }]
+}
+{% endschema %}

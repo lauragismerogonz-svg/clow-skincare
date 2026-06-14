@@ -1,0 +1,19 @@
+<section class="quote-band">
+  <div class="quote-band__inner">
+    <p class="eyebrow">{{ section.settings.eyebrow | default: 'home.quote_eyebrow' | t }}</p>
+    <blockquote class="quote-band__quote">{{ section.settings.quote | default: 'home.quote' | t }}</blockquote>
+    <div class="quote-band__attr">{{ section.settings.attribution | default: 'home.quote_attr' | t }}</div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Quote band",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "textarea", "id": "quote", "label": "Quote" },
+    { "type": "text", "id": "attribution", "label": "Attribution" }
+  ],
+  "presets": [{ "name": "Quote band" }]
+}
+{% endschema %}

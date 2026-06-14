@@ -1,0 +1,72 @@
+{%- liquid
+  assign routines = 'hydra,imp,age,glass,sens' | split: ','
+-%}
+<section class="section section--alt">
+  <div class="page-width">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">{{ section.settings.eyebrow | default: 'home.routines_eyebrow' | t }}</p>
+        <h2 class="section-head__title">{{ section.settings.heading | default: 'home.routines_h' | t }}</h2>
+      </div>
+      <a class="btn btn--text" href="{{ routes.collections_url }}">{{ 'home.routines_all' | t }} {% render 'icon', icon: 'arrow-right', size: 15 %}</a>
+    </div>
+
+    <div class="routines-grid">
+      {%- for block in section.blocks -%}
+        {%- assign idx = forloop.index0 -%}
+        {%- assign r = routines[idx] -%}
+        <a class="routine-card{% if forloop.first %} routine-card--big{% endif %} bg-{{ block.settings.color_class | default: r }}"
+           href="{{ block.settings.url | default: routes.collections_url }}"
+           {{ block.shopify_attributes }}>
+          <span class="routine-card__dot dot-{{ block.settings.color_class | default: r }}"></span>
+          <div class="routine-card__foot">
+            <p class="eyebrow fg-{{ block.settings.color_class | default: r }}" style="font-size:10.5px">{{ 'quiz.routine_line' | t }} · {{ forloop.index | prepend: '0' | slice: -2, 2 }}</p>
+            <div class="routine-card__name">{{ block.settings.name }}</div>
+            <div class="routine-card__sub">{{ block.settings.subtitle }}</div>
+          </div>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured routines",
+  "max_blocks": 5,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "heading", "label": "Heading" }
+  ],
+  "blocks": [
+    {
+      "type": "routine",
+      "name": "Routine",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Routine name" },
+        { "type": "text", "id": "subtitle", "label": "Subtitle" },
+        { "type": "select", "id": "color_class", "label": "Accent colour", "options": [
+          { "value": "hydra", "label": "Hydration (blue-grey)" },
+          { "value": "pores", "label": "Anti-blemish (sage)" },
+          { "value": "age", "label": "Anti-age (mauve)" },
+          { "value": "glass", "label": "Glass skin (lilac)" },
+          { "value": "sens", "label": "Sensitive (rose)" }
+        ], "default": "glass" },
+        { "type": "url", "id": "url", "label": "Collection link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured routines",
+      "blocks": [
+        { "type": "routine", "settings": { "name": "Hydratation", "subtitle": "Repulper et hydrater en profondeur.", "color_class": "hydra" } },
+        { "type": "routine", "settings": { "name": "Anti-imperfections", "subtitle": "Pores resserrés, teint net.", "color_class": "pores" } },
+        { "type": "routine", "settings": { "name": "Anti-Âge", "subtitle": "Fermeté et rebond.", "color_class": "age" } },
+        { "type": "routine", "settings": { "name": "Glass Skin", "subtitle": "Le glow dewy en 5 étapes.", "color_class": "glass" } },
+        { "type": "routine", "settings": { "name": "Peau Sensible", "subtitle": "Apaiser et renforcer la barrière.", "color_class": "sens" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

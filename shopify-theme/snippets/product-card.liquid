@@ -1,0 +1,80 @@
+{%- comment -%}
+  Reusable product card.
+  Accepts:
+    product           — product object (required)
+    show_add_to_cart  — bool (default true)
+{%- endcomment -%}
+{%- liquid
+  assign show_atc = show_add_to_cart
+  if show_atc == nil
+    assign show_atc = true
+  endif
+
+  assign routine_label = ''
+  assign routine_class = ''
+  for tag in product.tags
+    if tag contains 'r-hydra' or tag == 'Hydratation'
+      assign routine_label = 'header.routines.hydra' | t
+      assign routine_class = 'hydra'
+    elsif tag contains 'r-imp' or tag == 'Anti-imperfections'
+      assign routine_label = 'header.routines.imp' | t
+      assign routine_class = 'pores'
+    elsif tag contains 'r-age' or tag == 'Anti-Âge'
+      assign routine_label = 'header.routines.age' | t
+      assign routine_class = 'age'
+    elsif tag contains 'r-glass' or tag == 'Glass Skin'
+      assign routine_label = 'header.routines.glass' | t
+      assign routine_class = 'glass'
+    elsif tag contains 'r-sens' or tag == 'Peau Sensible'
+      assign routine_label = 'header.routines.sens' | t
+      assign routine_class = 'sens'
+    endif
+  endfor
+
+  assign on_sale = false
+  if product.compare_at_price > product.price
+    assign on_sale = true
+  endif
+-%}
+<article class="product-card" data-product-card data-tags="{{ product.tags | join: ',' | escape }}">
+  <div class="product-card__top">
+    <a class="product-card__media" href="{{ product.url }}" aria-label="{{ product.title | escape }}">
+      {%- if product.featured_image -%}
+        <img
+          src="{{ product.featured_image | image_url: width: 600 }}"
+          srcset="{{ product.featured_image | image_url: width: 400 }} 400w, {{ product.featured_image | image_url: width: 800 }} 800w"
+          sizes="(max-width: 768px) 50vw, 33vw"
+          alt="{{ product.featured_image.alt | default: product.title | escape }}"
+          width="600" height="600" loading="lazy">
+      {%- endif -%}
+      {%- if routine_label != '' -%}
+        <span class="product-card__badge bg-{{ routine_class }} fg-{{ routine_class }}">{{ routine_label }}</span>
+      {%- endif -%}
+      {%- if on_sale -%}
+        {%- assign pct = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round -%}
+        <span class="product-card__sale">−{{ pct }}%</span>
+      {%- endif -%}
+    </a>
+
+    {%- if show_atc and product.available -%}
+      <div class="product-card__add">
+        <form data-add-form action="/cart/add" method="post">
+          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+          <input type="hidden" name="quantity" value="1">
+          <button type="submit" class="btn btn--sm btn--full">
+            {% render 'icon', icon: 'shopping-bag', size: 15 %}
+            <span data-btn-label>{{ 'product.add_to_cart' | t }}</span>
+          </button>
+        </form>
+      </div>
+    {%- endif -%}
+  </div>
+
+  {%- if product.vendor != blank -%}
+    <div class="product-card__brand">{{ product.vendor }}</div>
+  {%- endif -%}
+  <a class="product-card__title" href="{{ product.url }}">{{ product.title }}</a>
+  <div class="product-card__price">
+    {% render 'price', product: product %}
+  </div>
+</article>

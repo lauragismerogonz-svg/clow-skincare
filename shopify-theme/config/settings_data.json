@@ -1,0 +1,30 @@
+{
+  "current": {
+    "logo_text": "Clow",
+    "tagline": "La skincare coréenne sélectionnée pour une peau saine et lumineuse. 🇰🇷",
+    "color_espresso": "#51361f",
+    "color_espresso_deep": "#2e1d0e",
+    "color_hydra": "#8fadb6",
+    "color_pores": "#94a47e",
+    "color_age": "#a98a98",
+    "color_glass": "#a9a4c4",
+    "color_sensitive": "#d2a096",
+    "home_variant": "classic",
+    "instagram_url": "https://www.instagram.com/clowskincare_/",
+    "tiktok_url": "https://www.tiktok.com/@clowskincare",
+    "pinterest_url": "https://www.pinterest.com/clowskincare/",
+    "email_address": "hello@clowskincare.com",
+    "samples_threshold": 39,
+    "free_ship_threshold": 39
+  },
+  "presets": {
+    "Clow Skincare": {
+      "logo_text": "Clow",
+      "color_espresso": "#51361f",
+      "color_espresso_deep": "#2e1d0e",
+      "home_variant": "classic",
+      "samples_threshold": 39,
+      "free_ship_threshold": 39
+    }
+  }
+}

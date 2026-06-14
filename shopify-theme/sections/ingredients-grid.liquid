@@ -1,0 +1,70 @@
+{%- liquid
+  assign default_colors = 'c-hydra,c-pores,c-glass,c-age' | split: ','
+-%}
+<section class="section section--alt">
+  <div class="page-width">
+    <div class="section-head section-head--center">
+      <p class="eyebrow">{{ section.settings.eyebrow | default: 'home.ingredients_eyebrow' | t }}</p>
+      <h2 class="section-head__title">{{ section.settings.heading | default: 'home.ingredients_h' | t }}</h2>
+    </div>
+
+    <div class="ingredients-grid">
+      {%- for block in section.blocks -%}
+        {%- assign color = block.settings.color | default: default_colors[forloop.index0] -%}
+        <div class="ingredient-card" {{ block.shopify_attributes }}>
+          <span class="ingredient-card__icon" style="background:var(--{{ color }})">
+            {%- if block.settings.emoji != blank -%}{{ block.settings.emoji }}{%- else -%}{% render 'icon', icon: block.settings.icon, size: 19 %}{%- endif -%}
+          </span>
+          <div class="ingredient-card__name">{{ block.settings.name }}</div>
+          <div class="ingredient-card__desc">{{ block.settings.description }}</div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Ingredients grid",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "heading", "label": "Heading" }
+  ],
+  "blocks": [
+    {
+      "type": "ingredient",
+      "name": "Ingredient",
+      "settings": [
+        { "type": "text", "id": "emoji", "label": "Emoji icon" },
+        { "type": "select", "id": "icon", "label": "SVG icon (if no emoji)", "options": [
+          { "value": "droplet", "label": "Droplet" },
+          { "value": "leaf", "label": "Leaf" },
+          { "value": "sparkles", "label": "Sparkles" },
+          { "value": "sun", "label": "Sun" }
+        ], "default": "droplet" },
+        { "type": "text", "id": "name", "label": "Name" },
+        { "type": "textarea", "id": "description", "label": "Description" },
+        { "type": "select", "id": "color", "label": "Icon colour", "options": [
+          { "value": "c-hydra", "label": "Hydration" },
+          { "value": "c-pores", "label": "Anti-blemish" },
+          { "value": "c-age", "label": "Anti-age" },
+          { "value": "c-glass", "label": "Glass skin" },
+          { "value": "c-sensitive", "label": "Sensitive" }
+        ], "default": "c-hydra" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ingredients grid",
+      "blocks": [
+        { "type": "ingredient", "settings": { "emoji": "💧", "name": "Acide Hyaluronique", "description": "L'hydratation longue durée en 5 poids moléculaires.", "color": "c-hydra" } },
+        { "type": "ingredient", "settings": { "emoji": "🌿", "name": "Centella Asiatica", "description": "Apaise les peaux réactives, renforce la barrière.", "color": "c-pores" } },
+        { "type": "ingredient", "settings": { "emoji": "✨", "name": "Niacinamide", "description": "Lisse le grain, équilibre, illumine.", "color": "c-glass" } },
+        { "type": "ingredient", "settings": { "emoji": "☀️", "name": "PDRN & Peptides", "description": "Fermeté et rebond — la signature K-beauty.", "color": "c-age" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

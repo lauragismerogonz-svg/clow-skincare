@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>{{ 'gift_card.issued.title' | t: shop: shop.name }}</title>
+  {{ 'clow.css' | asset_url | stylesheet_tag }}
+</head>
+<body class="clow-type">
+  <div class="gc-page">
+    <div class="gc-card">
+      <div class="gc-card__head">
+        <div class="gc-card__logo">{{ shop.name }}</div>
+        <p style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-on-dark-2);margin-top:8px">{{ 'gift_card.eyebrow' | t }}</p>
+      </div>
+      <div class="gc-card__body">
+        <p class="eyebrow" style="justify-content:center">{{ 'gift_card.balance' | t }}</p>
+        <div class="gc-card__balance">{{ gift_card.balance | money }}</div>
+
+        {%- if gift_card.expired -%}
+          <p style="color:var(--sale);font-weight:600">{{ 'gift_card.expired' | t | default: 'This gift card has expired.' }}</p>
+        {%- endif -%}
+
+        <p class="gc-card__info">{{ 'gift_card.code' | t }}</p>
+        <div class="gc-card__code" id="gc-code">{{ gift_card.code | format_code }}</div>
+
+        {%- assign qr_size = '200' -%}
+        <img class="gc-card__qr" src="{{ gift_card.qr_identifier | generate_qr_code }}" alt="QR code" width="160" height="160">
+
+        <p class="gc-card__info">{{ 'gift_card.redeem_info' | t }}</p>
+
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+          <button class="btn btn--secondary btn--sm" type="button" onclick="window.print()">{{ 'gift_card.print' | t }}</button>
+          <a class="btn btn--sm" href="{{ shop.url }}">{{ shop.name }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

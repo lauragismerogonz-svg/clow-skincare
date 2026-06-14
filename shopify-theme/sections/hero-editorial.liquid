@@ -1,0 +1,65 @@
+<section class="hero-ed">
+  <div class="hero-ed__issue">
+    <p class="eyebrow">{{ section.settings.issue | default: 'home.editorial_issue' | t }}</p>
+    <span class="hero-ed__edition">{{ section.settings.edition | default: 'home.editorial_edition' | t }}</span>
+  </div>
+  <div class="hero-ed__inner">
+    <div class="hero-ed__grid">
+      <div class="hero-ed__text">
+        <h1 class="hero-ed__title">
+          {{ section.settings.heading_1 | default: 'home.editorial_h1' | t }}<br>
+          <span class="italic">{{ section.settings.heading_2 | default: 'home.editorial_h2' | t }}</span>
+        </h1>
+        <p class="hero-ed__sub">{{ section.settings.body | default: 'home.editorial_sub' | t }}</p>
+        <div class="hero__ctas">
+          <a class="btn btn--lg" href="{{ section.settings.cta1_url | default: '/pages/quiz' }}">{{ section.settings.cta1_text | default: 'home.hero_cta1' | t }} {% render 'icon', icon: 'arrow-right', size: 17 %}</a>
+          <a class="btn btn--lg btn--text" href="{{ section.settings.cta2_url | default: routes.all_products_collection_url }}">{{ section.settings.cta2_text | default: 'home.hero_cta2' | t }}</a>
+        </div>
+        <div class="hero-ed__stats">
+          <div>
+            <div class="hero-ed__stat-n">1—2</div>
+            <div class="hero-ed__stat-l">{{ 'home.editorial_stat_1' | t }}</div>
+          </div>
+          <div>
+            <div class="hero-ed__stat-n">100%</div>
+            <div class="hero-ed__stat-l">{{ 'home.editorial_stat_2' | t }}</div>
+          </div>
+          <div>
+            <div class="hero-ed__stat-n">+15%</div>
+            <div class="hero-ed__stat-l">{{ 'home.editorial_stat_3' | t }}</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-ed__media">
+        {%- if section.settings.image != blank -%}
+          <img src="{{ section.settings.image | image_url: width: 1000 }}" alt="{{ section.settings.image.alt | escape }}" width="1000" height="1200" loading="eager">
+        {%- endif -%}
+        <div class="hero-ed__media-grad"></div>
+        <div class="hero-ed__caption">
+          <div class="hero-ed__caption-eb">{{ 'home.editorial_cover_label' | t }}</div>
+          <div class="hero-ed__caption-t">{{ section.settings.cover_title | default: 'home.editorial_cover_title' | t }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero editorial",
+  "settings": [
+    { "type": "text", "id": "issue", "label": "Issue header" },
+    { "type": "text", "id": "edition", "label": "Edition label" },
+    { "type": "text", "id": "heading_1", "label": "Heading line 1" },
+    { "type": "text", "id": "heading_2", "label": "Heading line 2 (italic)" },
+    { "type": "textarea", "id": "body", "label": "Body copy" },
+    { "type": "text", "id": "cta1_text", "label": "Primary CTA text" },
+    { "type": "url", "id": "cta1_url", "label": "Primary CTA link" },
+    { "type": "text", "id": "cta2_text", "label": "Secondary CTA text" },
+    { "type": "url", "id": "cta2_url", "label": "Secondary CTA link" },
+    { "type": "image_picker", "id": "image", "label": "Cover image" },
+    { "type": "text", "id": "cover_title", "label": "Cover caption title" }
+  ],
+  "presets": [{ "name": "Hero editorial" }]
+}
+{% endschema %}

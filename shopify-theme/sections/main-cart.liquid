@@ -1,0 +1,80 @@
+{%- liquid
+  assign threshold = settings.samples_threshold | default: 39 | times: 100
+  assign points = cart.total_price | divided_by: 100
+-%}
+<section class="cart-page" data-cart-page>
+  <div class="cart-page__inner">
+    <p class="eyebrow">{{ 'cart.title' | t }}</p>
+    <h1 class="cart-page__title">{{ 'cart.title' | t }}</h1>
+
+    {%- if cart.item_count > 0 -%}
+      <div class="cart-page__grid">
+        <div class="cart-page__items">
+          {%- for item in cart.items -%}
+            <div class="cart-line">
+              <a class="cart-line__media" href="{{ item.url }}">
+                {%- if item.image -%}<img src="{{ item.image | image_url: width: 200 }}" alt="{{ item.product.title | escape }}" width="200" height="200" loading="lazy">{%- endif -%}
+              </a>
+              <div class="cart-line__info">
+                {%- if item.product.vendor != blank -%}<div class="cart-line__brand">{{ item.product.vendor }}</div>{%- endif -%}
+                <a class="cart-line__name" href="{{ item.url }}">{{ item.product.title }}</a>
+                {%- unless item.variant.title contains 'Default' -%}<div class="cart-line__variant">{{ item.variant.title }}</div>{%- endunless -%}
+                <button class="cart-line__remove" type="button" data-cart-remove data-key="{{ item.key }}">{{ 'cart.remove' | t }}</button>
+              </div>
+              <div class="cart-line__right">
+                <div class="qty-stepper" data-cart-line-stepper data-key="{{ item.key }}">
+                  <button type="button" data-delta="-1" aria-label="minus">{% render 'icon', icon: 'minus', size: 13 %}</button>
+                  <span class="qty-stepper__val">{{ item.quantity }}</span>
+                  <button type="button" data-delta="1" aria-label="plus">{% render 'icon', icon: 'plus', size: 13 %}</button>
+                </div>
+                <span class="price"><span class="price__now">{{ item.final_line_price | money }}</span></span>
+              </div>
+            </div>
+          {%- endfor -%}
+
+          <a class="btn btn--text" href="{{ routes.all_products_collection_url }}" style="margin-top:18px">{% render 'icon', icon: 'arrow-left', size: 16 %} {{ 'cart.continue' | t }}</a>
+        </div>
+
+        <aside class="cart-summary">
+          <div class="cart-summary__title">{{ 'cart.title' | t }}</div>
+
+          <div class="samples-bar" data-samples-bar>
+            <div class="samples-bar__label" data-samples-label></div>
+            <div class="samples-bar__track"><div class="samples-bar__fill" data-samples-fill></div></div>
+          </div>
+
+          <div class="cart-summary__row"><span>{{ 'cart.subtotal' | t }}</span><span>{{ cart.total_price | money }}</span></div>
+          <div class="cart-summary__row">
+            <span>{{ 'cart.shipping' | t }}</span>
+            <span>{% if cart.total_price >= threshold %}{{ 'cart.shipping_free' | t }}{% else %}{{ 'cart.shipping_calc' | t }}{% endif %}</span>
+          </div>
+          {%- if cart.total_discount > 0 -%}
+            <div class="cart-summary__row cart-summary__row--sale"><span>Discount</span><span>−{{ cart.total_discount | money }}</span></div>
+          {%- endif -%}
+          <div class="cart-summary__row cart-summary__row--total"><span>{{ 'cart.total' | t }}</span><span>{{ cart.total_price | money }}</span></div>
+
+          <div class="cart-summary__points">
+            {% render 'icon', icon: 'sparkles', size: 14 %}
+            {{ 'cart.points_earn' | t }} <b><span data-drawer-points>{{ points }}</span> {{ 'cart.points_unit' | t }}</b>
+          </div>
+
+          <form action="{{ routes.cart_url }}" method="post">
+            <button type="submit" name="checkout" class="btn btn--lg btn--full">{{ 'cart.checkout' | t }} {% render 'icon', icon: 'arrow-right', size: 16 %}</button>
+          </form>
+        </aside>
+      </div>
+    {%- else -%}
+      <div class="cart-empty">
+        <p class="cart-empty__msg">{{ 'cart.empty' | t }}</p>
+        <a class="btn btn--lg" href="{{ routes.all_products_collection_url }}">{{ 'cart.continue' | t }}</a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cart",
+  "settings": []
+}
+{% endschema %}

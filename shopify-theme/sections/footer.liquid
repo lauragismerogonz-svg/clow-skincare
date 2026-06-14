@@ -1,0 +1,71 @@
+{%- liquid
+  assign gift_handle = section.settings.gift_card_handle | default: 'carte-cadeau'
+-%}
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <a class="footer-wordmark" href="{{ routes.root_url }}">{{ section.settings.logo_text | default: shop.name }}</a>
+      <p class="footer-tag">{{ section.settings.tagline | default: 'footer.tagline' | t }}</p>
+      <div class="footer-social">
+        {%- if settings.instagram_url != blank -%}
+          <a href="{{ settings.instagram_url }}" target="_blank" rel="noopener" aria-label="Instagram">{% render 'icon', icon: 'instagram', size: 17 %}</a>
+        {%- endif -%}
+        {%- if settings.tiktok_url != blank -%}
+          <a href="{{ settings.tiktok_url }}" target="_blank" rel="noopener" aria-label="TikTok">{% render 'icon', icon: 'tiktok', size: 17 %}</a>
+        {%- endif -%}
+        {%- if settings.pinterest_url != blank -%}
+          <a href="{{ settings.pinterest_url }}" target="_blank" rel="noopener" aria-label="Pinterest">{% render 'icon', icon: 'pinterest', size: 17 %}</a>
+        {%- endif -%}
+        {%- if settings.email_address != blank -%}
+          <a href="mailto:{{ settings.email_address }}" aria-label="Email">{% render 'icon', icon: 'mail', size: 17 %}</a>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div>
+      <div class="footer-col__title">{{ 'footer.col_shop' | t }}</div>
+      <div class="footer-col__links">
+        <a href="{{ routes.all_products_collection_url }}">{{ 'footer.links.best_sellers' | t }}</a>
+        <a href="{{ routes.collections_url }}">{{ 'footer.links.routine' | t }}</a>
+        <a href="{{ routes.all_products_collection_url }}">{{ 'footer.links.products' | t }}</a>
+        <a href="{{ routes.root_url }}pages/quiz">{{ 'footer.links.quiz' | t }}</a>
+        <a href="{{ routes.root_url }}products/{{ gift_handle }}">{{ 'footer.links.gift' | t }}</a>
+      </div>
+    </div>
+
+    <div>
+      <div class="footer-col__title">{{ 'footer.col_help' | t }}</div>
+      <div class="footer-col__links">
+        <a href="{{ routes.root_url }}pages/routine-coreenne">{{ 'footer.links.help_steps' | t }}</a>
+        <a href="{{ routes.root_url }}pages/glass-skin">{{ 'footer.links.help_glass' | t }}</a>
+        <a href="{{ routes.root_url }}pages/quiz">{{ 'footer.links.help_type' | t }}</a>
+        <a href="{{ routes.root_url }}pages/contact">{{ 'footer.links.contact' | t }}</a>
+      </div>
+    </div>
+
+    <div>
+      <div class="footer-col__title">{{ 'footer.col_about' | t }}</div>
+      <div class="footer-col__links">
+        <a href="{{ routes.root_url }}pages/about">{{ 'footer.links.selection' | t }}</a>
+        <a href="{{ routes.root_url }}pages/terms">{{ 'footer.links.terms' | t }}</a>
+        <a href="{{ routes.root_url }}pages/shipping">{{ 'footer.links.shipping' | t }}</a>
+        <a href="{{ routes.root_url }}pages/legal">{{ 'footer.links.legal' | t }}</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span>{{ 'footer.legal' | t }}</span>
+    <span>{{ 'footer.pay' | t }}</span>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    { "type": "text", "id": "logo_text", "label": "Logo wordmark", "default": "Clow" },
+    { "type": "textarea", "id": "tagline", "label": "Tagline", "info": "Leave blank to use the translated default." }
+  ]
+}
+{% endschema %}

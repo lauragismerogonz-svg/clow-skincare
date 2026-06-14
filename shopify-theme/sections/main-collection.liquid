@@ -1,0 +1,95 @@
+{%- liquid
+  assign routines = 'hydra,imp,age,glass,sens' | split: ','
+  assign routine_tags = 'r-hydra,r-imp,r-age,r-glass,r-sens' | split: ','
+  assign cat_keys = 'cleansers,toners,serums,creams,spf,masks,lips,hair,base' | split: ','
+  paginate collection.products by section.settings.products_per_page
+-%}
+<section class="collection">
+  <div class="collection__header">
+    <p class="eyebrow">{{ collection.metafields.clow.eyebrow | default: 'Clow Skincare' }}</p>
+    <h1 class="collection__title">{{ collection.title }}</h1>
+    {%- if collection.description != blank -%}
+      <div class="collection__desc">{{ collection.description }}</div>
+    {%- endif -%}
+  </div>
+
+  <div class="collection__body">
+    <aside class="collection__sidebar" data-filter-sidebar>
+      <button class="btn btn--secondary btn--sm filter-toggle" data-filter-toggle type="button">{% render 'icon', icon: 'menu', size: 16 %} {{ 'collection.filters' | t }}</button>
+
+      <div class="filter-group">
+        <div class="filter-group__title">{{ 'collection.filter_routine' | t }}</div>
+        {%- for r in routines -%}
+          <label class="filter-check">
+            <input type="checkbox" data-filter="routine" value="{{ routine_tags[forloop.index0] }}">
+            <span class="routine-dot dot-{{ r }}"></span>
+            {{ 'header.routines.' | append: r | t }}
+          </label>
+        {%- endfor -%}
+      </div>
+
+      <div class="filter-group">
+        <div class="filter-group__title">{{ 'collection.filter_category' | t }}</div>
+        {%- for c in cat_keys -%}
+          <label class="filter-check">
+            <input type="checkbox" data-filter="category" value="{{ 'header.categories.' | append: c | t }}">
+            {{ 'header.categories.' | append: c | t }}
+          </label>
+        {%- endfor -%}
+      </div>
+
+      <div class="filter-group">
+        <div class="filter-group__title">{{ 'collection.filter_price' | t }}</div>
+        <label class="filter-check"><input type="checkbox" data-filter="price" value="lt-20"> &lt; €20</label>
+        <label class="filter-check"><input type="checkbox" data-filter="price" value="20-40"> €20 – €40</label>
+        <label class="filter-check"><input type="checkbox" data-filter="price" value="gt-40"> &gt; €40</label>
+      </div>
+
+      <button class="btn btn--text filter-reset" data-filter-reset type="button">{% render 'icon', icon: 'x', size: 14 %} {{ 'collection.reset' | t }}</button>
+    </aside>
+
+    <div>
+      <div class="collection__count" data-collection-count>{{ collection.products_count }} {{ 'collection.showing' | t }}</div>
+
+      {%- if collection.products.size > 0 -%}
+        <div class="product-grid" data-product-grid>
+          {%- for product in collection.products -%}
+            {% render 'product-card', product: product %}
+          {%- endfor -%}
+        </div>
+
+        <div class="collection__empty" data-collection-empty hidden>{{ 'collection.empty' | t }}</div>
+
+        {%- if paginate.pages > 1 -%}
+          <nav class="pagination" aria-label="Pagination">
+            {%- if paginate.previous -%}
+              <a href="{{ paginate.previous.url }}" aria-label="Previous">{% render 'icon', icon: 'arrow-left', size: 16 %}</a>
+            {%- endif -%}
+            {%- for part in paginate.parts -%}
+              {%- if part.is_link -%}
+                <a href="{{ part.url }}">{{ part.title }}</a>
+              {%- else -%}
+                <span class="{% if part.title == paginate.current_page %}is-current{% endif %}">{{ part.title }}</span>
+              {%- endif -%}
+            {%- endfor -%}
+            {%- if paginate.next -%}
+              <a href="{{ paginate.next.url }}" aria-label="Next">{% render 'icon', icon: 'arrow-right', size: 16 %}</a>
+            {%- endif -%}
+          </nav>
+        {%- endif -%}
+      {%- else -%}
+        <div class="collection__empty">{{ 'collection.empty' | t }}</div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+{%- endpaginate -%}
+
+{% schema %}
+{
+  "name": "Collection",
+  "settings": [
+    { "type": "range", "id": "products_per_page", "label": "Products per page", "min": 6, "max": 36, "step": 6, "default": 18 }
+  ]
+}
+{% endschema %}

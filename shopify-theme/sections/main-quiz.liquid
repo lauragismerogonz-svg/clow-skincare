@@ -1,0 +1,135 @@
+{%- liquid
+  assign routine_handles = section.settings.routine_handles | default: 'routines-hydratation,routines-anti-imperfections,routines-anti-age,routines-glass-skin,routines-peau-sensible' | split: ','
+  assign pack_handles = section.settings.pack_handles | default: 'pack-hydratation,pack-anti-imperfections,pack-anti-age,pack-glass-skin,pack-peau-sensible' | split: ','
+  assign rids = 'hydra,imp,age,glass,sens' | split: ','
+
+  assign q1 = 'quiz.q1_a:hydra,quiz.q1_b:imp,quiz.q1_c:glass,quiz.q1_d:sens' | split: ','
+  assign q2 = 'quiz.q2_a:hydra,quiz.q2_b:imp,quiz.q2_c:age,quiz.q2_d:glass' | split: ','
+  assign q3 = 'quiz.q3_a:glass,quiz.q3_b:imp,quiz.q3_c:sens,quiz.q3_d:hydra' | split: ','
+  assign q4 = 'quiz.q4_a:hydra,quiz.q4_b:imp,quiz.q4_c:age,quiz.q4_d:glass' | split: ','
+-%}
+
+<section class="quiz">
+  <div class="quiz__wrap quiz__wrap--done" data-quiz>
+
+    {%- comment -%} Routine data for JS {%- endcomment -%}
+    <script type="application/json" data-quiz-routines>
+    {
+      {%- for r in rids -%}
+        {%- assign rcol = collections[routine_handles[forloop.index0]] -%}
+        "{{ r }}": {
+          "name": {{ 'header.routines.' | append: r | t | json }},
+          "sub": {{ rcol.description | default: '' | strip_html | truncatewords: 14 | json }},
+          "color": "var(--c-{% if r == 'sens' %}sensitive{% elsif r == 'imp' %}pores{% else %}{{ r }}{% endif %})",
+          "tint": "var(--c-{% if r == 'sens' %}sens{% elsif r == 'imp' %}pores{% else %}{{ r }}{% endif %}-tint)",
+          "url": {{ rcol.url | default: routes.collections_url | json }},
+          "packUrl": {{ all_products[pack_handles[forloop.index0]].url | default: collections[routine_handles[forloop.index0]].url | json }}
+        }{%- unless forloop.last -%},{%- endunless -%}
+      {%- endfor -%}
+    }
+    </script>
+
+    {%- comment -%} Question card wrapper {%- endcomment -%}
+    <div class="quiz-card" data-quiz-card>
+      <div class="quiz-card__top">
+        <p class="eyebrow">{{ 'quiz.eyebrow' | t }}</p>
+        <span class="quiz-card__counter" data-quiz-counter>1 / 4</span>
+      </div>
+      <div class="quiz-progress"><div class="quiz-progress__fill" data-quiz-progress></div></div>
+
+      {%- assign questions = 'q1,q2,q3,q4' | split: ',' -%}
+      {%- for qn in questions -%}
+        {%- liquid
+          case qn
+            when 'q1'
+              assign opts = q1
+            when 'q2'
+              assign opts = q2
+            when 'q3'
+              assign opts = q3
+            when 'q4'
+              assign opts = q4
+          endcase
+        -%}
+        <div data-quiz-step {% unless forloop.first %}hidden{% endunless %}>
+          <h2 class="quiz-question">{{ 'quiz.' | append: qn | t }}</h2>
+          <div class="quiz-options">
+            {%- for opt in opts -%}
+              {%- assign parts = opt | split: ':' -%}
+              <button class="quiz-option" type="button" data-quiz-option="{{ parts[1] }}">
+                {{ parts[0] | t }}
+                <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span>
+              </button>
+            {%- endfor -%}
+          </div>
+        </div>
+      {%- endfor -%}
+
+      <button class="quiz-prev" type="button" data-quiz-prev hidden>{% render 'icon', icon: 'arrow-left', size: 15 %} {{ 'quiz.prev' | t }}</button>
+    </div>
+
+    {%- comment -%} Result screen {%- endcomment -%}
+    <div data-quiz-result hidden>
+      <div class="quiz-result__head">
+        <p class="eyebrow" style="justify-content:center">{{ 'quiz.result' | t }}</p>
+        <h2 class="quiz-result__title" data-result-name>{{ 'quiz.routine_line' | t }}</h2>
+        <p class="quiz-result__sub" data-result-sub>{{ 'quiz.result_sub' | t }}</p>
+      </div>
+
+      <div class="quiz-result__card">
+        <div class="quiz-recos" data-result-recos>
+          {%- for r in rids -%}
+            {%- assign rcol = collections[routine_handles[forloop.index0]] -%}
+            <div data-reco="{{ r }}" {% unless forloop.first %}hidden{% endunless %} style="display:contents">
+              {%- for product in rcol.products limit: 3 -%}
+                {% render 'product-card', product: product %}
+              {%- endfor -%}
+            </div>
+          {%- endfor -%}
+        </div>
+
+        {%- comment -%} Email gate {%- endcomment -%}
+        <form class="quiz-emailgate" data-quiz-email>
+          <div class="quiz-emailgate__grid">
+            <div>
+              <div class="quiz-emailgate__eb">{{ 'quiz.email_eyebrow' | t }}</div>
+              <div class="quiz-emailgate__h">{{ 'quiz.email_h' | t }}</div>
+              <div class="quiz-emailgate__p">{{ 'quiz.email_p' | t }}</div>
+            </div>
+            <div class="quiz-emailgate__row">
+              <input class="quiz-emailgate__input" type="email" required placeholder="{{ 'quiz.email_placeholder' | t }}" name="email">
+              <button class="btn" type="submit"><span data-btn-label>{{ 'quiz.email_btn' | t }}</span> {% render 'icon', icon: 'arrow-right', size: 16 %}</button>
+            </div>
+          </div>
+          <div class="quiz-emailgate__privacy">{{ 'quiz.email_privacy' | t }}</div>
+        </form>
+
+        <div class="quiz-ctas">
+          <div class="quiz-ctas__left">
+            <span class="quiz-ctas__dot" data-result-dot></span>
+            <div>
+              <div class="quiz-ctas__pack-title" data-result-pack-title>{{ 'quiz.routine_line' | t }}</div>
+              <div class="quiz-ctas__pack-sub">{{ 'quiz.cta_pack_sub' | t }}</div>
+            </div>
+          </div>
+          <div class="quiz-ctas__btns">
+            <button class="btn btn--secondary" type="button" data-quiz-retake>{{ 'quiz.cta_retake' | t }}</button>
+            <a class="btn btn--secondary" data-result-routine href="{{ routes.collections_url }}">{{ 'quiz.cta_see_routine' | t }}</a>
+            <a class="btn" data-result-pack href="{{ routes.collections_url }}">{{ 'quiz.cta_see_pack' | t }} {% render 'icon', icon: 'arrow-right', size: 16 %}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Quiz",
+  "settings": [
+    { "type": "text", "id": "routine_handles", "label": "Routine collection handles (comma-separated)", "default": "routines-hydratation,routines-anti-imperfections,routines-anti-age,routines-glass-skin,routines-peau-sensible" },
+    { "type": "text", "id": "pack_handles", "label": "Pack product handles (comma-separated)", "default": "pack-hydratation,pack-anti-imperfections,pack-anti-age,pack-glass-skin,pack-peau-sensible" }
+  ]
+}
+{% endschema %}

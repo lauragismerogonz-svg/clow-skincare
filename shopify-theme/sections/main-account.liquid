@@ -1,0 +1,114 @@
+{%- liquid
+  assign points = customer.metafields.clow.loyalty_points.value | default: 0
+  assign next_level = 500
+  assign pct = points | times: 100 | divided_by: next_level
+  if pct > 100
+    assign pct = 100
+  endif
+  assign welcome_code = section.settings.welcome_code | default: 'BIENVENUE15'
+-%}
+<section class="account">
+  <div class="account__inner">
+    {%- if customer -%}
+      <p class="eyebrow">{{ 'account.eyebrow' | t }}</p>
+      <h1 class="account__hi">{{ 'account.hi' | t }}, {{ customer.first_name | default: customer.name }}</h1>
+
+      {%- comment -%} Points + welcome {%- endcomment -%}
+      <div class="account__row">
+        <div class="points-card">
+          <div class="points-card__top">
+            <p class="eyebrow" style="color:var(--fg-on-dark-2)">{{ 'account.rewards' | t }}</p>
+            <span class="points-card__tag">{{ 'account.member_tag' | t }}</span>
+          </div>
+          <div class="points-card__num">{{ points }} <small>{{ 'account.pts' | t }}</small></div>
+          <div class="points-card__next">{{ 'account.to_next' | t }}</div>
+          <div class="points-card__track"><div class="points-card__fill" style="width:{{ pct }}%"></div></div>
+        </div>
+
+        <div class="welcome-card">
+          <p class="eyebrow" style="color:var(--c-sens-fg)">{{ 'account.welcome_eyebrow' | t }}</p>
+          <div class="welcome-card__h">{{ 'account.welcome_h' | t }}</div>
+          <p class="welcome-card__p">{{ 'account.welcome_sub' | t }}</p>
+          <div class="welcome-card__code-row">
+            <span class="code-chip">{% render 'icon', icon: 'ticket', size: 17 %} {{ welcome_code }}</span>
+            <button class="btn btn--secondary btn--sm" type="button" data-copy="{{ welcome_code }}"><span data-btn-label>{{ 'account.copy' | t }}</span></button>
+          </div>
+        </div>
+      </div>
+
+      {%- comment -%} Earn + redeem {%- endcomment -%}
+      <div class="account__row account__row--even">
+        <div class="acc-panel">
+          <div class="acc-panel__title">{{ 'account.earn_title' | t }}</div>
+          {%- assign earn_icons = 'shopping-bag,user-plus,star,cake,instagram' | split: ',' -%}
+          {%- assign earn_keys = 'order,account,review,birthday,instagram' | split: ',' -%}
+          {%- for key in earn_keys -%}
+            <div class="earn-row">
+              <span class="earn-row__icon">{% render 'icon', icon: earn_icons[forloop.index0], size: 18 %}</span>
+              <span class="earn-row__name">{{ 'account.earn_' | append: key | t }}</span>
+              <span class="earn-row__pts">{{ 'account.earn_' | append: key | append: '_pts' | t }}</span>
+            </div>
+          {%- endfor -%}
+        </div>
+
+        <div class="acc-panel">
+          <div class="acc-panel__title">{{ 'account.rewards_title' | t }}</div>
+          {%- assign reward_keys = '5,10,mask,25' | split: ',' -%}
+          {%- assign reward_costs = '100,200,300,500' | split: ',' -%}
+          {%- for key in reward_keys -%}
+            {%- assign need = reward_costs[forloop.index0] | times: 1 -%}
+            {%- assign can = false -%}
+            {%- if points >= need -%}{%- assign can = true -%}{%- endif -%}
+            <div class="reward-row">
+              <div class="reward-row__left">
+                <span class="reward-row__icon">{% render 'icon', icon: 'gift', size: 16 %}</span>
+                <div>
+                  <div class="reward-row__name">{{ 'account.reward_' | append: key | t }}</div>
+                  <div class="reward-row__cost">{{ reward_costs[forloop.index0] }} {{ 'account.pts' | t }}</div>
+                </div>
+              </div>
+              <button class="btn btn--sm {% unless can %}btn--secondary btn--disabled{% endunless %}" type="button">{% if can %}{{ 'account.redeem' | t }}{% else %}{{ 'account.soon' | t }}{% endif %}</button>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+
+      {%- comment -%} Orders {%- endcomment -%}
+      <div class="acc-panel">
+        <div class="acc-panel__title">{{ 'account.orders_title' | t }}</div>
+        {%- if customer.orders.size > 0 -%}
+          {%- for order in customer.orders -%}
+            <div class="order-row">
+              <span class="order-row__id">{{ order.name }}</span>
+              <span class="order-row__date">{{ order.created_at | date: '%d %b %Y' }}</span>
+              <span class="order-row__status">{{ order.fulfillment_status_label }}</span>
+              <span class="order-row__total">{{ order.total_net_amount | money }}</span>
+              <a class="btn btn--text btn--sm" href="{{ order.customer_url }}">{{ 'account.details' | t }}</a>
+            </div>
+          {%- endfor -%}
+        {%- else -%}
+          <p style="color:var(--latte);padding:14px 0">{{ 'account.no_orders' | t }}</p>
+        {%- endif -%}
+      </div>
+
+      <div style="margin-top:24px">
+        <a class="btn btn--text" href="{{ routes.account_logout_url }}">{{ 'account.logout' | t }}</a>
+      </div>
+    {%- else -%}
+      <div class="account__login">
+        <p class="eyebrow" style="justify-content:center">{{ 'account.eyebrow' | t }}</p>
+        <h1 class="account__hi" style="text-align:center">{{ 'account.login' | t }}</h1>
+        <a class="btn btn--lg" href="{{ routes.account_login_url }}">{{ 'account.login' | t }}</a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Account",
+  "settings": [
+    { "type": "text", "id": "welcome_code", "label": "Welcome discount code", "default": "BIENVENUE15" }
+  ]
+}
+{% endschema %}

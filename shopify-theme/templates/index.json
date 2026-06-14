@@ -1,0 +1,83 @@
+{
+  "sections": {
+    "hero_classic": {
+      "type": "hero-classic",
+      "settings": {}
+    },
+    "hero_editorial": {
+      "type": "hero-editorial",
+      "disabled": true,
+      "settings": {}
+    },
+    "trust": {
+      "type": "trust-strip",
+      "settings": {}
+    },
+    "routines": {
+      "type": "featured-routines",
+      "blocks": {
+        "r1": { "type": "routine", "settings": { "name": "Hydratation", "subtitle": "Repulper et hydrater en profondeur.", "color_class": "hydra" } },
+        "r2": { "type": "routine", "settings": { "name": "Anti-imperfections", "subtitle": "Pores resserrés, teint net.", "color_class": "pores" } },
+        "r3": { "type": "routine", "settings": { "name": "Anti-Âge", "subtitle": "Fermeté et rebond.", "color_class": "age" } },
+        "r4": { "type": "routine", "settings": { "name": "Glass Skin", "subtitle": "Le glow dewy en 5 étapes.", "color_class": "glass" } },
+        "r5": { "type": "routine", "settings": { "name": "Peau Sensible", "subtitle": "Apaiser et renforcer la barrière.", "color_class": "sens" } }
+      },
+      "block_order": ["r1", "r2", "r3", "r4", "r5"],
+      "settings": {}
+    },
+    "quote": {
+      "type": "quote-band",
+      "settings": {}
+    },
+    "best": {
+      "type": "featured-products",
+      "settings": { "product_limit": 6 }
+    },
+    "packs": {
+      "type": "featured-packs",
+      "blocks": {
+        "p1": { "type": "pack", "settings": { "name": "Pack Hydratation", "concern": "Hydratation", "color_class": "hydra", "save_text": "Économie €10,00" } },
+        "p2": { "type": "pack", "settings": { "name": "Pack Glass Skin", "concern": "Glass Skin", "color_class": "glass", "save_text": "Économie €10,00" } },
+        "p3": { "type": "pack", "settings": { "name": "Pack Anti-Âge", "concern": "Anti-Âge", "color_class": "age", "save_text": "Économie €10,00" } }
+      },
+      "block_order": ["p1", "p2", "p3"],
+      "settings": {}
+    },
+    "ingredients": {
+      "type": "ingredients-grid",
+      "blocks": {
+        "i1": { "type": "ingredient", "settings": { "emoji": "💧", "name": "Acide Hyaluronique", "description": "L'hydratation longue durée en 5 poids moléculaires.", "color": "c-hydra" } },
+        "i2": { "type": "ingredient", "settings": { "emoji": "🌿", "name": "Centella Asiatica", "description": "Apaise les peaux réactives, renforce la barrière.", "color": "c-pores" } },
+        "i3": { "type": "ingredient", "settings": { "emoji": "✨", "name": "Niacinamide", "description": "Lisse le grain, équilibre, illumine.", "color": "c-glass" } },
+        "i4": { "type": "ingredient", "settings": { "emoji": "☀️", "name": "PDRN & Peptides", "description": "Fermeté et rebond — la signature K-beauty.", "color": "c-age" } }
+      },
+      "block_order": ["i1", "i2", "i3", "i4"],
+      "settings": {}
+    },
+    "gift": {
+      "type": "gift-card-split",
+      "settings": {}
+    },
+    "instagram": {
+      "type": "instagram-strip",
+      "settings": {}
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero_classic",
+    "hero_editorial",
+    "trust",
+    "routines",
+    "quote",
+    "best",
+    "packs",
+    "ingredients",
+    "gift",
+    "instagram",
+    "newsletter"
+  ]
+}

@@ -1,0 +1,46 @@
+{%- liquid
+  assign ig_url = section.settings.instagram_url | default: settings.instagram_url | default: 'https://www.instagram.com/clowskincare_/'
+  assign handle = section.settings.handle | default: '@clowskincare_'
+-%}
+<section class="section section--alt">
+  <div class="page-width">
+    <div class="insta-head">
+      <p class="eyebrow">{{ section.settings.eyebrow | default: 'instagram.eyebrow' | t }}</p>
+      <a class="insta-link" href="{{ ig_url }}" target="_blank" rel="noopener">
+        {% render 'icon', icon: 'instagram', size: 28 %}
+        <h2>{{ handle }}</h2>
+      </a>
+      <div class="insta-sub">{{ section.settings.subtitle | default: 'instagram.subtitle' | t }}</div>
+    </div>
+
+    <div class="insta-grid">
+      {%- for i in (1..4) -%}
+        {%- assign img_key = 'image_' | append: i -%}
+        {%- assign img = section.settings[img_key] -%}
+        <a class="insta-cell" href="{{ ig_url }}" target="_blank" rel="noopener" aria-label="Instagram">
+          {%- if img != blank -%}
+            <img src="{{ img | image_url: width: 500 }}" alt="" width="500" height="500" loading="lazy">
+          {%- endif -%}
+          <span class="insta-cell__ov">{% render 'icon', icon: 'instagram', size: 26 %}</span>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Instagram strip",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "handle", "label": "Instagram handle", "default": "@clowskincare_" },
+    { "type": "url", "id": "instagram_url", "label": "Instagram URL" },
+    { "type": "text", "id": "subtitle", "label": "Subtitle" },
+    { "type": "image_picker", "id": "image_1", "label": "Image 1" },
+    { "type": "image_picker", "id": "image_2", "label": "Image 2" },
+    { "type": "image_picker", "id": "image_3", "label": "Image 3" },
+    { "type": "image_picker", "id": "image_4", "label": "Image 4" }
+  ],
+  "presets": [{ "name": "Instagram strip" }]
+}
+{% endschema %}

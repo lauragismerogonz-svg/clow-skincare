@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-account",
+      "settings": {
+        "welcome_code": "BIENVENUE15"
+      }
+    }
+  },
+  "order": ["main"]
+}
