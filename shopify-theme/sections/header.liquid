@@ -69,11 +69,11 @@
         </div>
 
         <div class="nav-item">
-          <a class="nav-link nav-link--cta" href="{{ section.settings.url_quiz | default: routes.root_url | append: 'pages/quiz' }}">{{ 'header.nav.quiz' | t }}</a>
+          <a class="nav-link nav-link--cta" href="{{ section.settings.url_quiz | default: '/pages/quiz-skincare' }}">{{ 'header.nav.quiz' | t }}</a>
         </div>
 
         <div class="nav-item">
-          <a class="nav-link" href="{{ section.settings.url_gift | default: routes.root_url | append: 'products/carte-cadeau' }}">{{ 'header.nav.gift' | t }}</a>
+          <a class="nav-link" href="{{ section.settings.url_gift | default: '/products/carte-cadeau' }}">{{ 'header.nav.gift' | t }}</a>
         </div>
       </nav>
 
@@ -98,8 +98,8 @@
   </div>
   <div class="mobile-nav__body">
     <a class="mobile-nav__link" href="{{ section.settings.url_best_sellers | default: routes.all_products_collection_url }}">{{ 'header.nav.best_sellers' | t }}</a>
-    <a class="mobile-nav__link" href="{{ section.settings.url_quiz | default: routes.root_url | append: 'pages/quiz' }}">{{ 'header.nav.quiz' | t }}</a>
-    <a class="mobile-nav__link" href="{{ section.settings.url_gift | default: routes.root_url | append: 'products/carte-cadeau' }}">{{ 'header.nav.gift' | t }}</a>
+    <a class="mobile-nav__link" href="{{ section.settings.url_quiz | default: '/pages/quiz-skincare' }}">{{ 'header.nav.quiz' | t }}</a>
+    <a class="mobile-nav__link" href="{{ section.settings.url_gift | default: '/products/carte-cadeau' }}">{{ 'header.nav.gift' | t }}</a>
 
     <div class="mobile-nav__group">{{ 'header.nav.routine' | t }}</div>
     <a class="mobile-nav__sub" href="{{ section.settings.url_hydra | default: routes.collections_url }}"><span class="routine-dot dot-hydra"></span>{{ 'header.routines.hydra' | t }}</a>
