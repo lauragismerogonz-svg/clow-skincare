@@ -1,0 +1,32 @@
+<section class="section">
+  <div class="page-width">
+    <div class="section-head section-head--center">
+      <p class="eyebrow">{{ 'home.routines_eyebrow' | t }}</p>
+      <h1 class="section-head__title">{{ 'home.routines_h' | t }}</h1>
+    </div>
+
+    <div class="collections-grid">
+      {%- for collection in collections -%}
+        {%- unless collection.handle == 'frontpage' -%}
+          <a class="collection-tile" href="{{ collection.url }}">
+            {%- if collection.image -%}
+              <div class="collection-tile__img">
+                <img src="{{ collection.image | image_url: width: 600 }}" alt="{{ collection.title | escape }}" width="600" height="400" loading="lazy">
+              </div>
+            {%- else -%}
+              <div class="collection-tile__placeholder bg-glass"></div>
+            {%- endif -%}
+            <div class="collection-tile__foot">
+              <span class="collection-tile__name">{{ collection.title }}</span>
+              <span class="collection-tile__count">{{ collection.products_count }} {{ 'collection.showing' | t }}</span>
+            </div>
+          </a>
+        {%- endunless -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Collections list" }
+{% endschema %}

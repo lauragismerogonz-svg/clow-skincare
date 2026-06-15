@@ -969,3 +969,25 @@ input, textarea, select { font-family: inherit; }
   .footer-grid { grid-template-columns: 1fr; }
   .insta-grid { grid-template-columns: 1fr 1fr; }
 }
+
+/* ── Collections list page ───────────────────────── */
+.collections-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+.collection-tile {
+  display: block;
+  text-decoration: none;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--almond);
+  transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
+}
+.collection-tile:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,.08); }
+.collection-tile__img img { width: 100%; height: 200px; object-fit: cover; display: block; }
+.collection-tile__placeholder { width: 100%; height: 200px; background: var(--sand); }
+.collection-tile__foot { padding: 1rem 1.25rem; }
+.collection-tile__name { display: block; font-weight: 600; color: var(--espresso); font-size: .95rem; }
+.collection-tile__count { display: block; font-size: .8rem; color: var(--latte); margin-top: .2rem; }

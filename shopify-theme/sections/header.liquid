@@ -25,7 +25,7 @@
         </div>
 
         <div class="nav-item">
-          <a class="nav-link" href="{{ section.settings.url_hydra | default: routes.collections_url }}">
+          <a class="nav-link" href="{{ section.settings.url_routines | default: routes.collections_url }}">
             {{ 'header.nav.routine' | t }} {% render 'icon', icon: 'chevron-down', size: 14 %}<span class="chev"></span>
           </a>
           <div class="nav-dropdown">
@@ -132,6 +132,7 @@
     { "type": "text", "id": "announcement_text", "label": "Announcement text", "info": "Leave blank to use the translated default." },
     { "type": "header", "content": "Main links" },
     { "type": "url", "id": "url_best_sellers", "label": "Best Sellers link" },
+    { "type": "url", "id": "url_routines", "label": "Routines overview page link" },
     { "type": "url", "id": "url_quiz", "label": "Quiz page link" },
     { "type": "url", "id": "url_gift", "label": "Gift card link" },
     { "type": "header", "content": "Routine links" },
