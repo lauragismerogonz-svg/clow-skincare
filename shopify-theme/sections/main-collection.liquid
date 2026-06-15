@@ -2,8 +2,9 @@
   assign routines = 'hydra,imp,age,glass,sens' | split: ','
   assign routine_tags = 'r-hydra,r-imp,r-age,r-glass,r-sens' | split: ','
   assign cat_keys = 'cleansers,toners,serums,creams,spf,masks,lips,hair,base' | split: ','
-  paginate collection.products by section.settings.products_per_page
 -%}
+
+{%- paginate collection.products by section.settings.products_per_page -%}
 <section class="collection">
   <div class="collection__header">
     <p class="eyebrow">{{ collection.metafields.clow.eyebrow | default: 'Clow Skincare' }}</p>
