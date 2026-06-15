@@ -17,8 +17,17 @@
   var qsa = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
 
   function formatMoney(cents) {
-    var amount = (cents / 100).toFixed(2).replace('.', ',');
-    return MONEY_FORMAT.replace(/\{\{\s*amount\s*\}\}/, amount);
+    var amount = cents / 100;
+    var fmt = MONEY_FORMAT;
+    var str;
+    if (fmt.indexOf('no_decimals') !== -1) {
+      str = Math.round(amount).toString();
+    } else if (fmt.indexOf('comma_separator') !== -1) {
+      str = amount.toFixed(2).replace('.', ',');
+    } else {
+      str = amount.toFixed(2);
+    }
+    return fmt.replace(/\{\{[^}]+\}\}/, str);
   }
 
   /* ============================================================
