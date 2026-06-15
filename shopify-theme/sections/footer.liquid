@@ -25,28 +25,28 @@
         <a href="{{ section.settings.url_best_sellers | default: routes.all_products_collection_url }}">{{ 'footer.links.best_sellers' | t }}</a>
         <a href="{{ section.settings.url_routines | default: routes.collections_url }}">{{ 'footer.links.routine' | t }}</a>
         <a href="{{ section.settings.url_products | default: routes.all_products_collection_url }}">{{ 'footer.links.products' | t }}</a>
-        <a href="{{ section.settings.url_quiz | default: routes.root_url | append: 'pages/quiz' }}">{{ 'footer.links.quiz' | t }}</a>
-        <a href="{{ section.settings.url_gift | default: routes.root_url | append: 'products/carte-cadeau' }}">{{ 'footer.links.gift' | t }}</a>
+        <a href="{{ section.settings.url_quiz | default: '/pages/quiz' }}">{{ 'footer.links.quiz' | t }}</a>
+        <a href="{{ section.settings.url_gift | default: '/products/carte-cadeau' }}">{{ 'footer.links.gift' | t }}</a>
       </div>
     </div>
 
     <div>
       <div class="footer-col__title">{{ 'footer.col_help' | t }}</div>
       <div class="footer-col__links">
-        <a href="{{ section.settings.url_help_steps | default: routes.root_url | append: 'pages/routine-coreenne' }}">{{ 'footer.links.help_steps' | t }}</a>
-        <a href="{{ section.settings.url_help_glass | default: routes.root_url | append: 'pages/glass-skin' }}">{{ 'footer.links.help_glass' | t }}</a>
-        <a href="{{ section.settings.url_quiz | default: routes.root_url | append: 'pages/quiz' }}">{{ 'footer.links.help_type' | t }}</a>
-        <a href="{{ section.settings.url_contact | default: routes.root_url | append: 'pages/contact' }}">{{ 'footer.links.contact' | t }}</a>
+        <a href="{{ section.settings.url_help_steps | default: '/pages/routine-coreenne' }}">{{ 'footer.links.help_steps' | t }}</a>
+        <a href="{{ section.settings.url_help_glass | default: '/pages/glass-skin' }}">{{ 'footer.links.help_glass' | t }}</a>
+        <a href="{{ section.settings.url_quiz | default: '/pages/quiz' }}">{{ 'footer.links.help_type' | t }}</a>
+        <a href="{{ section.settings.url_contact | default: '/pages/contact' }}">{{ 'footer.links.contact' | t }}</a>
       </div>
     </div>
 
     <div>
       <div class="footer-col__title">{{ 'footer.col_about' | t }}</div>
       <div class="footer-col__links">
-        <a href="{{ section.settings.url_about | default: routes.root_url | append: 'pages/a-propos' }}">{{ 'footer.links.selection' | t }}</a>
-        <a href="{{ section.settings.url_terms | default: routes.root_url | append: 'policies/terms-of-service' }}">{{ 'footer.links.terms' | t }}</a>
-        <a href="{{ section.settings.url_shipping | default: routes.root_url | append: 'policies/shipping-policy' }}">{{ 'footer.links.shipping' | t }}</a>
-        <a href="{{ section.settings.url_legal | default: routes.root_url | append: 'policies/legal-notice' }}">{{ 'footer.links.legal' | t }}</a>
+        <a href="{{ section.settings.url_about | default: '/pages/a-propos' }}">{{ 'footer.links.selection' | t }}</a>
+        <a href="{{ section.settings.url_terms | default: '/policies/terms-of-service' }}">{{ 'footer.links.terms' | t }}</a>
+        <a href="{{ section.settings.url_shipping | default: '/policies/shipping-policy' }}">{{ 'footer.links.shipping' | t }}</a>
+        <a href="{{ section.settings.url_legal | default: '/policies/legal-notice' }}">{{ 'footer.links.legal' | t }}</a>
       </div>
     </div>
   </div>
