@@ -43,7 +43,6 @@
     <div>
       <div class="footer-col__title">{{ 'footer.col_about' | t }}</div>
       <div class="footer-col__links">
-        <a href="{{ section.settings.url_about | default: '/collections' }}">{{ 'footer.links.selection' | t }}</a>
         <a href="{{ section.settings.url_terms | default: '/policies/terms-of-service' }}">{{ 'footer.links.terms' | t }}</a>
         <a href="{{ section.settings.url_shipping | default: '/policies/shipping-policy' }}">{{ 'footer.links.shipping' | t }}</a>
         <a href="{{ section.settings.url_legal | default: '/policies/legal-notice' }}">{{ 'footer.links.legal' | t }}</a>
@@ -74,7 +73,6 @@
     { "type": "url", "id": "url_help_glass", "label": "Glass skin page" },
     { "type": "url", "id": "url_contact", "label": "Contact page" },
     { "type": "header", "content": "About column" },
-    { "type": "url", "id": "url_about", "label": "About page" },
     { "type": "url", "id": "url_terms", "label": "Terms of service" },
     { "type": "url", "id": "url_shipping", "label": "Shipping & returns" },
     { "type": "url", "id": "url_legal", "label": "Legal / Mentions légales" }
