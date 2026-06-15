@@ -17,13 +17,30 @@
     {
       {%- for r in rids -%}
         {%- assign rcol = collections[routine_handles[forloop.index0]] -%}
+        {%- case r -%}
+          {%- when 'hydra' -%}
+            {%- assign r_url = section.settings.url_hydra | default: rcol.url | default: routes.collections_url -%}
+            {%- assign r_pack_url = section.settings.url_pack_hydra | default: r_url -%}
+          {%- when 'imp' -%}
+            {%- assign r_url = section.settings.url_imp | default: rcol.url | default: routes.collections_url -%}
+            {%- assign r_pack_url = section.settings.url_pack_imp | default: r_url -%}
+          {%- when 'age' -%}
+            {%- assign r_url = section.settings.url_age | default: rcol.url | default: routes.collections_url -%}
+            {%- assign r_pack_url = section.settings.url_pack_age | default: r_url -%}
+          {%- when 'glass' -%}
+            {%- assign r_url = section.settings.url_glass | default: rcol.url | default: routes.collections_url -%}
+            {%- assign r_pack_url = section.settings.url_pack_glass | default: r_url -%}
+          {%- when 'sens' -%}
+            {%- assign r_url = section.settings.url_sens | default: rcol.url | default: routes.collections_url -%}
+            {%- assign r_pack_url = section.settings.url_pack_sens | default: r_url -%}
+        {%- endcase -%}
         "{{ r }}": {
           "name": {{ 'header.routines.' | append: r | t | json }},
           "sub": {{ rcol.description | default: '' | strip_html | truncatewords: 14 | json }},
           "color": "var(--c-{% if r == 'sens' %}sensitive{% elsif r == 'imp' %}pores{% else %}{{ r }}{% endif %})",
           "tint": "var(--c-{% if r == 'sens' %}sens{% elsif r == 'imp' %}pores{% else %}{{ r }}{% endif %}-tint)",
-          "url": {{ rcol.url | default: routes.collections_url | json }},
-          "packUrl": {{ all_products[pack_handles[forloop.index0]].url | default: collections[routine_handles[forloop.index0]].url | json }}
+          "url": {{ r_url | json }},
+          "packUrl": {{ r_pack_url | json }}
         }{%- unless forloop.last -%},{%- endunless -%}
       {%- endfor -%}
     }
@@ -128,8 +145,21 @@
 {
   "name": "Quiz",
   "settings": [
-    { "type": "text", "id": "routine_handles", "label": "Routine collection handles (comma-separated)", "default": "routines-hydratation,routines-anti-imperfections,routines-anti-age,routines-glass-skin,routines-peau-sensible" },
-    { "type": "text", "id": "pack_handles", "label": "Pack product handles (comma-separated)", "default": "pack-hydratation,pack-anti-imperfections,pack-anti-age,pack-glass-skin,pack-peau-sensible" }
+    { "type": "header", "content": "URLs des routines (résultats du quiz)" },
+    { "type": "url", "id": "url_hydra", "label": "URL collection Hydratation" },
+    { "type": "url", "id": "url_imp", "label": "URL collection Anti-Imperfections" },
+    { "type": "url", "id": "url_age", "label": "URL collection Anti-Age" },
+    { "type": "url", "id": "url_glass", "label": "URL collection Glass Skin" },
+    { "type": "url", "id": "url_sens", "label": "URL collection Peau Sensible" },
+    { "type": "header", "content": "URLs des packs (bouton Voir le pack)" },
+    { "type": "url", "id": "url_pack_hydra", "label": "URL pack Hydratation" },
+    { "type": "url", "id": "url_pack_imp", "label": "URL pack Anti-Imperfections" },
+    { "type": "url", "id": "url_pack_age", "label": "URL pack Anti-Age" },
+    { "type": "url", "id": "url_pack_glass", "label": "URL pack Glass Skin" },
+    { "type": "url", "id": "url_pack_sens", "label": "URL pack Peau Sensible" },
+    { "type": "header", "content": "Avancé — affichage produits dans le résultat" },
+    { "type": "text", "id": "routine_handles", "label": "Handles des collections routines (séparés par virgule)", "default": "routines-hydratation,routines-anti-imperfections,routines-anti-age,routines-glass-skin,routines-peau-sensible" },
+    { "type": "text", "id": "pack_handles", "label": "Handles des produits packs (séparés par virgule)", "default": "pack-hydratation,pack-anti-imperfections,pack-anti-age,pack-glass-skin,pack-peau-sensible" }
   ]
 }
 {% endschema %}
