@@ -32,7 +32,7 @@
       </div>
       <div class="hero-ed__media">
         {%- if section.settings.image != blank -%}
-          <img src="{{ section.settings.image | image_url: width: 1000 }}" alt="{{ section.settings.image.alt | escape }}" width="1000" height="1200" loading="eager">
+          <img src="{{ section.settings.image | image_url: width: 1000 }}" alt="{{ section.settings.image.alt | escape }}" width="1000" height="1200" loading="eager" fetchpriority="high">
         {%- endif -%}
         <div class="hero-ed__media-grad"></div>
         <div class="hero-ed__caption">

@@ -16,7 +16,7 @@
     <div class="hero__media">
       <div class="hero__img">
         {%- if section.settings.image != blank -%}
-          <img src="{{ section.settings.image | image_url: width: 900 }}" alt="{{ section.settings.image.alt | escape }}" width="900" height="900" loading="eager">
+          <img src="{{ section.settings.image | image_url: width: 900 }}" alt="{{ section.settings.image.alt | escape }}" width="900" height="900" loading="eager" fetchpriority="high">
         {%- endif -%}
       </div>
       <div class="hero__badge">

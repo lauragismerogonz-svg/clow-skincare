@@ -3,7 +3,7 @@
    Warm, editorial K-beauty system.
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Hanken+Grotesk:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap');
+
 
 @font-face {
   font-family: 'Geist Mono';
@@ -74,8 +74,8 @@
 
   /* ---------- TYPE FAMILIES ---------- */
   --font-display: 'Cormorant Garamond', 'Times New Roman', serif;
-  --font-sans:    'Hanken Grotesk', 'Noto Sans KR', system-ui, -apple-system, sans-serif;
-  --font-ko:      'Noto Sans KR', 'Hanken Grotesk', sans-serif;
+  --font-sans:    'Hanken Grotesk', system-ui, -apple-system, sans-serif;
+  --font-ko:      system-ui, -apple-system, sans-serif;
   --font-mono:    'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 
   /* ---------- FLUID TYPE SCALE ---------- */
