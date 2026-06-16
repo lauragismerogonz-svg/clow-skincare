@@ -491,7 +491,7 @@
         if (packBtn && r.packUrl) packBtn.href = r.packUrl;
         var recoWrap = qs('[data-result-recos]', resultScreen);
         qsa('[data-reco]', resultScreen).forEach(function (el) {
-          el.hidden = el.getAttribute('data-reco') !== winId;
+          el.style.display = el.getAttribute('data-reco') === winId ? 'contents' : 'none';
         });
       }
       window.scrollTo({ top: 0, behavior: 'smooth' });

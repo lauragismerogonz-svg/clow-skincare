@@ -114,7 +114,7 @@
               {%- when 'glass' -%}{%- assign rcol = collections[glass_handle] -%}
               {%- when 'sens' -%}{%- assign rcol = collections[sens_handle] -%}
             {%- endcase -%}
-            <div data-reco="{{ r }}" {% unless forloop.first %}hidden{% endunless %} style="display:contents">
+            <div data-reco="{{ r }}" style="display:{% unless forloop.first %}none{% else %}contents{% endunless %}">
               {%- for product in rcol.products limit: 5 -%}
                 {% render 'product-card', product: product %}
               {%- endfor -%}
