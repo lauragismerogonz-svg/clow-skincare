@@ -526,9 +526,30 @@
     var emailForm = qs('[data-quiz-email]', quiz);
     if (emailForm) emailForm.addEventListener('submit', function (e) {
       e.preventDefault();
+      var input = emailForm.querySelector('input[type="email"]');
       var btn = qs('[type="submit"]', emailForm);
       var label = btn ? qs('[data-btn-label]', btn) : null;
-      if (label) label.textContent = STR.quizEmailSent || 'Sent';
+      var email = input ? input.value.trim() : '';
+      if (!email) return;
+
+      var routineEl = qs('[data-result-name]', resultScreen);
+      var routineName = routineEl ? routineEl.textContent.trim() : '';
+
+      if (btn) btn.disabled = true;
+
+      var params = new URLSearchParams();
+      params.append('form_type', 'customer');
+      params.append('utf8', '✓');
+      params.append('contact[email]', email);
+      if (routineName) params.append('contact[body]', 'Quiz result: ' + routineName);
+
+      fetch('/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: params.toString()
+      }).finally(function () {
+        if (label) label.textContent = STR.quizEmailSent || 'Sent ✓';
+      });
     });
 
     show(0);
