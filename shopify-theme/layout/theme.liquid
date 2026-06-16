@@ -16,6 +16,40 @@
     <meta name="description" content="{{ page_description | escape }}">
   {%- endif -%}
 
+  {%- liquid
+    if request.page_type == 'product'
+      assign og_type = 'product'
+      assign og_title = product.title | escape
+      assign og_desc = product.description | strip_html | truncatewords: 30 | escape
+      assign og_image = product.featured_image | image_url: width: 1200
+    elsif request.page_type == 'collection'
+      assign og_type = 'website'
+      assign og_title = collection.title | escape
+      assign og_desc = collection.description | strip_html | truncatewords: 30 | escape
+      assign og_image = collection.image | image_url: width: 1200
+    elsif request.page_type == 'article'
+      assign og_type = 'article'
+      assign og_title = article.title | escape
+      assign og_desc = article.excerpt_or_content | strip_html | truncatewords: 30 | escape
+      assign og_image = article.image | image_url: width: 1200
+    else
+      assign og_type = 'website'
+      assign og_title = page_title | escape
+      assign og_desc = page_description | escape
+      assign og_image = settings.og_image | image_url: width: 1200
+    endif
+  -%}
+  <meta property="og:site_name" content="{{ shop.name }}">
+  <meta property="og:type" content="{{ og_type }}">
+  <meta property="og:title" content="{{ og_title | default: page_title | escape }}">
+  <meta property="og:url" content="{{ canonical_url }}">
+  {%- if og_desc != blank -%}<meta property="og:description" content="{{ og_desc }}">{%- endif -%}
+  {%- if og_image != blank -%}<meta property="og:image" content="https:{{ og_image }}">{%- endif -%}
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ og_title | default: page_title | escape }}">
+  {%- if og_desc != blank -%}<meta name="twitter:description" content="{{ og_desc }}">{%- endif -%}
+  {%- if og_image != blank -%}<meta name="twitter:image" content="https:{{ og_image }}">{%- endif -%}
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
