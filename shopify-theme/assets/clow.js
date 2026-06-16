@@ -484,13 +484,11 @@
         var nameEl = qs('[data-result-name]', resultScreen);
         if (nameEl) nameEl.textContent = (STR.quizRoutineLine || 'Routine') + ' ' + decodeEnt(r.name || '');
         var subEl = qs('[data-result-sub]', resultScreen);
-        if (subEl && r.sub) subEl.textContent = decodeEnt(r.sub) + '. ' + (STR.quizResultSub || '');
+        if (subEl && r.sub) subEl.textContent = decodeEnt(r.sub) + '. ' + decodeEnt(STR.quizResultSub || '');
         var dot = qs('[data-result-dot]', resultScreen);
         if (dot && r.color) dot.style.background = r.color;
         var packBtn = qs('[data-result-pack]', resultScreen);
         if (packBtn && r.packUrl) packBtn.href = r.packUrl;
-        var routineBtn = qs('[data-result-routine]', resultScreen);
-        if (routineBtn && r.url) routineBtn.href = r.url;
         var recoWrap = qs('[data-result-recos]', resultScreen);
         qsa('[data-reco]', resultScreen).forEach(function (el) {
           el.hidden = el.getAttribute('data-reco') !== winId;
