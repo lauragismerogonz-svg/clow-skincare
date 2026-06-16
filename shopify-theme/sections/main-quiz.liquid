@@ -8,11 +8,11 @@
   assign q5 = 'quiz.q5_a:imp,quiz.q5_b:glass,quiz.q5_c:hydra,quiz.q5_d:sens' | split: ','
   assign q6 = 'quiz.q6_a:hydra,quiz.q6_b:imp,quiz.q6_c:age,quiz.q6_d:sens' | split: ','
 
-  assign hydra_handle = section.settings.url_hydra | split: '/collections/' | last | split: '/' | first
-  assign imp_handle   = section.settings.url_imp   | split: '/collections/' | last | split: '/' | first
-  assign age_handle   = section.settings.url_age   | split: '/collections/' | last | split: '/' | first
-  assign glass_handle = section.settings.url_glass | split: '/collections/' | last | split: '/' | first
-  assign sens_handle  = section.settings.url_sens  | split: '/collections/' | last | split: '/' | first
+  assign hydra_handle = section.settings.url_hydra | split: '/collections/' | last | split: '/' | first | default: 'hydratation-intense'
+  assign imp_handle   = section.settings.url_imp   | split: '/collections/' | last | split: '/' | first | default: 'routine-anti-imperfections-pores'
+  assign age_handle   = section.settings.url_age   | split: '/collections/' | last | split: '/' | first | default: 'anti-aging'
+  assign glass_handle = section.settings.url_glass | split: '/collections/' | last | split: '/' | first | default: 'glass-skin-routine'
+  assign sens_handle  = section.settings.url_sens  | split: '/collections/' | last | split: '/' | first | default: 'routine-peau-sensible'
 -%}
 
 <section class="quiz">
