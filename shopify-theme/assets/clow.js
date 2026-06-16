@@ -441,6 +441,10 @@
     var quiz = qs('[data-quiz]');
     if (!quiz) return;
 
+    function decodeEnt(s) {
+      return s ? s.replace(/&amp;/g, '&').replace(/&#39;/g, "'").replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>') : s;
+    }
+
     var QUESTIONS = qsa('[data-quiz-step]', quiz);
     var total = QUESTIONS.length;
     var resultScreen = qs('[data-quiz-result]', quiz);
@@ -478,9 +482,9 @@
       if (resultScreen) {
         resultScreen.hidden = false;
         var nameEl = qs('[data-result-name]', resultScreen);
-        if (nameEl) nameEl.textContent = (STR.quizRoutineLine || 'Routine') + ' ' + (r.name || '');
+        if (nameEl) nameEl.textContent = (STR.quizRoutineLine || 'Routine') + ' ' + decodeEnt(r.name || '');
         var subEl = qs('[data-result-sub]', resultScreen);
-        if (subEl && r.sub) subEl.textContent = r.sub + '. ' + (STR.quizResultSub || '');
+        if (subEl && r.sub) subEl.textContent = decodeEnt(r.sub) + '. ' + (STR.quizResultSub || '');
         var dot = qs('[data-result-dot]', resultScreen);
         if (dot && r.color) dot.style.background = r.color;
         var packBtn = qs('[data-result-pack]', resultScreen);
@@ -537,19 +541,26 @@
 
       if (btn) btn.disabled = true;
 
-      var params = new URLSearchParams();
-      params.append('form_type', 'customer');
-      params.append('utf8', '✓');
-      params.append('contact[email]', email);
-      if (routineName) params.append('contact[body]', 'Quiz result: ' + routineName);
-
-      fetch('/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: params.toString()
-      }).finally(function () {
+      function done() {
         if (label) label.textContent = STR.quizEmailSent || 'Sent ✓';
-      });
+      }
+
+      if (window._learnq) {
+        _learnq.push(['identify', { '$email': email }]);
+        _learnq.push(['track', 'Quiz Completed', { 'Routine': routineName, '$email': email }]);
+        done();
+      } else {
+        var params = new URLSearchParams();
+        params.append('form_type', 'customer');
+        params.append('utf8', '✓');
+        params.append('contact[email]', email);
+        if (routineName) params.append('contact[body]', 'Quiz result: ' + routineName);
+        fetch('/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: params.toString()
+        }).finally(done);
+      }
     });
 
     show(0);
