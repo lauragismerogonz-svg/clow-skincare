@@ -762,6 +762,54 @@ input, textarea, select { font-family: inherit; }
 .quiz-ctas__btns { display: flex; gap: 12px; flex-wrap: wrap; }
 
 /* ============================================================
+   DIAGNOSTIC QUIZ — native personalized recommender
+   ============================================================ */
+.qd-hint { color: var(--mocha); font-size: 14.5px; margin: -16px 0 22px; line-height: 1.6; }
+.qd-cta  { text-align: center; margin-top: 28px; }
+.qd-input {
+  width: 100%; padding: 14px 16px; border-radius: var(--r-md);
+  border: 1.5px solid var(--border-strong); background: var(--surface);
+  font-family: var(--font-sans); font-size: 16px; color: var(--fg-1);
+  box-sizing: border-box; outline: none; transition: border-color .2s;
+  margin-top: 8px;
+}
+.qd-input:focus { border-color: var(--espresso); }
+.qd-input[type="number"] { -moz-appearance: textfield; }
+.qd-input[type="number"]::-webkit-inner-spin-button,
+.qd-input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
+.qd-yesno { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.qd-yesno .quiz-option { justify-content: center; font-size: 15px; font-weight: 600; }
+.quiz-option.is-selected { background: rgba(251,127,80,.10); border-color: #fb7f50; }
+.quiz-option.is-selected .quiz-option__arrow { opacity: 1; color: #fb7f50; }
+
+/* Result layout */
+.qd-result { max-width: 980px; margin: 0 auto; padding: 16px 0 48px; }
+.qd-result__head { text-align: center; margin-bottom: 36px; }
+.qd-result__title { font-family: var(--font-display); font-weight: 500; font-size: clamp(34px, 5vw, 56px); color: var(--espresso-deep); letter-spacing: -.02em; margin: 8px 0 6px; line-height: 1.05; }
+.qd-result__sub   { color: var(--mocha); font-size: 16px; margin: 0; }
+.qd-section { background: var(--surface-2); border-radius: var(--r-lg); border: 1px solid var(--border); padding: 28px; margin-bottom: 20px; }
+.qd-section__title { font-family: var(--font-display); font-size: 20px; font-weight: 500; color: var(--espresso-deep); margin: 0 0 6px; text-align: center; letter-spacing: -.01em; }
+.qd-section__desc  { color: var(--mocha); font-size: 13.5px; text-align: center; margin: 0 0 22px; line-height: 1.5; }
+.qd-prods { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 260px)); gap: 16px; justify-content: center; }
+.qd-prod { background: var(--bg); border-radius: var(--r-md); border: 1px solid var(--border); padding: 16px; display: flex; flex-direction: column; }
+.qd-prod__img-wrap { display: block; aspect-ratio: 1 / 1; border-radius: var(--r-sm); overflow: hidden; margin-bottom: 12px; background: var(--almond); }
+.qd-prod__img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform .35s var(--ease-out); }
+.qd-prod__img-wrap:hover img { transform: scale(1.04); }
+.qd-prod__meta    { display: flex; flex-direction: column; flex: 1; }
+.qd-prod__vendor  { font-size: 10.5px; text-transform: uppercase; letter-spacing: .12em; color: var(--latte); margin-bottom: 3px; }
+.qd-prod__title   { display: block; font-size: 13.5px; font-weight: 600; color: var(--fg-1); margin-bottom: 6px; line-height: 1.35; text-decoration: none; flex: 1; }
+.qd-prod__title:hover { color: var(--espresso); }
+.qd-prod__price   { font-size: 14px; color: var(--mocha); margin-bottom: 14px; }
+.qd-prod__atc     { width: 100%; margin-top: auto; font-size: 13.5px; padding: 11px 14px; }
+.qd-result__actions { display: flex; gap: 12px; justify-content: center; margin-top: 32px; flex-wrap: wrap; }
+
+@media (max-width: 640px) {
+  .qd-prods   { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+  .qd-section { padding: 20px 16px; }
+  .qd-yesno   { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
    ABOUT
    ============================================================ */
 .about { background: var(--bg); }

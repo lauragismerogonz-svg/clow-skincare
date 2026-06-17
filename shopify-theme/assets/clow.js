@@ -612,6 +612,280 @@
   }
 
   /* ============================================================
+     DIAGNOSTIC QUIZ — personalized product recommender
+     ============================================================ */
+  function initDiagQuiz() {
+    var wrap = qs('[data-qd-wrap]');
+    if (!wrap) return;
+
+    var TOTAL = 14;
+    var step = 0;
+    var scores = {};
+    var deltas = [];
+    var routineKey = null;
+    var gommageWanted = null;
+    var levresWanted = null;
+    var userName = '';
+
+    var steps    = qsa('[data-qd-step]', wrap);
+    var counterEl = document.getElementById('qd-counter');
+    var barEl     = document.getElementById('qd-bar');
+    var prevEl    = document.getElementById('qd-prev');
+    var cardEl    = document.getElementById('qd-card');
+    var resultEl  = document.getElementById('qd-result');
+    var nameInput = document.getElementById('qd-name-input');
+    var ageInput  = document.getElementById('qd-age-input');
+    var nameDisp  = document.getElementById('qd-name-disp');
+    var wrapEl    = document.getElementById('qd-wrap');
+
+    var CATALOG = {};
+    try { CATALOG = JSON.parse(document.getElementById('qd-catalog').textContent); } catch (e) {}
+
+    function parseIds(el) {
+      var raw = el.getAttribute('data-qd-ids');
+      if (!raw) return [];
+      return raw.split(',').map(function (s) { return parseInt(s, 10); }).filter(Boolean);
+    }
+
+    function applyDelta(ids) {
+      ids.forEach(function (id) { scores[id] = (scores[id] || 0) + 1; });
+    }
+
+    function undoDelta(ids) {
+      (ids || []).forEach(function (id) { if (scores[id] > 0) scores[id]--; });
+    }
+
+    function updateNav() {
+      steps.forEach(function (s, i) { s.hidden = i !== step; });
+      if (counterEl) counterEl.textContent = (step + 1) + ' / ' + TOTAL;
+      if (barEl) barEl.style.width = (step / (TOTAL - 1) * 100) + '%';
+      if (prevEl) prevEl.hidden = step === 0;
+      if (nameDisp && userName) nameDisp.textContent = userName;
+      var cur = steps[step];
+      if (cur && cur.getAttribute('data-qd-type') === 'multi') {
+        qsa('[data-qd-choice]', cur).forEach(function (b) { b.classList.remove('is-selected'); });
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function advance(ids) {
+      ids = ids || [];
+      deltas[step] = ids;
+      applyDelta(ids);
+      step++;
+      updateNav();
+    }
+
+    function goBack() {
+      if (step === 0) return;
+      undoDelta(deltas[step - 1]);
+      deltas[step - 1] = null;
+      step--;
+      updateNav();
+    }
+
+    function getWinner(slot) {
+      var list = CATALOG[slot] || [];
+      var best = null, bestScore = -1;
+      list.forEach(function (p) {
+        var s = scores[p.id] || 0;
+        if (s > bestScore) { bestScore = s; best = p; }
+      });
+      return best || list[0] || null;
+    }
+
+    function getTopN(slot, n) {
+      var list = (CATALOG[slot] || []).slice().sort(function (a, b) {
+        return (scores[b.id] || 0) - (scores[a.id] || 0);
+      });
+      return list.slice(0, n);
+    }
+
+    function escH(s) {
+      return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function renderProduct(p) {
+      if (!p) return '';
+      var img = p.image
+        ? '<img src="' + p.image + '" alt="' + escH(p.title) + '" loading="lazy" width="300" height="300">'
+        : '<div style="width:100%;height:100%;background:var(--almond)"></div>';
+      return '<div class="qd-prod">' +
+        '<a href="' + escH(p.url) + '" class="qd-prod__img-wrap">' + img + '</a>' +
+        '<div class="qd-prod__meta">' +
+        '<div class="qd-prod__vendor">' + escH(p.vendor) + '</div>' +
+        '<a href="' + escH(p.url) + '" class="qd-prod__title">' + escH(p.title) + '</a>' +
+        '<div class="qd-prod__price">' + formatMoney(p.price) + '</div>' +
+        '</div>' +
+        '<button class="btn qd-prod__atc" type="button" data-qd-atc="' + p.vid + '" data-qd-title="' + escH(p.title) + '">Ajouter au panier</button>' +
+        '</div>';
+    }
+
+    function section(title, desc, prods) {
+      if (!prods || prods.length === 0) return '';
+      var html = '<div class="qd-section"><h3 class="qd-section__title">' + title + '</h3>';
+      if (desc) html += '<p class="qd-section__desc">' + desc + '</p>';
+      html += '<div class="qd-prods">';
+      prods.forEach(function (p) { html += renderProduct(p); });
+      html += '</div></div>';
+      return html;
+    }
+
+    function showResult() {
+      if (cardEl) cardEl.hidden = true;
+      if (wrapEl) wrapEl.classList.add('quiz__wrap--done');
+
+      var html = '<div class="qd-result">';
+      html += '<div class="qd-result__head">';
+      html += '<p class="eyebrow" style="text-align:center;justify-content:center">Ta Routine Personnalisée</p>';
+      html += '<h2 class="qd-result__title">Ta routine' + (userName ? ', ' + escH(userName) : '') + '&thinsp;✨</h2>';
+      html += '<p class="qd-result__sub">Sélectionnée parmi nos soins selon tes réponses</p>';
+      html += '</div>';
+
+      /* — Étape 1 & 2 : Double Nettoyage (toujours) — */
+      html += section('Étape 1 &amp; 2 — Double Nettoyage',
+        'Le démaquillant dissout le maquillage &amp; le solaire. Le nettoyant élimine la sueur &amp; la pollution.',
+        getTopN('demaq', 2));
+
+      /* — Étape 3 : Toner (si pas basique) — */
+      if (routineKey !== 'basique') {
+        var toner = getWinner('toner');
+        if (toner) html += section('Étape 3 — Préparer', 'Le toner rééquilibre le pH de ta peau après le nettoyage.', [toner]);
+      }
+
+      /* — Étape 4 & 5 : Contour + Sérum (si long ou pro) — */
+      if (routineKey === 'long' || routineKey === 'pro') {
+        var eye   = getWinner('eye');
+        var serum = getWinner('serum');
+        var treats = [eye, serum].filter(Boolean);
+        if (treats.length) html += section('Étape 4 &amp; 5 — Traiter', 'Contour des yeux &amp; sérum concentré d\'actifs.', treats);
+      }
+
+      /* — Étape 6 & 7 : Crème + Solaire (toujours) — */
+      var creme = getWinner('creme');
+      var sun   = getWinner('sun');
+      var moist = [creme, sun].filter(Boolean);
+      if (moist.length) html += section('Étape 6 &amp; 7 — Hydrater &amp; Protéger', 'La crème scelle l\'hydratation. Le solaire protège du vieillissement (matin).', moist);
+
+      /* — Soins hebdomadaires (si voulait gommage) — */
+      if (gommageWanted) {
+        html += section('Soins Hebdomadaires', 'À utiliser 1 à 2 fois par semaine pour une peau nette en profondeur.', getTopN('gommage', 2));
+      }
+
+      /* — Lèvres (si pas "Je n\'y prête pas d\'importance") — */
+      if (levresWanted) {
+        var levres = getWinner('levres');
+        if (levres) html += section('La Touche Finale', 'Pour des lèvres douces et nourries.', [levres]);
+      }
+
+      html += '<div class="qd-result__actions">';
+      html += '<button class="btn btn--secondary" type="button" id="qd-retake">Refaire le quiz</button>';
+      html += '</div></div>';
+
+      resultEl.innerHTML = html;
+      resultEl.hidden = false;
+
+      qsa('[data-qd-atc]', resultEl).forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var vid = parseInt(btn.getAttribute('data-qd-atc'), 10);
+          if (!vid) return;
+          btn.disabled = true;
+          addToCart(vid, 1);
+          btn.textContent = 'Ajouté ✓';
+        });
+      });
+
+      var retake = document.getElementById('qd-retake');
+      if (retake) retake.addEventListener('click', function () {
+        step = 0; scores = {}; deltas = [];
+        routineKey = null; gommageWanted = null; levresWanted = null;
+        userName = '';
+        if (nameInput) nameInput.value = '';
+        if (ageInput)  ageInput.value  = '';
+        if (nameDisp)  nameDisp.textContent = '';
+        if (wrapEl) wrapEl.classList.remove('quiz__wrap--done');
+        resultEl.hidden = true;
+        resultEl.innerHTML = '';
+        if (cardEl) cardEl.hidden = false;
+        updateNav();
+      });
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    /* ——— Back button ——— */
+    if (prevEl) prevEl.addEventListener('click', goBack);
+
+    /* ——— Next buttons (info / text / number / multi steps) ——— */
+    qsa('[data-qd-next]', wrap).forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var cur = steps[step];
+        var type = cur ? cur.getAttribute('data-qd-type') : '';
+
+        if (type === 'text') {
+          if (!nameInput) { advance([]); return; }
+          var val = nameInput.value.trim();
+          if (val.length < 2) { nameInput.focus(); return; }
+          userName = val;
+          if (nameDisp) nameDisp.textContent = userName;
+          advance([]);
+        } else if (type === 'number') {
+          if (ageInput) {
+            var age = parseInt(ageInput.value, 10);
+            if (isNaN(age) || age < 10 || age > 100) { ageInput.focus(); return; }
+          }
+          advance([]);
+        } else if (type === 'multi') {
+          var selected = qsa('[data-qd-choice].is-selected', cur);
+          if (selected.length === 0) return;
+          var ids = [];
+          selected.forEach(function (b) { parseIds(b).forEach(function (id) { ids.push(id); }); });
+          advance(ids);
+        } else {
+          advance([]);
+        }
+      });
+    });
+
+    /* ——— Finish button (last info step → result) ——— */
+    qsa('[data-qd-finish]', wrap).forEach(function (btn) {
+      btn.addEventListener('click', showResult);
+    });
+
+    /* ——— Single-select (auto-advance on click) ——— */
+    qsa('[data-qd-type="single"] [data-qd-choice]', wrap).forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var stepEl = btn.closest('[data-qd-step]');
+        var key = stepEl ? stepEl.getAttribute('data-qd-key') : null;
+        var val = btn.getAttribute('data-qd-val') || null;
+        if (key === 'routine' && val) routineKey = val;
+        if (key === 'levres'  && val) levresWanted = (val === 'oui');
+        advance(parseIds(btn));
+      });
+    });
+
+    /* ——— Yes/No (auto-advance on click) ——— */
+    qsa('[data-qd-type="yesno"] [data-qd-choice]', wrap).forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var stepEl = btn.closest('[data-qd-step]');
+        var key = stepEl ? stepEl.getAttribute('data-qd-key') : null;
+        var val = btn.getAttribute('data-qd-val') || null;
+        if (key === 'gommage' && val) gommageWanted = (val === 'oui');
+        advance(parseIds(btn));
+      });
+    });
+
+    /* ——— Multi-select (toggle, needs Suivant button) ——— */
+    qsa('[data-qd-type="multi"] [data-qd-choice]', wrap).forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        btn.classList.toggle('is-selected');
+      });
+    });
+
+    updateNav();
+  }
+
+  /* ============================================================
      BOOT
      ============================================================ */
   function boot() {
@@ -622,6 +896,7 @@
     initPDP();
     initCollectionFilters();
     initQuiz();
+    initDiagQuiz();
     initGiftSplit();
     initCopyButtons();
   }
