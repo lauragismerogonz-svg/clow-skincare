@@ -778,6 +778,23 @@
         if (levres) html += section('La Touche Finale', 'Pour des lèvres douces et nourries.', [levres]);
       }
 
+      /* — Email gate — */
+      var routineLabel = { basique: 'Basique', medium: 'Medium', long: 'Long', pro: 'Pro' }[routineKey] || '';
+      html += '<form class="qd-emailgate" data-qd-email>';
+      html += '<div class="qd-emailgate__inner">';
+      html += '<div class="qd-emailgate__text">';
+      html += '<div class="qd-emailgate__eyebrow">Reçois ta routine</div>';
+      html += '<div class="qd-emailgate__h">Garde ta routine de côté ✉</div>';
+      html += '<div class="qd-emailgate__p">Entre ton email pour recevoir ta sélection personnalisée par mail.</div>';
+      html += '</div>';
+      html += '<div class="qd-emailgate__row">';
+      html += '<input class="qd-emailgate__input" type="email" required placeholder="ton@email.com" name="email">';
+      html += '<button class="btn" type="submit"><span data-qd-email-label>Envoyer</span></button>';
+      html += '</div>';
+      html += '</div>';
+      html += '<p class="qd-emailgate__privacy">Tes données restent chez nous. Pas de spam, promis.</p>';
+      html += '</form>';
+
       html += '<div class="qd-result__actions">';
       html += '<button class="btn btn--secondary" type="button" id="qd-retake">Refaire le quiz</button>';
       html += '</div></div>';
@@ -794,6 +811,44 @@
           btn.textContent = 'Ajouté ✓';
         });
       });
+
+      /* — Email form submission — */
+      var emailForm = qs('[data-qd-email]', resultEl);
+      if (emailForm) {
+        emailForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+          var input = qs('input[type="email"]', emailForm);
+          var submitBtn = qs('[type="submit"]', emailForm);
+          var label = submitBtn ? qs('[data-qd-email-label]', submitBtn) : null;
+          var email = input ? input.value.trim() : '';
+          if (!email) return;
+          if (submitBtn) submitBtn.disabled = true;
+
+          var routineDesc = 'Routine ' + (routineLabel || '') +
+            (gommageWanted ? ' + Gommage/Masque' : '') +
+            (levresWanted  ? ' + Lèvres' : '');
+
+          function done() { if (label) label.textContent = 'Envoyé ✓'; }
+
+          if (window._learnq) {
+            _learnq.push(['identify', { '$email': email, '$first_name': userName }]);
+            _learnq.push(['track', 'Quiz Routine Completed', { 'Routine': routineDesc, '$email': email }]);
+            done();
+          } else {
+            var params = new URLSearchParams();
+            params.append('form_type', 'customer');
+            params.append('utf8', '✓');
+            params.append('contact[email]', email);
+            params.append('contact[name]', userName || '');
+            params.append('contact[body]', 'Routine diagnostique : ' + routineDesc);
+            fetch('/contact', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+              body: params.toString()
+            }).finally(done);
+          }
+        });
+      }
 
       var retake = document.getElementById('qd-retake');
       if (retake) retake.addEventListener('click', function () {

@@ -802,6 +802,20 @@ input, textarea, select { font-family: inherit; }
 .qd-prod__price   { font-size: 14px; color: var(--mocha); margin-bottom: 14px; }
 .qd-prod__atc     { width: 100%; margin-top: auto; font-size: 13.5px; padding: 11px 14px; }
 .qd-result__actions { display: flex; gap: 12px; justify-content: center; margin-top: 32px; flex-wrap: wrap; }
+.qd-emailgate { background: var(--bg-alt); border-radius: var(--r-lg); border: 1px solid var(--border); padding: 24px 28px; margin-top: 20px; }
+.qd-emailgate__inner { display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: center; }
+.qd-emailgate__eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--latte); margin-bottom: 5px; }
+.qd-emailgate__h { font-family: var(--font-display); font-size: 20px; font-weight: 500; color: var(--espresso-deep); margin-bottom: 4px; letter-spacing: -.01em; }
+.qd-emailgate__p { font-size: 13px; color: var(--mocha); line-height: 1.5; }
+.qd-emailgate__row { display: flex; gap: 8px; align-items: center; }
+.qd-emailgate__input { padding: 12px 14px; border-radius: var(--r-md); border: 1px solid var(--border-strong); background: var(--surface-2); font-family: var(--font-sans); font-size: 14px; color: var(--fg-1); min-width: 200px; outline: none; }
+.qd-emailgate__input:focus { border-color: var(--espresso); }
+.qd-emailgate__privacy { font-size: 11.5px; color: var(--latte); margin-top: 12px; margin-bottom: 0; }
+@media (max-width: 640px) {
+  .qd-emailgate__inner { grid-template-columns: 1fr; }
+  .qd-emailgate__row { flex-direction: column; align-items: stretch; }
+  .qd-emailgate__input { min-width: 0; width: 100%; }
+}
 
 @media (max-width: 640px) {
   .qd-prods   { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
