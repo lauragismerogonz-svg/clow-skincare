@@ -78,6 +78,15 @@
       </nav>
 
       <div class="header-actions">
+        {%- if localization.available_languages.size > 1 -%}
+          {%- form 'localization', id: 'lang-form-header' -%}
+            <select class="lang-select" name="locale_code" onchange="this.form.submit()" aria-label="Langue">
+              {%- for lang in localization.available_languages -%}
+                <option value="{{ lang.iso_code }}"{% if lang.iso_code == localization.language.iso_code %} selected{% endif %}>{{ lang.iso_code | upcase }}</option>
+              {%- endfor -%}
+            </select>
+          {%- endform -%}
+        {%- endif -%}
         <a class="header-icon" href="{{ routes.search_url }}" aria-label="{{ 'header.nav.search' | t }}">{% render 'icon', icon: 'search', size: 20 %}</a>
         <a class="header-icon" href="{{ routes.account_url }}" aria-label="{{ 'header.nav.account' | t }}">{% render 'icon', icon: 'user', size: 20 %}</a>
         <button class="header-icon" data-cart-open aria-label="{{ 'header.nav.cart' | t }}">
@@ -118,6 +127,19 @@
     <a class="mobile-nav__sub" href="{{ section.settings.url_lips | default: routes.all_products_collection_url }}">{{ 'header.categories.lips' | t }}</a>
     <a class="mobile-nav__sub" href="{{ section.settings.url_hair | default: routes.all_products_collection_url }}">{{ 'header.categories.hair' | t }}</a>
     <a class="mobile-nav__sub" href="{{ section.settings.url_base | default: routes.all_products_collection_url }}">{{ 'header.categories.base' | t }}</a>
+
+    {%- if localization.available_languages.size > 1 -%}
+      <div class="mobile-nav__group">Langue</div>
+      {%- form 'localization', id: 'lang-form-mobile' -%}
+        <div class="mobile-nav__lang">
+          {%- for lang in localization.available_languages -%}
+            <button type="submit" name="locale_code" value="{{ lang.iso_code }}" class="mobile-nav__lang-btn{% if lang.iso_code == localization.language.iso_code %} is-active{% endif %}">
+              {{ lang.endonym_name | capitalize }}
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endform -%}
+    {%- endif -%}
   </div>
 </aside>
 

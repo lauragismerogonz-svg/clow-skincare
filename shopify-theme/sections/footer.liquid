@@ -52,6 +52,15 @@
 
   <div class="footer-bottom">
     <span>{{ 'footer.legal' | t }}</span>
+    {%- if localization.available_languages.size > 1 -%}
+      {%- form 'localization', id: 'lang-form-footer' -%}
+        <select class="lang-select lang-select--footer" name="locale_code" onchange="this.form.submit()" aria-label="Langue">
+          {%- for lang in localization.available_languages -%}
+            <option value="{{ lang.iso_code }}"{% if lang.iso_code == localization.language.iso_code %} selected{% endif %}>{{ lang.endonym_name | capitalize }}</option>
+          {%- endfor -%}
+        </select>
+      {%- endform -%}
+    {%- endif -%}
     <span>{{ 'footer.pay' | t }}</span>
   </div>
 </footer>
