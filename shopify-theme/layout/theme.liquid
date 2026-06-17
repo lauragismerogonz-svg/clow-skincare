@@ -53,13 +53,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   {%- assign gf_url = 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap' -%}
+  <link rel="preload" as="style" href="{{ gf_url }}">
   <link rel="stylesheet" href="{{ gf_url }}" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="{{ gf_url }}"></noscript>
 
   {{ content_for_header }}
 
-  <link rel="preload" href="{{ 'clow.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="{{ 'clow.css' | asset_url }}"></noscript>
+  {{ 'clow.css' | asset_url | stylesheet_tag }}
 
   <style>
     :root {
