@@ -25,156 +25,156 @@
 
         <!-- 0 : Bienvenue -->
         <div data-qd-step="0" data-qd-type="info">
-          <h2 class="quiz-question">Bienvenue&nbsp;!</h2>
-          <p class="qd-hint">Tu souhaites en découvrir davantage sur ta peau et ses besoins ? Par ici</p>
-          <div class="qd-cta"><button class="btn" type="button" data-qd-next>Suivant</button></div>
+          <h2 class="quiz-question">{{ 'quiz.qd.s0_q' | t }}</h2>
+          <p class="qd-hint">{{ 'quiz.qd.s0_hint' | t }}</p>
+          <div class="qd-cta"><button class="btn" type="button" data-qd-next>{{ 'quiz.qd.next' | t }}</button></div>
         </div>
 
         <!-- 1 : Prénom -->
         <div data-qd-step="1" data-qd-type="text" hidden>
-          <h2 class="quiz-question">Avant de commencer, comment t'appelles-tu&nbsp;?</h2>
-          <input class="qd-input" type="text" id="qd-name-input" placeholder="Ton prénom" minlength="2" autocomplete="given-name">
-          <div class="qd-cta"><button class="btn" type="button" data-qd-next>Suivant</button></div>
+          <h2 class="quiz-question">{{ 'quiz.qd.s1_q' | t }}</h2>
+          <input class="qd-input" type="text" id="qd-name-input" placeholder="{{ 'quiz.qd.s1_placeholder' | t }}" minlength="2" autocomplete="given-name">
+          <div class="qd-cta"><button class="btn" type="button" data-qd-next>{{ 'quiz.qd.next' | t }}</button></div>
         </div>
 
         <!-- 2 : Âge -->
         <div data-qd-step="2" data-qd-type="number" hidden>
-          <h2 class="quiz-question">Enchanté·e <span id="qd-name-disp"></span>, quel âge as-tu&nbsp;?</h2>
-          <input class="qd-input" type="number" id="qd-age-input" placeholder="Ton âge" min="10" max="100">
-          <div class="qd-cta"><button class="btn" type="button" data-qd-next>Suivant</button></div>
+          <h2 class="quiz-question">{{ 'quiz.qd.s2_q_a' | t }} <span id="qd-name-disp"></span>{{ 'quiz.qd.s2_q_b' | t }}</h2>
+          <input class="qd-input" type="number" id="qd-age-input" placeholder="{{ 'quiz.qd.s2_placeholder' | t }}" min="10" max="100">
+          <div class="qd-cta"><button class="btn" type="button" data-qd-next>{{ 'quiz.qd.next' | t }}</button></div>
         </div>
 
-        <!-- 3 : Genre (pas de scoring) -->
+        <!-- 3 : Genre -->
         <div data-qd-step="3" data-qd-type="single" hidden>
-          <h2 class="quiz-question">Tu es&nbsp;:</h2>
+          <h2 class="quiz-question">{{ 'quiz.qd.s3_q' | t }}</h2>
           <div class="quiz-options">
-            <button class="quiz-option" type="button" data-qd-choice>Un homme <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
-            <button class="quiz-option" type="button" data-qd-choice>Une femme <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
-            <button class="quiz-option" type="button" data-qd-choice>Je préfère ne pas me prononcer <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
+            <button class="quiz-option" type="button" data-qd-choice>{{ 'quiz.qd.s3_a1' | t }} <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
+            <button class="quiz-option" type="button" data-qd-choice>{{ 'quiz.qd.s3_a2' | t }} <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
+            <button class="quiz-option" type="button" data-qd-choice>{{ 'quiz.qd.s3_a3' | t }} <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
           </div>
         </div>
 
-        <!-- 4 : Ressenti peau (multi, scoring) -->
+        <!-- 4 : Ressenti peau -->
         <div data-qd-step="4" data-qd-type="multi" hidden>
-          <h2 class="quiz-question">Comment ressens-tu ta peau&nbsp;?</h2>
-          <p class="qd-hint">Plusieurs choix possibles</p>
+          <h2 class="quiz-question">{{ 'quiz.qd.s4_q' | t }}</h2>
+          <p class="qd-hint">{{ 'quiz.qd.multi_hint' | t }}</p>
           <div class="quiz-options">
-            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10327039312138,10327045832970,10329423610122,10325649719562,10325648867594,10329419055370,10325651194122,10326702850314,10326953754890,10326953623818,10323778797834,10325662662922,10442990616842,10326669263114">Elle tiraille <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
-            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10344959344906,10327701946634,10327042654474,10329429606666,10326953623818,10326953754890,10326731882762,10323778797834,10325662662922,10326669263114">Elle pèle / peau de serpent <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
-            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10331243413770,10329333465354,10329315574026,10327033413898,10325364867338,10325641724170,10325648867594,10325655650570,10325657190666,10326702850314">Elle brille sur ma zone T (front, nez, menton) <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
-            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10327033413898,10329333465354,10329315574026,10331243413770,10325624750346,10325618524426,10325364867338,10325655650570,10325657190666,10443009720586,10326702850314">Elle brille sur tout mon visage <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
-            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10331246493962,10331266351370,10325657190666,10331455586570,10327042654474,10331243413770,10325364867338,10325648867594,10323778797834,10443009720586,10326702850314">J'ai de l'acné <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
-            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10331246493962,10331266351370,10331243413770,10329315574026,10329333465354,10325364867338,10325618524426,10325655650570,10325355954442,10382781972746,10382781055242,10443009720586,10326702850314">J'ai des boutons / points noirs <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
-            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10331455586570,10327042654474,10323778797834,10327033413898,10327701946634,10326731882762,10325657190666,10326953623818,10384923885834,10443016208650,10326669263114">Elle rougit <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
-            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10344959344906,10327039312138,10329419055370,10331318616330,10331325268234,10331475804426,10327742611722,10326953754890,10326924099850,10326648258826,10325350547722,10326669263114,10384938631434,10326702850314">Bien, aucun inconfort <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
+            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10327039312138,10327045832970,10329423610122,10325649719562,10325648867594,10329419055370,10325651194122,10326702850314,10326953754890,10326953623818,10323778797834,10325662662922,10442990616842,10326669263114">{{ 'quiz.qd.s4_a1' | t }} <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
+            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10344959344906,10327701946634,10327042654474,10329429606666,10326953623818,10326953754890,10326731882762,10323778797834,10325662662922,10326669263114">{{ 'quiz.qd.s4_a2' | t }} <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
+            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10331243413770,10329333465354,10329315574026,10327033413898,10325364867338,10325641724170,10325648867594,10325655650570,10325657190666,10326702850314">{{ 'quiz.qd.s4_a3' | t }} <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
+            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10327033413898,10329333465354,10329315574026,10331243413770,10325624750346,10325618524426,10325364867338,10325655650570,10325657190666,10443009720586,10326702850314">{{ 'quiz.qd.s4_a4' | t }} <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
+            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10331246493962,10331266351370,10325657190666,10331455586570,10327042654474,10331243413770,10325364867338,10325648867594,10323778797834,10443009720586,10326702850314">{{ 'quiz.qd.s4_a5' | t }} <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
+            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10331246493962,10331266351370,10331243413770,10329315574026,10329333465354,10325364867338,10325618524426,10325655650570,10325355954442,10382781972746,10382781055242,10443009720586,10326702850314">{{ 'quiz.qd.s4_a6' | t }} <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
+            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10331455586570,10327042654474,10323778797834,10327033413898,10327701946634,10326731882762,10325657190666,10326953623818,10384923885834,10443016208650,10326669263114">{{ 'quiz.qd.s4_a7' | t }} <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
+            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10344959344906,10327039312138,10329419055370,10331318616330,10331325268234,10331475804426,10327742611722,10326953754890,10326924099850,10326648258826,10325350547722,10326669263114,10384938631434,10326702850314">{{ 'quiz.qd.s4_a8' | t }} <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
           </div>
-          <div class="qd-cta"><button class="btn" type="button" data-qd-next>Suivant</button></div>
+          <div class="qd-cta"><button class="btn" type="button" data-qd-next>{{ 'quiz.qd.next' | t }}</button></div>
         </div>
 
-        <!-- 5 : Miroir (multi, scoring) -->
+        <!-- 5 : Miroir -->
         <div data-qd-step="5" data-qd-type="multi" hidden>
-          <h2 class="quiz-question">Quand tu te regardes dans le miroir, qu'est-ce qui te dérange&nbsp;?</h2>
-          <p class="qd-hint">Quelle zone souhaites-tu travailler ? Plusieurs choix possibles</p>
+          <h2 class="quiz-question">{{ 'quiz.qd.s5_q' | t }}</h2>
+          <p class="qd-hint">{{ 'quiz.qd.s5_hint' | t }}</p>
           <div class="quiz-options">
-            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10329315574026,10329333465354,10331243413770,10327033413898,10325618524426,10325364867338,10325320958218,10325350547722,10325355954442,10443003035914">Ma peau n'est pas lisse <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
-            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10331243413770,10329315574026,10329333465354,10327033413898,10325364867338,10325641724170,10325655650570,10325355954442,10325657190666,10443009720586">Mes pores sont dilatés <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
-            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10327048782090,10331309768970,10329333465354,10329315574026,10329423610122,10326731882762,10326924099850,10325657190666,10326605463818,10325662662922,10443003035914,10443009720586">Ma peau n'est pas unie, j'ai des boutons <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
-            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10327048782090,10331309768970,10329419055370,10329423610122,10331475804426,10326953754890,10326924099850,10326648258826,10325662662922,10325350547722,10382782562570,10379025416458,10382781055242,10443003035914">Je manque d'éclat (teint olive, gris) <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
-            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10331309768970,10331302330634,10331475804426,10327742611722,10327705911562">J'ai des cernes / poches autour des yeux <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
-            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10327048782090,10331475804426,10327742611722,10329419055370,10329429606666,10331318616330,10331325268234,10326924099850,10325350547722,10325662662922,10326605463818,10326669263114,10443020992778">Tout va bien, je souhaite booster ma routine <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
+            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10329315574026,10329333465354,10331243413770,10327033413898,10325618524426,10325364867338,10325320958218,10325350547722,10325355954442,10443003035914">{{ 'quiz.qd.s5_a1' | t }} <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
+            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10331243413770,10329315574026,10329333465354,10327033413898,10325364867338,10325641724170,10325655650570,10325355954442,10325657190666,10443009720586">{{ 'quiz.qd.s5_a2' | t }} <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
+            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10327048782090,10331309768970,10329333465354,10329315574026,10329423610122,10326731882762,10326924099850,10325657190666,10326605463818,10325662662922,10443003035914,10443009720586">{{ 'quiz.qd.s5_a3' | t }} <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
+            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10327048782090,10331309768970,10329419055370,10329423610122,10331475804426,10326953754890,10326924099850,10326648258826,10325662662922,10325350547722,10382782562570,10379025416458,10382781055242,10443003035914">{{ 'quiz.qd.s5_a4' | t }} <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
+            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10331309768970,10331302330634,10331475804426,10327742611722,10327705911562">{{ 'quiz.qd.s5_a5' | t }} <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
+            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10327048782090,10331475804426,10327742611722,10329419055370,10329429606666,10331318616330,10331325268234,10326924099850,10325350547722,10325662662922,10326605463818,10326669263114,10443020992778">{{ 'quiz.qd.s5_a6' | t }} <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
           </div>
-          <div class="qd-cta"><button class="btn" type="button" data-qd-next>Suivant</button></div>
+          <div class="qd-cta"><button class="btn" type="button" data-qd-next>{{ 'quiz.qd.next' | t }}</button></div>
         </div>
 
-        <!-- 6 : Contour des yeux (oui/non, scoring) -->
+        <!-- 6 : Contour des yeux -->
         <div data-qd-step="6" data-qd-type="yesno" hidden>
-          <h2 class="quiz-question">Portes-tu de l'attention à ton contour des yeux&nbsp;?</h2>
-          <p class="qd-hint">La peau autour des yeux est 3 à 5× plus fine que le reste du visage. Elle ne produit pas de barrière protectrice — il est essentiel de lui apporter la protection nécessaire.</p>
+          <h2 class="quiz-question">{{ 'quiz.qd.s6_q' | t }}</h2>
+          <p class="qd-hint">{{ 'quiz.qd.s6_hint' | t }}</p>
           <div class="qd-yesno">
-            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10327705911562,10327742611722,10331302330634,10331309768970,10331475804426">Oui <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
-            <button class="quiz-option" type="button" data-qd-choice>Non <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
+            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10327705911562,10327742611722,10331302330634,10331309768970,10331475804426">{{ 'quiz.qd.yes' | t }} <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
+            <button class="quiz-option" type="button" data-qd-choice>{{ 'quiz.qd.no' | t }} <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
           </div>
         </div>
 
-        <!-- 7 : Lèvres (single + clé levres) -->
+        <!-- 7 : Lèvres -->
         <div data-qd-step="7" data-qd-type="single" data-qd-key="levres" hidden>
-          <h2 class="quiz-question">Quel format préfères-tu pour ton produit à lèvres&nbsp;?</h2>
+          <h2 class="quiz-question">{{ 'quiz.qd.s7_q' | t }}</h2>
           <div class="quiz-options">
-            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10331325268234" data-qd-val="oui">Un tube <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
-            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10331318616330" data-qd-val="oui">Un pot <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
-            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10331325268234,10331318616330" data-qd-val="oui">J'aime les deux <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
-            <button class="quiz-option" type="button" data-qd-choice data-qd-val="non">Je n'y prête pas d'importance <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
+            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10331325268234" data-qd-val="oui">{{ 'quiz.qd.s7_a1' | t }} <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
+            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10331318616330" data-qd-val="oui">{{ 'quiz.qd.s7_a2' | t }} <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
+            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10331325268234,10331318616330" data-qd-val="oui">{{ 'quiz.qd.s7_a3' | t }} <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
+            <button class="quiz-option" type="button" data-qd-choice data-qd-val="non">{{ 'quiz.qd.s7_a4' | t }} <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
           </div>
         </div>
 
-        <!-- 8 : Vieillissement (multi, scoring) -->
+        <!-- 8 : Vieillissement -->
         <div data-qd-step="8" data-qd-type="multi" hidden>
-          <h2 class="quiz-question">Remarques-tu du vieillissement cutané&nbsp;?</h2>
-          <p class="qd-hint">Plusieurs choix possibles</p>
+          <h2 class="quiz-question">{{ 'quiz.qd.s8_q' | t }}</h2>
+          <p class="qd-hint">{{ 'quiz.qd.multi_hint' | t }}</p>
           <div class="quiz-options">
-            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10329429606666,10327701946634,10344959344906,10326605463818,10325662662922,10325350547722,10325355954442,10326648258826">Relâchement bas du visage <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
-            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10331475804426,10327742611722,10329429606666,10331302330634,10325662662922,10325350547722,10326924099850,10326953754890">J'ai des rides quand je souris <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
-            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10327045832970,10327039312138,10329423610122,10329419055370,10344959344906,10325649719562,10325651194122,10326953754890,10326953623818,10323778797834,10442990616842">J'ai des rides de déshydratation (fines ridules) <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
-            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10327742611722,10331475804426,10327048782090,10329429606666,10327701946634,10344959344906,10326605463818,10325662662922,10325350547722,10325355954442,10326648258826,10443020992778">J'ai des rides sans expressions <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
-            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10331475804426,10327048782090,10329419055370,10327039312138,10331318616330,10326924099850,10326953754890,10325350547722,10326669263114">Je ne remarque pas / ne prête pas d'importance <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
+            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10329429606666,10327701946634,10344959344906,10326605463818,10325662662922,10325350547722,10325355954442,10326648258826">{{ 'quiz.qd.s8_a1' | t }} <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
+            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10331475804426,10327742611722,10329429606666,10331302330634,10325662662922,10325350547722,10326924099850,10326953754890">{{ 'quiz.qd.s8_a2' | t }} <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
+            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10327045832970,10327039312138,10329423610122,10329419055370,10344959344906,10325649719562,10325651194122,10326953754890,10326953623818,10323778797834,10442990616842">{{ 'quiz.qd.s8_a3' | t }} <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
+            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10327742611722,10331475804426,10327048782090,10329429606666,10327701946634,10344959344906,10326605463818,10325662662922,10325350547722,10325355954442,10326648258826,10443020992778">{{ 'quiz.qd.s8_a4' | t }} <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
+            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10331475804426,10327048782090,10329419055370,10327039312138,10331318616330,10326924099850,10326953754890,10325350547722,10326669263114">{{ 'quiz.qd.s8_a5' | t }} <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
           </div>
-          <div class="qd-cta"><button class="btn" type="button" data-qd-next>Suivant</button></div>
+          <div class="qd-cta"><button class="btn" type="button" data-qd-next>{{ 'quiz.qd.next' | t }}</button></div>
         </div>
 
         <!-- 9 : Transition texture -->
         <div data-qd-step="9" data-qd-type="info" hidden>
-          <h2 class="quiz-question">Maintenant que j'en sais davantage, parle-moi de ce que tu aimes</h2>
-          <p class="qd-hint">Texture &amp; temps</p>
-          <div class="qd-cta"><button class="btn" type="button" data-qd-next>Suivant</button></div>
+          <h2 class="quiz-question">{{ 'quiz.qd.s9_q' | t }}</h2>
+          <p class="qd-hint">{{ 'quiz.qd.s9_hint' | t }}</p>
+          <div class="qd-cta"><button class="btn" type="button" data-qd-next>{{ 'quiz.qd.next' | t }}</button></div>
         </div>
 
-        <!-- 10 : Texture (multi, scoring) -->
+        <!-- 10 : Texture -->
         <div data-qd-step="10" data-qd-type="multi" hidden>
-          <h2 class="quiz-question">Quelle texture préfères-tu&nbsp;?</h2>
-          <p class="qd-hint">Plusieurs choix possibles</p>
+          <h2 class="quiz-question">{{ 'quiz.qd.s10_q' | t }}</h2>
+          <p class="qd-hint">{{ 'quiz.qd.multi_hint' | t }}</p>
           <div class="quiz-options">
-            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10327045832970,10331475804426,10329333465354,10329315574026,10331309768970,10331302330634,10325649719562,10325651194122,10325657190666,10323778797834,10325655650570">Gel <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
-            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10327039312138,10327042654474,10327705911562,10327033413898,10326953754890,10326924099850,10326953623818,10326648258826">Émulsion <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
-            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10344959344906,10327048782090,10327701946634,10327742611722,10326953623818,10325618524426,10325662662922,10325350547722">Crème <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
-            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10329429606666,10327701946634,10344959344906,10326953623818,10326953754890,10325662662922,10326648258826">Crème riche / beurre <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
-            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10344959344906,10329429606666,10325364867338,10325363130634,10326648258826">Huile <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
+            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10327045832970,10331475804426,10329333465354,10329315574026,10331309768970,10331302330634,10325649719562,10325651194122,10325657190666,10323778797834,10325655650570">{{ 'quiz.qd.s10_a1' | t }} <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
+            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10327039312138,10327042654474,10327705911562,10327033413898,10326953754890,10326924099850,10326953623818,10326648258826">{{ 'quiz.qd.s10_a2' | t }} <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
+            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10344959344906,10327048782090,10327701946634,10327742611722,10326953623818,10325618524426,10325662662922,10325350547722">{{ 'quiz.qd.s10_a3' | t }} <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
+            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10329429606666,10327701946634,10344959344906,10326953623818,10326953754890,10325662662922,10326648258826">{{ 'quiz.qd.s10_a4' | t }} <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
+            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10344959344906,10329429606666,10325364867338,10325363130634,10326648258826">{{ 'quiz.qd.s10_a5' | t }} <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
           </div>
-          <div class="qd-cta"><button class="btn" type="button" data-qd-next>Suivant</button></div>
+          <div class="qd-cta"><button class="btn" type="button" data-qd-next>{{ 'quiz.qd.next' | t }}</button></div>
         </div>
 
-        <!-- 11 : Type de routine (single + clé routine) -->
+        <!-- 11 : Type de routine -->
         <div data-qd-step="11" data-qd-type="single" data-qd-key="routine" hidden>
-          <h2 class="quiz-question">Quel type de routine préfères-tu&nbsp;?</h2>
-          <p class="qd-hint">Suivant tes préférences, ton temps et ton envie.</p>
+          <h2 class="quiz-question">{{ 'quiz.qd.s11_q' | t }}</h2>
+          <p class="qd-hint">{{ 'quiz.qd.s11_hint' | t }}</p>
           <div class="quiz-options">
-            <button class="quiz-option" type="button" data-qd-choice data-qd-val="basique">Basique : nettoyage, hydratation, solaire <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
-            <button class="quiz-option" type="button" data-qd-choice data-qd-val="medium">Medium : nettoyage, toner, hydratation, solaire <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
-            <button class="quiz-option" type="button" data-qd-choice data-qd-val="long">Long : nettoyage, toner, contour des yeux, sérum, hydratation, solaire <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
-            <button class="quiz-option" type="button" data-qd-choice data-qd-val="pro">Pro : routine longue boostée <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
+            <button class="quiz-option" type="button" data-qd-choice data-qd-val="basique">{{ 'quiz.qd.s11_a1' | t }} <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
+            <button class="quiz-option" type="button" data-qd-choice data-qd-val="medium">{{ 'quiz.qd.s11_a2' | t }} <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
+            <button class="quiz-option" type="button" data-qd-choice data-qd-val="long">{{ 'quiz.qd.s11_a3' | t }} <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
+            <button class="quiz-option" type="button" data-qd-choice data-qd-val="pro">{{ 'quiz.qd.s11_a4' | t }} <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
           </div>
         </div>
 
-        <!-- 12 : Gommage (oui/non + clé gommage + scoring) -->
+        <!-- 12 : Gommage -->
         <div data-qd-step="12" data-qd-type="yesno" data-qd-key="gommage" hidden>
-          <h2 class="quiz-question">Un gommage et un masque&nbsp;?</h2>
-          <p class="qd-hint">Il est essentiel d'exfolier ta peau au moins 1×/semaine afin de nettoyer en profondeur et éliminer les peaux mortes. Le masque sert de réponse SOS.</p>
+          <h2 class="quiz-question">{{ 'quiz.qd.s12_q' | t }}</h2>
+          <p class="qd-hint">{{ 'quiz.qd.s12_hint' | t }}</p>
           <div class="qd-yesno">
-            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10329419055370,10329423610122,10329425379594,10329429606666,10331243413770,10329315574026,10329333465354,10382781055242,10384923885834" data-qd-val="oui">Oui <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
-            <button class="quiz-option" type="button" data-qd-choice data-qd-val="non">Non <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
+            <button class="quiz-option" type="button" data-qd-choice data-qd-ids="10329419055370,10329423610122,10329425379594,10329429606666,10331243413770,10329315574026,10329333465354,10382781055242,10384923885834" data-qd-val="oui">{{ 'quiz.qd.yes' | t }} <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
+            <button class="quiz-option" type="button" data-qd-choice data-qd-val="non">{{ 'quiz.qd.no' | t }} <span class="quiz-option__arrow">{% render 'icon', icon: 'arrow-right', size: 18 %}</span></button>
           </div>
         </div>
 
-        <!-- 13 : Fin → résultat -->
+        <!-- 13 : Fin -->
         <div data-qd-step="13" data-qd-type="info" hidden>
-          <h2 class="quiz-question">J'ai tout ce dont j'ai besoin, merci&nbsp;!</h2>
-          <p class="qd-hint">Je découvre ma routine ♡</p>
-          <div class="qd-cta"><button class="btn" type="button" data-qd-finish>Découvrir ma routine</button></div>
+          <h2 class="quiz-question">{{ 'quiz.qd.s13_q' | t }}</h2>
+          <p class="qd-hint">{{ 'quiz.qd.s13_hint' | t }}</p>
+          <div class="qd-cta"><button class="btn" type="button" data-qd-finish>{{ 'quiz.qd.s13_btn' | t }}</button></div>
         </div>
 
       </div><!-- #qd-steps -->
 
       <button class="quiz-prev" type="button" id="qd-prev" hidden>
-        {% render 'icon', icon: 'arrow-left', size: 15 %} Précédent
+        {% render 'icon', icon: 'arrow-left', size: 15 %} {{ 'quiz.prev' | t }}
       </button>
     </div><!-- #qd-card -->
 

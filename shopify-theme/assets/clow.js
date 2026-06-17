@@ -717,7 +717,7 @@
         '<a href="' + escH(p.url) + '" class="qd-prod__title">' + escH(p.title) + '</a>' +
         '<div class="qd-prod__price">' + formatMoney(p.price) + '</div>' +
         '</div>' +
-        '<button class="btn qd-prod__atc" type="button" data-qd-atc="' + p.vid + '" data-qd-title="' + escH(p.title) + '">Ajouter au panier</button>' +
+        '<button class="btn qd-prod__atc" type="button" data-qd-atc="' + p.vid + '" data-qd-title="' + escH(p.title) + '">' + (STR.qdAddToCart || 'Ajouter au panier') + '</button>' +
         '</div>';
     }
 
@@ -737,20 +737,20 @@
 
       var html = '<div class="qd-result">';
       html += '<div class="qd-result__head">';
-      html += '<p class="eyebrow" style="text-align:center;justify-content:center">Ta Routine Personnalisée</p>';
-      html += '<h2 class="qd-result__title">Ta routine' + (userName ? ', ' + escH(userName) : '') + '&thinsp;✨</h2>';
-      html += '<p class="qd-result__sub">Sélectionnée parmi nos soins selon tes réponses</p>';
+      html += '<p class="eyebrow" style="text-align:center;justify-content:center">' + (STR.qdResultEyebrow || 'Ta Routine Personnalisée') + '</p>';
+      html += '<h2 class="qd-result__title">' + (STR.qdResultTitle || 'Ta routine') + (userName ? ', ' + escH(userName) : '') + '&thinsp;✨</h2>';
+      html += '<p class="qd-result__sub">' + (STR.qdResultSub || 'Sélectionnée parmi nos soins selon tes réponses') + '</p>';
       html += '</div>';
 
       /* — Étape 1 & 2 : Double Nettoyage (toujours) — */
-      html += section('Étape 1 &amp; 2 — Double Nettoyage',
-        'Le démaquillant dissout le maquillage &amp; le solaire. Le nettoyant élimine la sueur &amp; la pollution.',
+      html += section(STR.qdSec1Title || 'Étape 1 & 2 — Double Nettoyage',
+        STR.qdSec1Desc || '',
         getTopN('demaq', 2));
 
       /* — Étape 3 : Toner (si pas basique) — */
       if (routineKey !== 'basique') {
         var toner = getWinner('toner');
-        if (toner) html += section('Étape 3 — Préparer', 'Le toner rééquilibre le pH de ta peau après le nettoyage.', [toner]);
+        if (toner) html += section(STR.qdSec2Title || 'Étape 3 — Préparer', STR.qdSec2Desc || '', [toner]);
       }
 
       /* — Étape 4 & 5 : Contour + Sérum (si long ou pro) — */
@@ -758,24 +758,24 @@
         var eye   = getWinner('eye');
         var serum = getWinner('serum');
         var treats = [eye, serum].filter(Boolean);
-        if (treats.length) html += section('Étape 4 &amp; 5 — Traiter', 'Contour des yeux &amp; sérum concentré d\'actifs.', treats);
+        if (treats.length) html += section(STR.qdSec3Title || 'Étape 4 & 5 — Traiter', STR.qdSec3Desc || '', treats);
       }
 
       /* — Étape 6 & 7 : Crème + Solaire (toujours) — */
       var creme = getWinner('creme');
       var sun   = getWinner('sun');
       var moist = [creme, sun].filter(Boolean);
-      if (moist.length) html += section('Étape 6 &amp; 7 — Hydrater &amp; Protéger', 'La crème scelle l\'hydratation. Le solaire protège du vieillissement (matin).', moist);
+      if (moist.length) html += section(STR.qdSec4Title || 'Étape 6 & 7 — Hydrater & Protéger', STR.qdSec4Desc || '', moist);
 
       /* — Soins hebdomadaires (si voulait gommage) — */
       if (gommageWanted) {
-        html += section('Soins Hebdomadaires', 'À utiliser 1 à 2 fois par semaine pour une peau nette en profondeur.', getTopN('gommage', 2));
+        html += section(STR.qdSec5Title || 'Soins Hebdomadaires', STR.qdSec5Desc || '', getTopN('gommage', 2));
       }
 
       /* — Lèvres (si pas "Je n\'y prête pas d\'importance") — */
       if (levresWanted) {
         var levres = getWinner('levres');
-        if (levres) html += section('La Touche Finale', 'Pour des lèvres douces et nourries.', [levres]);
+        if (levres) html += section(STR.qdSec6Title || 'La Touche Finale', STR.qdSec6Desc || '', [levres]);
       }
 
       /* — Email gate — */
@@ -783,20 +783,20 @@
       html += '<form class="qd-emailgate" data-qd-email>';
       html += '<div class="qd-emailgate__inner">';
       html += '<div class="qd-emailgate__text">';
-      html += '<div class="qd-emailgate__eyebrow">Reçois ta routine</div>';
-      html += '<div class="qd-emailgate__h">Garde ta routine de côté ✉</div>';
-      html += '<div class="qd-emailgate__p">Entre ton email pour recevoir ta sélection personnalisée par mail.</div>';
+      html += '<div class="qd-emailgate__eyebrow">' + (STR.qdEmailEyebrow || 'Reçois ta routine') + '</div>';
+      html += '<div class="qd-emailgate__h">' + (STR.qdEmailH || 'Garde ta routine de côté ✉') + '</div>';
+      html += '<div class="qd-emailgate__p">' + (STR.qdEmailP || '') + '</div>';
       html += '</div>';
       html += '<div class="qd-emailgate__row">';
-      html += '<input class="qd-emailgate__input" type="email" required placeholder="ton@email.com" name="email">';
-      html += '<button class="btn" type="submit"><span data-qd-email-label>Envoyer</span></button>';
+      html += '<input class="qd-emailgate__input" type="email" required placeholder="' + escH(STR.qdEmailPlaceholder || 'ton@email.com') + '" name="email">';
+      html += '<button class="btn" type="submit"><span data-qd-email-label>' + (STR.qdEmailBtn || 'Envoyer') + '</span></button>';
       html += '</div>';
       html += '</div>';
-      html += '<p class="qd-emailgate__privacy">Tes données restent chez nous. Pas de spam, promis.</p>';
+      html += '<p class="qd-emailgate__privacy">' + (STR.qdEmailPrivacy || '') + '</p>';
       html += '</form>';
 
       html += '<div class="qd-result__actions">';
-      html += '<button class="btn btn--secondary" type="button" id="qd-retake">Refaire le quiz</button>';
+      html += '<button class="btn btn--secondary" type="button" id="qd-retake">' + (STR.qdRetake || 'Refaire le quiz') + '</button>';
       html += '</div></div>';
 
       resultEl.innerHTML = html;
@@ -808,7 +808,7 @@
           if (!vid) return;
           btn.disabled = true;
           addToCart(vid, 1);
-          btn.textContent = 'Ajouté ✓';
+          btn.textContent = STR.qdAdded || 'Ajouté ✓';
         });
       });
 
@@ -828,7 +828,7 @@
             (gommageWanted ? ' + Gommage/Masque' : '') +
             (levresWanted  ? ' + Lèvres' : '');
 
-          function done() { if (label) label.textContent = 'Envoyé ✓'; }
+          function done() { if (label) label.textContent = STR.qdEmailSent || 'Envoyé ✓'; }
 
           if (window._learnq) {
             _learnq.push(['identify', { '$email': email, '$first_name': userName }]);
