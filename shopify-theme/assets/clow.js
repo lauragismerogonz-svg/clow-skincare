@@ -543,9 +543,10 @@
         if (label) label.textContent = STR.quizEmailSent || 'Sent ✓';
       }
 
-      if (window._learnq) {
-        _learnq.push(['identify', { '$email': email }]);
-        _learnq.push(['track', 'Quiz Completed', { 'Routine': routineName, '$email': email }]);
+      var _kv = window._learnq || window.klaviyo;
+      if (_kv) {
+        _kv.push(['identify', { '$email': email }]);
+        _kv.push(['track', 'Quiz Completed', { 'Routine': routineName, '$email': email }]);
         done();
       } else {
         var params = new URLSearchParams();
@@ -830,9 +831,10 @@
 
           function done() { if (label) label.textContent = STR.qdEmailSent || 'Envoyé ✓'; }
 
-          if (window._learnq) {
-            _learnq.push(['identify', { '$email': email, '$first_name': userName }]);
-            _learnq.push(['track', 'Quiz Routine Completed', { 'Routine': routineDesc, '$email': email }]);
+          var _kv2 = window._learnq || window.klaviyo;
+          if (_kv2) {
+            _kv2.push(['identify', { '$email': email, '$first_name': userName }]);
+            _kv2.push(['track', 'Quiz Routine Completed', { 'Routine': routineDesc, '$email': email }]);
             done();
           } else {
             var params = new URLSearchParams();
