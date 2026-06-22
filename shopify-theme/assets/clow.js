@@ -779,6 +779,17 @@
         if (levres) html += section(STR.qdSec6Title || 'La Touche Finale', STR.qdSec6Desc || '', [levres]);
       }
 
+      /* — Collect products for Klaviyo email — */
+      var qdEmailProds = [];
+      getTopN('demaq', 2).forEach(function(p) { if (p) qdEmailProds.push({ title: p.title, url: 'https://clowskincare.com' + p.url, price: formatMoney(p.price) }); });
+      if (toner) qdEmailProds.push({ title: toner.title, url: 'https://clowskincare.com' + toner.url, price: formatMoney(toner.price) });
+      if (eye) qdEmailProds.push({ title: eye.title, url: 'https://clowskincare.com' + eye.url, price: formatMoney(eye.price) });
+      if (serum) qdEmailProds.push({ title: serum.title, url: 'https://clowskincare.com' + serum.url, price: formatMoney(serum.price) });
+      if (creme) qdEmailProds.push({ title: creme.title, url: 'https://clowskincare.com' + creme.url, price: formatMoney(creme.price) });
+      if (sun) qdEmailProds.push({ title: sun.title, url: 'https://clowskincare.com' + sun.url, price: formatMoney(sun.price) });
+      if (gommageWanted) getTopN('gommage', 2).forEach(function(p) { if (p) qdEmailProds.push({ title: p.title, url: 'https://clowskincare.com' + p.url, price: formatMoney(p.price) }); });
+      if (levres) qdEmailProds.push({ title: levres.title, url: 'https://clowskincare.com' + levres.url, price: formatMoney(levres.price) });
+
       /* — Email gate — */
       var routineLabel = { basique: 'Basique', medium: 'Medium', long: 'Long', pro: 'Pro' }[routineKey] || '';
       html += '<form class="qd-emailgate" data-qd-email>';
@@ -834,7 +845,7 @@
           var _kv2 = window._learnq || window.klaviyo;
           if (_kv2) {
             _kv2.push(['identify', { '$email': email, '$first_name': userName }]);
-            _kv2.push(['track', 'Quiz Routine Completed', { 'Routine': routineDesc, '$email': email }]);
+            _kv2.push(['track', 'Quiz Routine Completed', { 'Routine': routineDesc, '$email': email, 'Products': qdEmailProds }]);
             done();
           } else {
             var params = new URLSearchParams();
