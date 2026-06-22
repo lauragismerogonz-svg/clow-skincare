@@ -1,4 +1,11 @@
 {
+  "search": {
+    "title": "Zoeken",
+    "placeholder": "Zoek een product…",
+    "submit": "Zoeken",
+    "results_count": "{{ count }} resultaten",
+    "no_results": "Geen resultaten voor \"{{ terms }}\"."
+  },
   "general": {
     "currency": "EUR",
     "lang_code": "NL",

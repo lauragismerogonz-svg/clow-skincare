@@ -1,0 +1,66 @@
+{%- paginate search.results by 24 -%}
+<section class="search-page">
+  <div class="search-page__header">
+    <h1 class="search-page__title">{{ 'search.title' | t }}</h1>
+    <form class="search-page__form" action="{{ routes.search_url }}" method="get" role="search">
+      <input type="hidden" name="type" value="product">
+      <div class="search-page__input-wrap">
+        <input
+          class="search-page__input"
+          type="search"
+          name="q"
+          value="{{ search.terms | escape }}"
+          placeholder="{{ 'search.placeholder' | t }}"
+          autocomplete="off"
+          aria-label="{{ 'search.placeholder' | t }}">
+        <button class="btn search-page__btn" type="submit">
+          {% render 'icon', icon: 'search', size: 18 %}
+          {{ 'search.submit' | t }}
+        </button>
+      </div>
+    </form>
+  </div>
+
+  {%- if search.performed -%}
+    {%- if search.results_count == 0 -%}
+      <div class="search-page__empty">
+        <p>{{ 'search.no_results' | t: terms: search.terms }}</p>
+      </div>
+    {%- else -%}
+      <p class="search-page__count">{{ 'search.results_count' | t: count: search.results_count }}</p>
+      <div class="product-grid">
+        {%- for product in search.results -%}
+          {%- if product.object_type == 'product' -%}
+            {% render 'product-card', product: product %}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+      {%- if paginate.pages > 1 -%}
+        <nav class="pagination" aria-label="Pagination">
+          {%- if paginate.previous -%}
+            <a href="{{ paginate.previous.url }}" aria-label="Previous">{% render 'icon', icon: 'arrow-left', size: 16 %}</a>
+          {%- endif -%}
+          {%- for part in paginate.parts -%}
+            {%- if part.is_link -%}
+              <a href="{{ part.url }}">{{ part.title }}</a>
+            {%- else -%}
+              <span class="{% if part.title == paginate.current_page %}is-current{% endif %}">{{ part.title }}</span>
+            {%- endif -%}
+          {%- endfor -%}
+          {%- if paginate.next -%}
+            <a href="{{ paginate.next.url }}" aria-label="Next">{% render 'icon', icon: 'arrow-right', size: 16 %}</a>
+          {%- endif -%}
+        </nav>
+      {%- endif -%}
+    {%- endif -%}
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Search",
+  "settings": []
+}
+{% endschema %}
+{%- endpaginate -%}

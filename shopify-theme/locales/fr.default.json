@@ -1,4 +1,11 @@
 {
+  "search": {
+    "title": "Recherche",
+    "placeholder": "Rechercher un produit…",
+    "submit": "Rechercher",
+    "results_count": "{{ count }} résultats",
+    "no_results": "Aucun résultat pour \"{{ terms }}\"."
+  },
   "general": {
     "currency": "EUR",
     "lang_code": "FR",
