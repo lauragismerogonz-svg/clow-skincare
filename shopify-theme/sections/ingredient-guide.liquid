@@ -1,0 +1,66 @@
+<section class="ingredient-guide">
+  <div class="ingredient-guide__header">
+    <p class="eyebrow">{{ section.settings.eyebrow | default: 'ingredient_guide.eyebrow' | t }}</p>
+    <h2 class="ingredient-guide__title">{{ section.settings.title | default: 'ingredient_guide.title' | t }}</h2>
+    <p class="ingredient-guide__sub">{{ section.settings.subtitle | default: 'ingredient_guide.subtitle' | t }}</p>
+  </div>
+
+  <div class="ingredient-guide__grid">
+    <div class="ing-card">
+      <div class="ing-card__icon">🔍</div>
+      <div class="ing-card__problem">{{ 'ingredient_guide.p1' | t }}</div>
+      <div class="ing-card__arrow">→</div>
+      <div class="ing-card__ingredients">{{ 'ingredient_guide.i1' | t }}</div>
+    </div>
+    <div class="ing-card">
+      <div class="ing-card__icon">✨</div>
+      <div class="ing-card__problem">{{ 'ingredient_guide.p2' | t }}</div>
+      <div class="ing-card__arrow">→</div>
+      <div class="ing-card__ingredients">{{ 'ingredient_guide.i2' | t }}</div>
+    </div>
+    <div class="ing-card">
+      <div class="ing-card__icon">💧</div>
+      <div class="ing-card__problem">{{ 'ingredient_guide.p3' | t }}</div>
+      <div class="ing-card__arrow">→</div>
+      <div class="ing-card__ingredients">{{ 'ingredient_guide.i3' | t }}</div>
+    </div>
+    <div class="ing-card">
+      <div class="ing-card__icon">⚡</div>
+      <div class="ing-card__problem">{{ 'ingredient_guide.p4' | t }}</div>
+      <div class="ing-card__arrow">→</div>
+      <div class="ing-card__ingredients">{{ 'ingredient_guide.i4' | t }}</div>
+    </div>
+    <div class="ing-card">
+      <div class="ing-card__icon">🕐</div>
+      <div class="ing-card__problem">{{ 'ingredient_guide.p5' | t }}</div>
+      <div class="ing-card__arrow">→</div>
+      <div class="ing-card__ingredients">{{ 'ingredient_guide.i5' | t }}</div>
+    </div>
+    <div class="ing-card">
+      <div class="ing-card__icon">🌿</div>
+      <div class="ing-card__problem">{{ 'ingredient_guide.p6' | t }}</div>
+      <div class="ing-card__arrow">→</div>
+      <div class="ing-card__ingredients">{{ 'ingredient_guide.i6' | t }}</div>
+    </div>
+  </div>
+
+  {%- if section.settings.cta_url != blank -%}
+  <div class="ingredient-guide__cta">
+    <a class="btn btn--secondary" href="{{ section.settings.cta_url }}">{{ section.settings.cta_text | default: 'ingredient_guide.cta' | t }}</a>
+  </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Ingredient guide",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "title", "label": "Title" },
+    { "type": "text", "id": "subtitle", "label": "Subtitle" },
+    { "type": "text", "id": "cta_text", "label": "CTA text" },
+    { "type": "url", "id": "cta_url", "label": "CTA link" }
+  ],
+  "presets": [{ "name": "Ingredient guide" }]
+}
+{% endschema %}

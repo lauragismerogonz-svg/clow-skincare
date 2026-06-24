@@ -1,4 +1,22 @@
 {
+  "ingredient_guide": {
+    "eyebrow": "Pharmacie K-beauty",
+    "title": "Quel ingrédient pour quel problème ?",
+    "subtitle": "Choisir son soin par symptôme, c'est soigner sa peau intelligemment.",
+    "cta": "Découvrir tous les soins",
+    "p1": "Pores dilatés",
+    "i1": "BHA + Niacinamide",
+    "p2": "Teint terne",
+    "i2": "Vitamine C + Glutathione",
+    "p3": "Peau déshydratée",
+    "i3": "Acide Hyaluronique + Céramide",
+    "p4": "Imperfections",
+    "i4": "Niacinamide + Tea Tree",
+    "p5": "Anti-âge",
+    "i5": "Rétinol + Peptides",
+    "p6": "Peau sensible",
+    "i6": "Cica + Centella"
+  },
   "search": {
     "title": "Recherche",
     "placeholder": "Rechercher un produit…",
@@ -21,6 +39,7 @@
     "nav": {
       "best_sellers": "Best Sellers",
       "routine": "Routine",
+      "symptom": "Par Symptôme",
       "products": "Produits",
       "quiz": "Découvre ton type de peau",
       "gift": "Carte cadeau",
@@ -34,6 +53,18 @@
       "age": "Anti-Âge",
       "glass": "Glass Skin",
       "sens": "Peau Sensible"
+    },
+    "symptoms": {
+      "acne": "Acné & Imperfections",
+      "acne_ing": "Niacinamide · BHA · Tea Tree",
+      "eclat": "Éclat & Taches",
+      "eclat_ing": "Vitamine C · Glutathione · PDRN",
+      "hydra": "Hydratation & Barrière",
+      "hydra_ing": "Céramide · Acide Hyaluronique · Centella",
+      "age": "Anti-âge & Fermeté",
+      "age_ing": "Rétinol · Peptides · Collagène",
+      "sens": "Peau Sensible",
+      "sens_ing": "Cica · Madecassoside"
     },
     "categories": {
       "cleansers": "Démaquillants & Nettoyants",
@@ -77,6 +108,7 @@
     "samples": "Échantillons offerts"
   },
   "product": {
+    "key_ingredient": "Ingrédient clé :",
     "add_to_cart": "Ajouter au panier",
     "added": "ajouté au panier",
     "sold_out": "Épuisé",
@@ -363,7 +395,7 @@
     "hero_h1": "Donne à ta peau",
     "hero_h2": "ce dont elle",
     "hero_h3": "a besoin.",
-    "hero_p": "La skincare coréenne sélectionnée pour une peau saine et lumineuse. Des routines simples, pensées pour ton type de peau.",
+    "hero_p": "La pharmacie K-beauty européenne — soins choisis par symptôme, par ingrédient.",
     "hero_cta1": "Découvre ton type de peau",
     "hero_cta2": "Voir les routines",
     "hero_badge_1": "Glass Skin · 5 étapes",

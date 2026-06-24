@@ -1,4 +1,22 @@
 {
+  "ingredient_guide": {
+    "eyebrow": "K-beauty Apotheek",
+    "title": "Welk ingrediënt voor welk probleem?",
+    "subtitle": "Je huidverzorging kiezen op basis van symptoom is slim voor je huid.",
+    "cta": "Alle producten ontdekken",
+    "p1": "Verwijde poriën",
+    "i1": "BHA + Niacinamide",
+    "p2": "Doffe teint",
+    "i2": "Vitamine C + Glutathion",
+    "p3": "Uitgedroogde huid",
+    "i3": "Hyaluronzuur + Ceramide",
+    "p4": "Onzuiverheden",
+    "i4": "Niacinamide + Tea Tree",
+    "p5": "Anti-aging",
+    "i5": "Retinol + Peptiden",
+    "p6": "Gevoelige huid",
+    "i6": "Cica + Centella"
+  },
   "search": {
     "title": "Zoeken",
     "placeholder": "Zoek een product…",
@@ -21,6 +39,7 @@
     "nav": {
       "best_sellers": "Bestsellers",
       "routine": "Routines",
+      "symptom": "Per Symptoom",
       "products": "Producten",
       "quiz": "Vind je huidtype",
       "gift": "Cadeaukaart",
@@ -34,6 +53,18 @@
       "age": "Anti-Aging",
       "glass": "Glass Skin",
       "sens": "Gevoelige huid"
+    },
+    "symptoms": {
+      "acne": "Acné & Onzuiverheden",
+      "acne_ing": "Niacinamide · BHA · Tea Tree",
+      "eclat": "Glans & Pigmentvlekken",
+      "eclat_ing": "Vitamine C · Glutathion · PDRN",
+      "hydra": "Hydratatie & Barrière",
+      "hydra_ing": "Ceramide · Hyaluronzuur · Centella",
+      "age": "Anti-aging & Stevigheid",
+      "age_ing": "Retinol · Peptiden · Collageen",
+      "sens": "Gevoelige Huid",
+      "sens_ing": "Cica · Madecassoside"
     },
     "categories": {
       "cleansers": "Reinigers",
@@ -77,6 +108,7 @@
     "samples": "Gratis stalen"
   },
   "product": {
+    "key_ingredient": "Sleutelingrediënt:",
     "add_to_cart": "In de tas",
     "added": "toegevoegd aan de tas",
     "sold_out": "Uitverkocht",
@@ -363,7 +395,7 @@
     "hero_h1": "Geef je huid",
     "hero_h2": "wat ze",
     "hero_h3": "nodig heeft.",
-    "hero_p": "Koreaanse skincare geselecteerd voor een gezonde, stralende huid. Simpele routines, gemaakt voor jouw huidtype.",
+    "hero_p": "De Europese K-beauty apotheek — verzorging gekozen per symptoom, per ingrediënt.",
     "hero_cta1": "Vind je huidtype",
     "hero_cta2": "Bekijk routines",
     "hero_badge_1": "Glass Skin · 5 stappen",

@@ -1074,3 +1074,68 @@ input, textarea, select { font-family: inherit; }
 .search-page__btn { white-space: nowrap; display: flex; align-items: center; gap: .4rem; }
 .search-page__count { color: var(--latte); font-size: .9rem; margin-bottom: 1.5rem; }
 .search-page__empty { text-align: center; padding: 4rem 1rem; color: var(--latte); font-size: 1rem; }
+
+/* ── Symptom nav dropdown ────────────────────────────── */
+.nav-dropdown__link--symptom { display: flex; align-items: flex-start; gap: .6rem; padding: .55rem .9rem; }
+.symptom-emoji { font-size: 1.1rem; line-height: 1.4; flex-shrink: 0; }
+.symptom-text { display: flex; flex-direction: column; gap: .1rem; }
+.symptom-name { font-size: .88rem; font-weight: 600; color: var(--espresso); line-height: 1.3; }
+.symptom-ing { font-size: .75rem; color: var(--latte); font-family: 'Courier New', Courier, monospace; letter-spacing: .01em; line-height: 1.3; }
+
+/* ── Ingredient badge on product card ───────────────── */
+.product-card__ingredient-badge {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  background: rgba(255,255,255,0.95);
+  border: 1px solid var(--espresso);
+  color: var(--espresso);
+  font-size: 10px;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  padding: 3px 7px;
+  border-radius: 3px;
+  line-height: 1.4;
+  backdrop-filter: blur(4px);
+}
+
+/* ── Ingredient guide section ───────────────────────── */
+.ingredient-guide { padding: 5rem 1.5rem; background: var(--almond); }
+.ingredient-guide__header { text-align: center; margin-bottom: 3rem; }
+.ingredient-guide__title { font-size: clamp(1.4rem, 2.5vw, 2rem); color: var(--espresso); margin: .5rem 0; }
+.ingredient-guide__sub { color: var(--latte); font-size: .95rem; margin-top: .5rem; }
+.ingredient-guide__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.ing-card {
+  background: #fff;
+  border: 1px solid #e8e0d6;
+  border-radius: 8px;
+  padding: 1.4rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+}
+.ing-card__icon { font-size: 1.4rem; margin-bottom: .2rem; }
+.ing-card__problem { font-size: .95rem; font-weight: 600; color: var(--espresso); }
+.ing-card__arrow { font-size: .85rem; color: var(--latte); }
+.ing-card__ingredients {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: .82rem;
+  font-weight: 700;
+  color: var(--espresso);
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  background: var(--almond);
+  border-radius: 4px;
+  padding: 4px 8px;
+  display: inline-block;
+  margin-top: .2rem;
+}
+.ingredient-guide__cta { text-align: center; margin-top: 2.5rem; }

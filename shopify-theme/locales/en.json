@@ -1,4 +1,22 @@
 {
+  "ingredient_guide": {
+    "eyebrow": "K-beauty Pharmacy",
+    "title": "Which ingredient for which concern?",
+    "subtitle": "Choosing your skincare by symptom means treating your skin intelligently.",
+    "cta": "Explore all skincare",
+    "p1": "Enlarged pores",
+    "i1": "BHA + Niacinamide",
+    "p2": "Dull complexion",
+    "i2": "Vitamin C + Glutathione",
+    "p3": "Dehydrated skin",
+    "i3": "Hyaluronic Acid + Ceramide",
+    "p4": "Blemishes",
+    "i4": "Niacinamide + Tea Tree",
+    "p5": "Anti-ageing",
+    "i5": "Retinol + Peptides",
+    "p6": "Sensitive skin",
+    "i6": "Cica + Centella"
+  },
   "search": {
     "title": "Search",
     "placeholder": "Search for a product…",
@@ -21,6 +39,7 @@
     "nav": {
       "best_sellers": "Best Sellers",
       "routine": "Routines",
+      "symptom": "By Concern",
       "products": "Products",
       "quiz": "Find your skin type",
       "gift": "Gift card",
@@ -34,6 +53,18 @@
       "age": "Anti-Age",
       "glass": "Glass Skin",
       "sens": "Sensitive"
+    },
+    "symptoms": {
+      "acne": "Acne & Blemishes",
+      "acne_ing": "Niacinamide · BHA · Tea Tree",
+      "eclat": "Radiance & Dark Spots",
+      "eclat_ing": "Vitamin C · Glutathione · PDRN",
+      "hydra": "Hydration & Barrier",
+      "hydra_ing": "Ceramide · Hyaluronic Acid · Centella",
+      "age": "Anti-ageing & Firmness",
+      "age_ing": "Retinol · Peptides · Collagen",
+      "sens": "Sensitive Skin",
+      "sens_ing": "Cica · Madecassoside"
     },
     "categories": {
       "cleansers": "Cleansers",
@@ -77,6 +108,7 @@
     "samples": "Free samples"
   },
   "product": {
+    "key_ingredient": "Key ingredient:",
     "add_to_cart": "Add to bag",
     "added": "added to bag",
     "sold_out": "Sold out",
@@ -363,7 +395,7 @@
     "hero_h1": "Give your skin",
     "hero_h2": "what it",
     "hero_h3": "needs.",
-    "hero_p": "Korean skincare curated for healthy, luminous skin. Simple routines, made for your skin type.",
+    "hero_p": "Europe's K-beauty pharmacy — skincare chosen by concern, by ingredient.",
     "hero_cta1": "Find your skin type",
     "hero_cta2": "Browse routines",
     "hero_badge_1": "Glass Skin · 5 steps",

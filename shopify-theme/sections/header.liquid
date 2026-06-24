@@ -1,6 +1,4 @@
 {%- liquid
-  assign routines = 'hydra,imp,age,glass,sens' | split: ','
-  assign routine_urls = section.settings.url_hydra | default: '' | append: '||' | append: section.settings.url_imp | default: '' | append: '||' | append: section.settings.url_age | default: '' | append: '||' | append: section.settings.url_glass | default: '' | append: '||' | append: section.settings.url_sens | default: ''
   assign cat_keys = 'cleansers,toners,serums,creams,spf,masks,lips,hair,base' | split: ','
 -%}
 
@@ -25,25 +23,45 @@
         </div>
 
         <div class="nav-item">
-          <a class="nav-link" href="{{ section.settings.url_routines | default: routes.collections_url }}">
-            {{ 'header.nav.routine' | t }} {% render 'icon', icon: 'chevron-down', size: 14 %}<span class="chev"></span>
+          <a class="nav-link" href="{{ routes.collections_url }}">
+            {{ 'header.nav.symptom' | t }} {% render 'icon', icon: 'chevron-down', size: 14 %}<span class="chev"></span>
           </a>
           <div class="nav-dropdown">
             <div class="nav-dropdown__inner">
-              <a class="nav-dropdown__link" href="{{ section.settings.url_hydra | default: routes.collections_url }}">
-                <span class="routine-dot dot-hydra"></span>{{ 'header.routines.hydra' | t }}
+              <a class="nav-dropdown__link nav-dropdown__link--symptom" href="{{ section.settings.url_acne | default: routes.collections_url }}">
+                <span class="symptom-emoji">🔴</span>
+                <span class="symptom-text">
+                  <span class="symptom-name">{{ 'header.symptoms.acne' | t }}</span>
+                  <span class="symptom-ing">{{ 'header.symptoms.acne_ing' | t }}</span>
+                </span>
               </a>
-              <a class="nav-dropdown__link" href="{{ section.settings.url_imp | default: routes.collections_url }}">
-                <span class="routine-dot dot-imp"></span>{{ 'header.routines.imp' | t }}
+              <a class="nav-dropdown__link nav-dropdown__link--symptom" href="{{ section.settings.url_eclat | default: routes.collections_url }}">
+                <span class="symptom-emoji">✨</span>
+                <span class="symptom-text">
+                  <span class="symptom-name">{{ 'header.symptoms.eclat' | t }}</span>
+                  <span class="symptom-ing">{{ 'header.symptoms.eclat_ing' | t }}</span>
+                </span>
               </a>
-              <a class="nav-dropdown__link" href="{{ section.settings.url_age | default: routes.collections_url }}">
-                <span class="routine-dot dot-age"></span>{{ 'header.routines.age' | t }}
+              <a class="nav-dropdown__link nav-dropdown__link--symptom" href="{{ section.settings.url_hydra_symp | default: routes.collections_url }}">
+                <span class="symptom-emoji">💧</span>
+                <span class="symptom-text">
+                  <span class="symptom-name">{{ 'header.symptoms.hydra' | t }}</span>
+                  <span class="symptom-ing">{{ 'header.symptoms.hydra_ing' | t }}</span>
+                </span>
               </a>
-              <a class="nav-dropdown__link" href="{{ section.settings.url_glass | default: routes.collections_url }}">
-                <span class="routine-dot dot-glass"></span>{{ 'header.routines.glass' | t }}
+              <a class="nav-dropdown__link nav-dropdown__link--symptom" href="{{ section.settings.url_age_symp | default: routes.collections_url }}">
+                <span class="symptom-emoji">🕐</span>
+                <span class="symptom-text">
+                  <span class="symptom-name">{{ 'header.symptoms.age' | t }}</span>
+                  <span class="symptom-ing">{{ 'header.symptoms.age_ing' | t }}</span>
+                </span>
               </a>
-              <a class="nav-dropdown__link" href="{{ section.settings.url_sens | default: routes.collections_url }}">
-                <span class="routine-dot dot-sens"></span>{{ 'header.routines.sens' | t }}
+              <a class="nav-dropdown__link nav-dropdown__link--symptom" href="{{ section.settings.url_sens_symp | default: routes.collections_url }}">
+                <span class="symptom-emoji">🌿</span>
+                <span class="symptom-text">
+                  <span class="symptom-name">{{ 'header.symptoms.sens' | t }}</span>
+                  <span class="symptom-ing">{{ 'header.symptoms.sens_ing' | t }}</span>
+                </span>
               </a>
             </div>
           </div>
@@ -110,12 +128,12 @@
     <a class="mobile-nav__link" href="{{ section.settings.url_quiz | default: '/pages/quiz-skincare' }}">{{ 'header.nav.quiz' | t }}</a>
     <a class="mobile-nav__link" href="{{ section.settings.url_gift | default: '/products/carte-cadeau' }}">{{ 'header.nav.gift' | t }}</a>
 
-    <div class="mobile-nav__group">{{ 'header.nav.routine' | t }}</div>
-    <a class="mobile-nav__sub" href="{{ section.settings.url_hydra | default: routes.collections_url }}"><span class="routine-dot dot-hydra"></span>{{ 'header.routines.hydra' | t }}</a>
-    <a class="mobile-nav__sub" href="{{ section.settings.url_imp | default: routes.collections_url }}"><span class="routine-dot dot-imp"></span>{{ 'header.routines.imp' | t }}</a>
-    <a class="mobile-nav__sub" href="{{ section.settings.url_age | default: routes.collections_url }}"><span class="routine-dot dot-age"></span>{{ 'header.routines.age' | t }}</a>
-    <a class="mobile-nav__sub" href="{{ section.settings.url_glass | default: routes.collections_url }}"><span class="routine-dot dot-glass"></span>{{ 'header.routines.glass' | t }}</a>
-    <a class="mobile-nav__sub" href="{{ section.settings.url_sens | default: routes.collections_url }}"><span class="routine-dot dot-sens"></span>{{ 'header.routines.sens' | t }}</a>
+    <div class="mobile-nav__group">{{ 'header.nav.symptom' | t }}</div>
+    <a class="mobile-nav__sub" href="{{ section.settings.url_acne | default: routes.collections_url }}">🔴 {{ 'header.symptoms.acne' | t }}</a>
+    <a class="mobile-nav__sub" href="{{ section.settings.url_eclat | default: routes.collections_url }}">✨ {{ 'header.symptoms.eclat' | t }}</a>
+    <a class="mobile-nav__sub" href="{{ section.settings.url_hydra_symp | default: routes.collections_url }}">💧 {{ 'header.symptoms.hydra' | t }}</a>
+    <a class="mobile-nav__sub" href="{{ section.settings.url_age_symp | default: routes.collections_url }}">🕐 {{ 'header.symptoms.age' | t }}</a>
+    <a class="mobile-nav__sub" href="{{ section.settings.url_sens_symp | default: routes.collections_url }}">🌿 {{ 'header.symptoms.sens' | t }}</a>
 
     <div class="mobile-nav__group">{{ 'header.nav.products' | t }}</div>
     <a class="mobile-nav__sub" href="{{ section.settings.url_cleansers | default: routes.all_products_collection_url }}">{{ 'header.categories.cleansers' | t }}</a>
@@ -163,6 +181,12 @@
     { "type": "url", "id": "url_age", "label": "Anti-age collection" },
     { "type": "url", "id": "url_glass", "label": "Glass Skin collection" },
     { "type": "url", "id": "url_sens", "label": "Sensitive collection" },
+    { "type": "header", "content": "Symptom links" },
+    { "type": "url", "id": "url_acne", "label": "Acné & Imperfections" },
+    { "type": "url", "id": "url_eclat", "label": "Éclat & Taches" },
+    { "type": "url", "id": "url_hydra_symp", "label": "Hydratation & Barrière" },
+    { "type": "url", "id": "url_age_symp", "label": "Anti-âge & Fermeté" },
+    { "type": "url", "id": "url_sens_symp", "label": "Peau Sensible" },
     { "type": "header", "content": "Category links" },
     { "type": "url", "id": "url_cleansers", "label": "Cleansers collection" },
     { "type": "url", "id": "url_toners", "label": "Toners collection" },
